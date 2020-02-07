@@ -180,21 +180,27 @@ EOF
 $ cd ~/Personal/writing/emacs-org-leanpub
 $ git add book.org
 $ git ci -m "Initial commit of the book"
-On branch master
-Untracked files:
-	.#book.org
-	typescript
-
-nothing added to commit but untracked files present
-$ git push origin master
+[master (root-commit) 3e166f4] Initial commit of the book
+ 1 file changed, 230 insertions(+)
+ create mode 100644 book.org
+$ git push -u origin master
 Enumerating objects: 3, done.
-Counting objects:  33% (1/3)Counting objects:  66% (2/3)Counting objects: 100% (3/3)Counting objects: 100% (3/3), done.
+Counting objects:  33% (1/3)
+Counting objects:  66% (2/3)
+Counting objects: 100% (3/3)
+Counting objects: 100% (3/3), done.
 Delta compression using up to 8 threads
-Compressing objects:  50% (1/2)Compressing objects: 100% (2/2)Compressing objects: 100% (2/2), done.
-Writing objects:  33% (1/3)Writing objects:  66% (2/3)Writing objects: 100% (3/3)Writing objects: 100% (3/3), 3.53 KiB | 3.53 MiB/s, done.
+Compressing objects:  50% (1/2)
+Compressing objects: 100% (2/2)
+Compressing objects: 100% (2/2), done.
+Writing objects:  33% (1/3)
+Writing objects:  66% (2/3)
+Writing objects: 100% (3/3)
+Writing objects: 100% (3/3), 3.72 KiB | 3.72 MiB/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/zzamboni/emacs-org-leanpub.git
  ,* [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
 #+end_src
 
 ** Creating a new Leanpub book
