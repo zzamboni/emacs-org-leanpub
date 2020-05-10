@@ -1,3 +1,4 @@
+:DOC_CONFIG:
 #+startup: indent logdrawer
 #+tags: noexport sample frontmatter mainmatter backmatter
 #+options: toc:nil tags:nil
@@ -18,13 +19,30 @@
 #+NAME: cleanup
 #+BEGIN_SRC emacs-lisp :var data="" :results value :exports none
   (replace-regexp-in-string
-   "\\$ exit\\(.\\|\n\\)*$" ""
+   (rx (seq "$ exit" (zero-or-more (group anything)) eol))
+   ""
    (replace-regexp-in-string
-    "^bash-.*\\$" "$"
+    (rx (seq bol "bash-" (zero-or-more nonl) "$"))
+    "$"
     (replace-regexp-in-string
-     "\\(\\(.\\|\n\\)*?\\)\\$\\(.\\|\n\\)*\\'" ""
+     (rx (seq (group (*\? (group anything)))
+              "$"
+              (zero-or-more (group anything)) eos))
+     ""
      (replace-regexp-in-string "" "" data) nil nil 1)))
 #+END_SRC
+
+# The following property declarations make it the default to
+# postprocess sh blocks through the cleanup block above, and also
+# automatically wrap them in the script command.
+
+#+property: header-args:sh+ :exports output
+#+property: header-args:sh+ :results output
+#+property: header-args:sh+ :wrap "src console"
+#+property: header-args:sh+ :post cleanup(data=*this*)
+#+property: header-args:sh+ :prologue "SHELL=/bin/bash script -q <<EOF" :epilogue "EOF"
+
+:END:
 
 #+title: Writing and publishing with Emacs, org-mode and Leanpub
 #+author: Diego Zamboni
@@ -34,11 +52,12 @@
 :EXPORT_FILE_NAME: manuscript/introduction.markua
 :END:
 
-Publishing your words has never been easier than it is today. For a long time, getting a book published was a long and arduous process, in which you had to go through multiple gatekeepers to even have a chance to see your words on paper. Today, blogging means you can have your words read by thousands of people within minutes of writing them. Even publishing a book has become considerably easier through self publishing. There are many tools and publishers that allow you to get started for little or no money. Still, *getting started* can still be confusing, and this is what this book is about.
+Publishing your words has never been easier than it is today. For a long time, getting a book published was a long and arduous process, in which you had to go through multiple gatekeepers to even have a chance to see your words on paper. Today, blogging means you can have your words read by thousands of people within minutes of writing them. Even publishing a book has become considerably easier through self publishing. There are many tools and publishers that allow you to get started for little or no money. Still, *getting started* can be confusing, and that is what this book is about.
 
-In this book, I will show you the workflow and tools I use to publish [[https://leanpub.com/u/zzamboni][my books]]. This toolset is geared towards technical writing, which is what I do, but can just as well be used for any other style. The two main tools involved are:
+In this book, I will show you the workflow and tools I use to publish [[https://leanpub.com/u/zzamboni][my books]]. This toolset is geared towards technical writing, which is what I do, but can just as well be used for any other style. The three main tools involved are:
 
 - The [[https://www.gnu.org/software/emacs/][GNU Emacs]] editor together with  [[https://orgmode.org/][Org mode]]  for writing, editing and exporting your text;
+- [[https://github.com/][GitHub]] to store your book files.
 - [[https://leanpub.com/][Leanpub]] for typesetting, previewing, publishing and selling your work.
 
 The following are optional, but highly recommended for making the workflow more automated and consistent:
@@ -48,7 +67,7 @@ The following are optional, but highly recommended for making the workflow more 
 
 To illustrate the process and provide you with a starting point, the source repository for this book is available at https://github.com/zzamboni/emacs-org-leanpub. I am populating the repository live as I write this book, and you can follow the progress there and by getting the book for free at https://leanpub.com/emacs-org-leanpub. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you.
 
-There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please feel free to let me know! Send me a note or even better, submit a pull request at the book's Github repository. Let's make the book better together!
+There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please feel free to let me know! Send me a note or even better, submit a pull request at the book's GitHub repository. Let's make the book better together!
 
 ** The process
 
@@ -73,15 +92,15 @@ The high-level workflow for publishing a book using Emacs, org-mode and Leanpub 
 #+end_src
 
 #+RESULTS:
+
 [[file:./images/high-level-workflow.png]]
 
-In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to Github. From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
+In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to GitHub. From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
 
 ** Leanpub
 
 ** Emacs and org-mode
-
-* TODO Setting up
+* DRAFT Setting up
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/setting-up.markua
 :END:
@@ -90,27 +109,26 @@ In this setup, the only files you manipulates directly are your source files. Fo
 
 ** Emacs and org-mode configuration
 
-** Creating a repository and a book skeleton
+** Creating the book locally
 
 #+begin_note
-All the steps that follow show the actual commands and operations I performed while setting up the book you are reading!
+All the steps that follow show the actual commands and operations I performed while setting up the book you are reading! You can find the sources for the current version of this book at https://github.com/zzamboni/emacs-org-leanpub.
 #+end_note
 
 The first step is to choose a short name or /slug/ for your book. This is the URL identifier for your book in Leanpub, and it should also be the name of your git repository (this is not mandatory, but makes the automation easier). This book's slug is =emacs-org-leanpub=, so its Leanpub URL will be leanpub.com/emacs-org-leanpub.
 
-Once we have a slug, we create a new Git repository for the new book. Leanpub supports both Github and Bickbucket repositories. In these descriptions I use Github, but similar steps apply if you are using Bitbucket.
+*** Creating a git repository for your book
+Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket.
 
 #+begin_tip
-I use the command-line utility [[https://hub.github.com/][hub]] to interact with Github from the command line. You can of course do the corresponding operations through the Github web interface if you so prefer. If you use Bitbucket, you can use [[https://seveas.github.io/git-spindle/bitbucket.html][git-spindle]] to interact with it from the command line as well.
+I use the command-line utility [[https://hub.github.com/][hub]] to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [[https://seveas.github.io/git-spindle/bitbucket.html][git-spindle]] to interact with it from the command line as well.
 #+end_tip
 
-#+begin_src sh :exports output :results output :wrap "src console" :post cleanup(data=*this*)
-script <<EOF
+#+begin_src sh
 cd ~/Personal/writing
 mkdir -p emacs-org-leanpub
 cd emacs-org-leanpub
 git init .
-EOF
 #+end_src
 
 #+RESULTS:
@@ -122,14 +140,12 @@ $ git init .
 Initialized empty Git repository in /Users/taazadi1/Dropbox/Personal/writing/emacs-org-leanpub/.git/
 #+end_src
 
-Next, we create a new Github repository and connect it to our local repository:
+Next, we create a new GitHub repository and connect it to our local repository:
 
-#+begin_src  sh :exports output :results output :wrap "src console" :post cleanup(data=*this*)
-script <<EOF
+#+begin_src  sh
 cd ~/Personal/writing/emacs-org-leanpub
 hub create
 git remote -v
-EOF
 #+end_src
 
 #+RESULTS:
@@ -142,6 +158,8 @@ $ git remote -v
 origin	https://github.com/zzamboni/emacs-org-leanpub.git (fetch)
 origin	https://github.com/zzamboni/emacs-org-leanpub.git (push)
 #+end_src
+
+*** Creating the book file
 
 Now you can start writing your text inside the new repository. I usually write the main text in a file called =book.org= in the root directory of the repository.
 
@@ -164,15 +182,17 @@ To get you started, a basic skeleton for a book is the following:
   Some more text
 #+end_src
 
+#+begin_tip
+For a more complex example, you can find the sources for the current version of this book at https://github.com/zzamboni/emacs-org-leanpub.
+#+end_tip
+
 Once you have some text, you can simply commit and push the changes to your remote repository:
 
-#+begin_src sh  :exports output :results output :wrap "src console" :post cleanup(data=*this*)
-script <<EOF
+#+begin_src sh
 cd ~/Personal/writing/emacs-org-leanpub
 git add book.org
 git ci -m "Initial commit of the book"
 git push -u origin master
-EOF
 #+end_src
 
 #+RESULTS:
@@ -185,17 +205,9 @@ $ git ci -m "Initial commit of the book"
  create mode 100644 book.org
 $ git push -u origin master
 Enumerating objects: 3, done.
-Counting objects:  33% (1/3)
-Counting objects:  66% (2/3)
-Counting objects: 100% (3/3)
 Counting objects: 100% (3/3), done.
 Delta compression using up to 8 threads
-Compressing objects:  50% (1/2)
-Compressing objects: 100% (2/2)
 Compressing objects: 100% (2/2), done.
-Writing objects:  33% (1/3)
-Writing objects:  66% (2/3)
-Writing objects: 100% (3/3)
 Writing objects: 100% (3/3), 3.72 KiB | 3.72 MiB/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/zzamboni/emacs-org-leanpub.git
@@ -203,7 +215,30 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 #+end_src
 
-** Creating a new Leanpub book
+*** Your first book export!
+
+Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview.
+
+For this, we use the =ox-leanpub= module which you installed on Emacs. Pressing ~C-c C-e~ will show you Org-mode's Export screen. Among other options, you should see the following:
+
+#+begin_example
+[M] Export to Leanpub Markua
+    [M] To temporary buffer       [m] To file
+    [o] To file and open
+    [b] Multifile: Whole book     [s] Multifile: Subset
+    [c] Multifile: Current chapter
+#+end_example
+
+Press ~M b~ to export the whole book in "Multifile format", which exports your book from the Org file and creates the [[https://leanpub.com/manual/read#writing-your-book-in-github-mode][structure and files]] needed by Leanpub to render the book. In short, this is what it does:
+
+- Creates a =manuscript/= folder if needed, under which all other files are stored.
+- Exports one =.markua= file for each top-level header (chapter) in your book.
+- Creates the =Book.txt= file with the filenames corresponding to the chapters of your book.
+
+** Creating the book on Leanpub
+
+Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository for generation. Assuming you are signed into your Leanpub account, you can do this by visiting https://leanpub.com/create/book, where you will see a screen like the following:
+
 
 * TODO The workflow
 :PROPERTIES:
@@ -227,10 +262,18 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 *** Example: Using CircleCI
 
-*** Example: Using Github Actions
+*** Example: Using GitHub Actions
 
 ** Triggering and monitoring book builds
 
 *** From the command line
 
 *** Using Hammerspoon
+
+* TODO Tips and tricks
+
+** org-special-ctrl-a/e/k
+
+** Visual configuration
+
+** Code block execution and output processing (like in this book)
