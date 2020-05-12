@@ -18,18 +18,20 @@
 
 #+NAME: cleanup
 #+BEGIN_SRC emacs-lisp :var data="" :results value :exports none
-  (replace-regexp-in-string
-   (rx (seq "$ exit" (zero-or-more (group anything)) eol))
-   ""
+  (prog
+   (delete-file "typescript")
    (replace-regexp-in-string
-    (rx (seq bol "bash-" (zero-or-more nonl) "$"))
-    "$"
+    (rx (seq "$ exit" (zero-or-more (group anything)) eol))
+    ""
     (replace-regexp-in-string
-     (rx (seq (group (*\? (group anything)))
-              "$"
-              (zero-or-more (group anything)) eos))
-     ""
-     (replace-regexp-in-string "" "" data) nil nil 1)))
+     (rx (seq bol "bash-" (zero-or-more nonl) "$"))
+     "$"
+     (replace-regexp-in-string
+      (rx (seq (group (*\? (group anything)))
+               "$"
+               (zero-or-more (group anything)) eos))
+      ""
+      (replace-regexp-in-string "" "" data) nil nil 1))))
 #+END_SRC
 
 # The following property declarations make it the default to
@@ -232,8 +234,35 @@ For this, we use the =ox-leanpub= module which you installed on Emacs. Pressing 
 Press ~M b~ to export the whole book in "Multifile format", which exports your book from the Org file and creates the [[https://leanpub.com/manual/read#writing-your-book-in-github-mode][structure and files]] needed by Leanpub to render the book. In short, this is what it does:
 
 - Creates a =manuscript/= folder if needed, under which all other files are stored.
+  - A =resources/images= directory is created inside =manuscript/=, as required by the Leanpub Markua exporter.
+  - Symlinks to the =images= directory are created both from the top-level directory, and from the =manuscript/= directory, to allow referencing the same image files both from the Org file and from the exported Markua files.
 - Exports one =.markua= file for each top-level header (chapter) in your book.
 - Creates the =Book.txt= file with the filenames corresponding to the chapters of your book.
+  - Depending on the exporter settings, the =Subset.txt= and =Sample.txt= files may also be created.
+
+For example, for this book, the following files, directories and symlinks will be created:
+
+  #+begin_src bash :results output :exports results
+    tree --noreport
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  .
+  ├── book.org
+  ├── images -> manuscript/resources/images
+  └── manuscript
+      ├── Book.txt
+      ├── automation.markua
+      ├── images -> resources/images
+      ├── introduction.markua
+      ├── resources
+      │   └── images
+      │       └── high-level-workflow.png
+      ├── setting-up.markua
+      ├── the-workflow.markua
+      └── tips-and-tricks.markua
+  #+end_example
 
 ** Creating the book on Leanpub
 
@@ -271,6 +300,9 @@ Now that you have the basics of a book, you need to create a new book in Leanpub
 *** Using Hammerspoon
 
 * TODO Tips and tricks
+:PROPERTIES:
+:EXPORT_FILE_NAME: manuscript/tips-and-tricks.markua
+:END:
 
 ** org-special-ctrl-a/e/k
 

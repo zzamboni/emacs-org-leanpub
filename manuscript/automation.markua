@@ -1,0 +1,15 @@
+# TODO Automation
+
+## CI/CD for previewing and publishing
+
+### Basic concepts
+
+### Example: Using CircleCI
+
+### Example: Using GitHub Actions
+
+## Triggering and monitoring book builds
+
+### From the command line
+
+### Using Hammerspoon
