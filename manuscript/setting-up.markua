@@ -126,27 +126,30 @@ For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing 
 Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. In short, this is what it does:
 
 * Creates a `manuscript/` folder if needed, under which all other files are stored.
+  * A `resources/images` directory is created inside `manuscript/`, as required by the Leanpub Markua exporter.
+  * Symlinks to the `images` directory are created both from the top-level directory, and from the `manuscript/` directory, to allow referencing the same image files both from the Org file and from the exported Markua files.
 * Exports one `.markua` file for each top-level header (chapter) in your book.
 * Creates the `Book.txt` file with the filenames corresponding to the chapters of your book.
+  * Depending on the exporter settings, the `Subset.txt` and `Sample.txt` files may also be created.
 
-  For example, for this book, the following structure will be created (initially only `book.org` was there):
+For example, for this book, the following files, directories and symlinks will be created:
 
-  ```
-  .
-  ├── book.org
-  ├── images -> manuscript/resources/images
-  └── manuscript
-      ├── Book.txt
-      ├── automation.markua
-      ├── images -> resources/images
-      ├── introduction.markua
-      ├── resources
-      │   └── images
-      │       └── high-level-workflow.png
-      ├── setting-up.markua
-      ├── the-workflow.markua
-      └── tips-and-tricks.markua
-  ```
+```
+.
+├── book.org
+├── images -> manuscript/resources/images
+└── manuscript
+    ├── Book.txt
+    ├── automation.markua
+    ├── images -> resources/images
+    ├── introduction.markua
+    ├── resources
+    │   └── images
+    │       └── high-level-workflow.png
+    ├── setting-up.markua
+    ├── the-workflow.markua
+    └── tips-and-tricks.markua
+```
 
 ## Creating the book on Leanpub
 
