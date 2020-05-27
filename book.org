@@ -266,8 +266,15 @@ In short, this is what the export operation does:
 
 ** Creating the book on Leanpub
 
-Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository for generation. Assuming you are signed into your Leanpub account, you can do this by visiting https://leanpub.com/create/book, where you will see a screen like the following:
+Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository for generation. Assuming you are signed into your Leanpub account, you can do this by visiting https://leanpub.com/create/book, and following the prompts. In particular, note the following:
 
+- The "On your computer" option under "Where do you want to write" is only available in the paid Leanpub plans. Choose the corresponding git option, and enter the path to your repository as created above.
+- I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
+- I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
+
+  [[file:images/leanpub-create-book.png]]
+
+  After you create the book, there are a few
 
 * TODO The workflow
 :PROPERTIES:
