@@ -109,7 +109,8 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 ```
 
-### Your first book export!
+{id: "your-first-book-export"}
+### Your first book export
 
 Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview.
 
@@ -123,7 +124,7 @@ For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing 
     [c] Multifile: Current chapter
 ```
 
-Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks will be created:
+Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks will be created (the original source file is `book.org`, everything else is created from it):
 
 ```
 .
@@ -136,7 +137,11 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
     ├── introduction.markua
     ├── resources
     │   └── images
-    │       └── high-level-workflow.png
+    │       ├── github-add-collaborator.png
+    │       ├── github-add-webhook.png
+    │       ├── high-level-workflow.png
+    │       ├── leanpub-create-book.png
+    │       └── leanpub-getting-started-screen.png
     ├── setting-up.markua
     ├── the-workflow.markua
     └── tips-and-tricks.markua
@@ -144,13 +149,44 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 
 In short, this is what the export operation does:
 
-* Creates a `manuscript/` folder if needed, under which all other files are stored.
-  * A `resources/images` directory is created inside `manuscript/`, as required by the Leanpub Markua exporter.
-  * Symlinks to the `images` directory are created both from the top-level directory, and from the `manuscript/` directory, to allow referencing the same image files both from the Org file and from the exported Markua files.
+* Creates a `manuscript` folder if needed, under which all other files are stored.
+  * A `resources/images` directory is created inside `manuscript`, as required by the Leanpub Markua exporter.
+  * Symlinks to the `images` directory are created both from the top-level directory, and from the `manuscript` directory, to allow referencing the same image files both from the Org file and from the exported Markua files.
 * Exports one `.markua` file for each top-level header (chapter) in your book.
 * Creates the `Book.txt` file with the filenames corresponding to the chapters of your book.
   * Depending on the exporter settings, the `Subset.txt` and `Sample.txt` files may also be created.
 
 ## Creating the book on Leanpub
 
-Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository for generation. Assuming you are signed into your Leanpub account, you can do this by visiting <https://leanpub.com/create/book>, where you will see a screen like the following:
+Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository. Assuming you are signed into your Leanpub account, you can do this by visiting <https://leanpub.com/create/book>, and following the prompts. In particular, note the following:
+
+W> Leanpub's pricing plans changed in October 2019, making it necessary to have a "Standard" or "Pro" plan to be able to write your book using Git integrations.
+
+* The "On your computer" option under "Where do you want to write" is only available in the paid Leanpub plans. Choose the corresponding git option, and enter the path to your repository as created above.
+* I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
+* I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
+
+  ![](images/leanpub-create-book.png)
+
+After you create the book, Leanpub shows you a "Getting Started" page which describes some additional steps you need to complete to finish setting up your book and its integration with your git repository.
+
+![](images/leanpub-getting-started-screen.png)
+
+Make sure you follow these instructions, which include:
+
+* Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book. ![](images/github-add-collaborator.png)
+* Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [CI/CD for previewing and publishing](#ci-cd-for-previewing-and-publishing). ![](images/github-add-webhook.png)
+
+  W> Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you should keep secret, as it enables access to all operations on your book.
+
+## Your first book preview
+
+Once you have created your book on Leanpub and connected it to your Git repository, you are ready to produce your first preview. Follow the same steps shown in [Your first book export](#your-first-book-export) to generate the Markua files from your Org file, and then commit and push the changes to your repository.
+
+{format: "sh"}
+```
+cd ~/Personal/writing/emacs-org-leanpub
+git add .
+git ci -m 'Commit for first book Preview'
+git push
+```

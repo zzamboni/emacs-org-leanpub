@@ -217,7 +217,10 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 #+end_src
 
-*** Your first book export!
+*** Your first book export
+:PROPERTIES:
+:CUSTOM_ID: your-first-book-export
+:END:
 
 Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview.
 
@@ -267,7 +270,11 @@ In short, this is what the export operation does:
 
 ** Creating the book on Leanpub
 
-Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository for generation. Assuming you are signed into your Leanpub account, you can do this by visiting https://leanpub.com/create/book, and following the prompts. In particular, note the following:
+Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository. Assuming you are signed into your Leanpub account, you can do this by visiting https://leanpub.com/create/book, and following the prompts. In particular, note the following:
+
+#+begin_warning
+Leanpub's pricing plans changed in October 2019, making it necessary to have a "Standard" or "Pro" plan to be able to write your book using Git integrations.
+#+end_warning
 
 - The "On your computer" option under "Where do you want to write" is only available in the paid Leanpub plans. Choose the corresponding git option, and enter the path to your repository as created above.
 - I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
@@ -276,6 +283,30 @@ Now that you have the basics of a book, you need to create a new book in Leanpub
   [[file:images/leanpub-create-book.png]]
 
 After you create the book, Leanpub shows you a "Getting Started" page which describes some additional steps you need to complete to finish setting up your book and its integration with your git repository.
+
+[[file:images/leanpub-getting-started-screen.png]]
+
+Make sure you follow these instructions, which include:
+
+- Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book.
+  [[file:images/github-add-collaborator.png]]
+- Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [[#ci-cd-for-previewing-and-publishing][CI/CD for previewing and publishing]].
+  [[file:images/github-add-webhook.png]]
+  #+begin_warning
+Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you should keep secret, as it enables access to all operations on your book.
+  #+end_warning
+
+** Your first book preview
+
+Once you have created your book on Leanpub and connected it to your Git repository, you are ready to produce your first preview. Follow the same steps shown in [[#your-first-book-export][Your first book export]] to generate the Markua files from your Org file, and then commit and push the changes to your repository.
+
+#+begin_src sh
+  cd ~/Personal/writing/emacs-org-leanpub
+  git add .
+  git ci -m 'Commit for first book Preview'
+  git push
+#+end_src
+
 
 * TODO The workflow
 :PROPERTIES:
@@ -294,6 +325,9 @@ After you create the book, Leanpub shows you a "Getting Started" page which desc
 :END:
 
 ** CI/CD for previewing and publishing
+:PROPERTIES:
+:CUSTOM_ID:       ci-cd-for-previewing-and-publishing
+:END:
 
 *** Basic concepts
 
