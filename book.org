@@ -100,7 +100,7 @@ There are as many possible variations to this workflow as users out there. If yo
 
 The high-level workflow for publishing a book using Emacs, org-mode and Leanpub looks like this:
 
-#+begin_src dot :file "./images/high-level-workflow.png"
+#+begin_src dot :file "./images/high-level-workflow.png" :exports results
   digraph {
      rankdir=LR;
      files                [label="Source files\n(org file, figures, etc.)", fillcolor=green, style=filled, shape=oval];
@@ -119,7 +119,6 @@ The high-level workflow for publishing a book using Emacs, org-mode and Leanpub 
 #+end_src
 
 #+RESULTS:
-
 [[file:./images/high-level-workflow.png]]
 
 In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to GitHub. From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
@@ -151,14 +150,6 @@ Once we have a slug, we create a new Git repository for the new book. Leanpub su
 I use the command-line utility [[https://hub.github.com/][hub]] to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [[https://seveas.github.io/git-spindle/bitbucket.html][git-spindle]] to interact with it from the command line as well.
 #+end_tip
 
-#+begin_src sh
-cd ~/Personal/writing
-mkdir -p emacs-org-leanpub
-cd emacs-org-leanpub
-git init .
-#+end_src
-
-#+RESULTS:
 #+begin_src console
 $ cd ~/Personal/writing
 $ mkdir -p emacs-org-leanpub
@@ -169,13 +160,6 @@ Initialized empty Git repository in /Users/taazadi1/Dropbox/Personal/writing/ema
 
 Next, we create a new GitHub repository and connect it to our local repository:
 
-#+begin_src  sh
-cd ~/Personal/writing/emacs-org-leanpub
-hub create
-git remote -v
-#+end_src
-
-#+RESULTS:
 #+begin_src console
 $ cd ~/Personal/writing/emacs-org-leanpub
 $ hub create
@@ -337,7 +321,7 @@ If you configured the webhook in the previous steps, the =git push= will automat
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
 
-
+*Congratulations!* You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn
 
 * TODO The workflow
 :PROPERTIES:

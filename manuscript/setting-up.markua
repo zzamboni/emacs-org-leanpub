@@ -16,14 +16,6 @@ Once we have a slug, we create a new Git repository for the new book. Leanpub su
 
 T> I use the command-line utility [hub](https://hub.github.com/) to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [git-spindle](https://seveas.github.io/git-spindle/bitbucket.html) to interact with it from the command line as well.
 
-{format: "sh"}
-```
-cd ~/Personal/writing
-mkdir -p emacs-org-leanpub
-cd emacs-org-leanpub
-git init .
-```
-
 {format: "console"}
 ```
 $ cd ~/Personal/writing
@@ -34,13 +26,6 @@ Initialized empty Git repository in /Users/taazadi1/Dropbox/Personal/writing/ema
 ```
 
 Next, we create a new GitHub repository and connect it to our local repository:
-
-{format: "sh"}
-```
-cd ~/Personal/writing/emacs-org-leanpub
-hub create
-git remote -v
-```
 
 {format: "console"}
 ```
@@ -122,23 +107,22 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 .
 ├── book.org
 ├── images -> manuscript/resources/images
-├── manuscript
-│   ├── Book.txt
-│   ├── automation.markua
-│   ├── images -> resources/images
-│   ├── introduction.markua
-│   ├── resources
-│   │   └── images
-│   │       ├── github-add-collaborator.png
-│   │       ├── github-add-webhook.png
-│   │       ├── high-level-workflow.png
-│   │       ├── leanpub-create-book.png
-│   │       ├── leanpub-getting-started-screen.png
-│   │       └── leanpub-preview-email.png
-│   ├── setting-up.markua
-│   ├── the-workflow.markua
-│   └── tips-and-tricks.markua
-└── typescript
+└── manuscript
+    ├── Book.txt
+    ├── automation.markua
+    ├── images -> resources/images
+    ├── introduction.markua
+    ├── resources
+    │   └── images
+    │       ├── github-add-collaborator.png
+    │       ├── github-add-webhook.png
+    │       ├── high-level-workflow.png
+    │       ├── leanpub-create-book.png
+    │       ├── leanpub-getting-started-screen.png
+    │       └── leanpub-preview-email.png
+    ├── setting-up.markua
+    ├── the-workflow.markua
+    └── tips-and-tricks.markua
 ```
 
 In short, this is what the export operation does:
@@ -197,3 +181,5 @@ If you configured the webhook in the previous steps, the `git push` will automat
 ![](images/leanpub-preview-email.png)
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
+
+**Congratulations!** You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn

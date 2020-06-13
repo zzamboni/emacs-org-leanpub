@@ -23,8 +23,6 @@ The high-level workflow for publishing a book using Emacs, org-mode and Leanpub 
 
 ![](./images/high-level-workflow.png)
 
-![](./images/high-level-workflow.png)
-
 In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to GitHub. From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
 
 ## Leanpub
