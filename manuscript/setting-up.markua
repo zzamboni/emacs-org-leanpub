@@ -101,7 +101,7 @@ For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing 
     [c] Multifile: Current chapter
 ```
 
-Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks will be created (the original source file is `book.org`, everything else is created from it):
+Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following directories and symlinks will be created (the original source file is `book.org`, everything else is created from it):
 
 ```
 .
@@ -114,12 +114,6 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
     ├── introduction.markua
     ├── resources
     │   └── images
-    │       ├── github-add-collaborator.png
-    │       ├── github-add-webhook.png
-    │       ├── high-level-workflow.png
-    │       ├── leanpub-create-book.png
-    │       ├── leanpub-getting-started-screen.png
-    │       └── leanpub-preview-email.png
     ├── setting-up.markua
     ├── the-workflow.markua
     └── tips-and-tricks.markua
@@ -183,3 +177,20 @@ If you configured the webhook in the previous steps, the `git push` will automat
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
 
 **Congratulations!** You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn
+
+## Additional book configuration
+
+Leanpub offers you a great degree of control over all aspects of your books aspect and production. All of them are optional, so you can do them as you explore and feel more comfortable. I highly recommend that you explore your book's management menu in Leanpub.
+
+![](images/leanpub-book-menu.png)
+
+Here are some of the common things that I like to configure:
+
+Visual settings
+: Found in *Settings* / *Book Theme*. You can choose one of the ready-made themes as chosen when you created the book (Business, Technical, Fiction) but I like to choose "Custom" and fine-tune the different parameters. You can customize the page size, fonts, line spacing, line numbering in code blocks, and many other things. I recommend you set at least the page size you want before creating a cover for your book, since it determines the size of the image you have to upload. But otherwise, feel free to experiment, preview your book with different settings and choose the look you like best.
+Cover
+: Found in *Settings* / *Upload Book Cover*. This is perhaps one of the most important visual aspects you'll want to configure to make sure your book stands out. You can upload an image to use as your book cover, although the page also notes that if you do not upload an image, you can also set the cover of your book by storing an image called `title_page.png` or `title_page.jpg` inside your `images` folder. The size of the image depends on the page size of your book.
+Title and subtitle
+: Found in the *Book Info* / *Book Details* page. You can modify the title you specified during book creation, and optionally add a subtitle.
+Categories
+: Found in *Book Info* / *Categories*. Allows you to define certain categories for your book, to make them easier to find by readers.
