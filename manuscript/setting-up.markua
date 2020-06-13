@@ -81,14 +81,6 @@ T> For a more complex example, you can find the sources for the current version 
 
 Once you have some text, you can simply commit and push the changes to your remote repository:
 
-{format: "sh"}
-```
-cd ~/Personal/writing/emacs-org-leanpub
-git add book.org
-git ci -m "Initial commit of the book"
-git push -u origin master
-```
-
 {format: "console"}
 ```
 $ cd ~/Personal/writing/emacs-org-leanpub
@@ -130,21 +122,23 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 .
 ├── book.org
 ├── images -> manuscript/resources/images
-└── manuscript
-    ├── Book.txt
-    ├── automation.markua
-    ├── images -> resources/images
-    ├── introduction.markua
-    ├── resources
-    │   └── images
-    │       ├── github-add-collaborator.png
-    │       ├── github-add-webhook.png
-    │       ├── high-level-workflow.png
-    │       ├── leanpub-create-book.png
-    │       └── leanpub-getting-started-screen.png
-    ├── setting-up.markua
-    ├── the-workflow.markua
-    └── tips-and-tricks.markua
+├── manuscript
+│   ├── Book.txt
+│   ├── automation.markua
+│   ├── images -> resources/images
+│   ├── introduction.markua
+│   ├── resources
+│   │   └── images
+│   │       ├── github-add-collaborator.png
+│   │       ├── github-add-webhook.png
+│   │       ├── high-level-workflow.png
+│   │       ├── leanpub-create-book.png
+│   │       ├── leanpub-getting-started-screen.png
+│   │       └── leanpub-preview-email.png
+│   ├── setting-up.markua
+│   ├── the-workflow.markua
+│   └── tips-and-tricks.markua
+└── typescript
 ```
 
 In short, this is what the export operation does:
@@ -183,10 +177,23 @@ Make sure you follow these instructions, which include:
 
 Once you have created your book on Leanpub and connected it to your Git repository, you are ready to produce your first preview. Follow the same steps shown in [Your first book export](#your-first-book-export) to generate the Markua files from your Org file, and then commit and push the changes to your repository.
 
-{format: "sh"}
+{format: "console"}
 ```
-cd ~/Personal/writing/emacs-org-leanpub
-git add .
-git ci -m 'Commit for first book Preview'
-git push
+$ cd ~/Personal/writing/emacs-org-leanpub
+$ git add .
+$ git ci -m 'Commit for first book Preview'
+[master edc3c97] Commit for first book Preview
+ 7 files changed, 80 insertions(+), 9 deletions(-)
+$ git push
+Enumerating objects: 19, done.
+Counting objects: 100% (19/19), done.
+Writing objects: 100% (12/12), 1.32 MiB | 1.28 MiB/s, done.
+To https://github.com/zzamboni/emacs-org-leanpub.git
+   00a67a1..edc3c97  master -> master
 ```
+
+If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at `https://leanpub.com/<your-book-id>/preview` and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
+
+![](images/leanpub-preview-email.png)
+
+If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
