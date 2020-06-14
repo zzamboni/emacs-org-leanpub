@@ -2,6 +2,14 @@
 
 ## Signing up for Leanpub
 
+If you don't have a Leanpub account yet, you can create it by visiting <https://leanpub.com/> and clicking on the "Sign Up" link on the homepage. Note that you can also automatically create your account when you create your first book, as described in [Creating the book on Leanpub](#creating-the-book-on-leanpub).
+
+Note that among Leanpub's pricing plans, only the Standard and Pro plans support the "Write on your computer, and sync with Dropbox, GitHub or Bitbucket" option, which is what we focus on in this book. If you want to enable webhooks and other automation aspects, you will need a Pro plan, which supports the "Leanpub API" option. You need to choose your pricing plan when you create your first book, but you can change it later at any time.
+
+![](images/leanpub-pricing-plans.png)
+
+T> You need a Standard or Pro plan to follow along the instructions in this book.
+
 ## Emacs and org-mode configuration
 
 ## Creating the book locally
@@ -105,6 +113,7 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 
 ```
 .
+├── README.org
 ├── book.org
 ├── images -> manuscript/resources/images
 └── manuscript
@@ -128,6 +137,7 @@ In short, this is what the export operation does:
 * Creates the `Book.txt` file with the filenames corresponding to the chapters of your book.
   * Depending on the exporter settings, the `Subset.txt` and `Sample.txt` files may also be created.
 
+{id: "creating-the-book-on-leanpub"}
 ## Creating the book on Leanpub
 
 Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository. Assuming you are signed into your Leanpub account, you can do this by visiting <https://leanpub.com/create/book>, and following the prompts. In particular, note the following:
