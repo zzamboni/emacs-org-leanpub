@@ -1,0 +1,13 @@
+#+title: Source for /Publishing with Emacs, Org-mode and Leanpub/
+#+author: Diego Zamboni
+#+email: diego@zzamboni.org
+
+This repository contains the source for the book /Publishing with Emacs, Org-mode and Leanpub/, published at https://leanpub.com/emacs-org-leanpub.
+
+Overview:
+- The text source is in the [[file:book.org][book.org]] file.
+- The images are stored in the [[file:manuscript/resources/images/][manuscript/resources/images/]] directory.
+- The source for the book cover is in the [[file:covers/][covers/]] directory.
+- All other files under [[file:manuscript/resources/images/][manuscript/]] are generated from the =book.org= file by the [[https://github.com/zzamboni/ox-leanpub][ox-leanpub]] package.
+
+Find more about the workflow and the setup in [[https://leanpub.com/emacs-org-leanpub][Publishing with Emacs, Org-mode and Leanpub]]!
