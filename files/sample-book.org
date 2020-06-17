@@ -1,0 +1,14 @@
+#+startup: indent
+#+tags: noexport sample frontmatter mainmatter backmatter
+#+options: toc:nil tags:nil
+
+#+title: Your book title
+#+author: Your name
+
+* Introduction
+
+Some text
+
+* Chapter 1
+
+Some more text

@@ -154,24 +154,35 @@ You need a Standard or Pro plan to follow along the instructions in this book.
 
 ** Emacs and org-mode configuration
 
+#+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes :exports none
+  ;; This code gets tangled to the output file so that it can be
+  ;; used as a temporary init file for Emacs, but is not shown in
+  ;; the book.
+  (setq user-init-file (or load-file-name (buffer-file-name)))
+  (setq user-emacs-directory (file-name-directory user-init-file))
+#+end_src
+
 Emacs configuration is read from =~/.emacs.d/init.el=. Let's review the minimum configuration you need to follow along this book.
 
 #+begin_tip
-For a full working configuration example, check out my [[https://zzamboni.org/post/my-emacs-configuration-with-commentary/][full Emacs configuration]]. Feel free to skip this section if you are an experienced Emacs user and have your configuration set up already, but please check at least the [[https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub][Publishing to Leanpub]] section!
+We show here a bare-minimum example, but Emacs configuration is an art, and there is a lot of things you can configure to improve the usability, functionality and aesthetics of your setup. For a realistic working configuration example, check out my [[https://zzamboni.org/post/my-emacs-configuration-with-commentary/][full Emacs configuration]]. If you are an experienced Emacs user and have your configuration set up already, please check at least the [[https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub][Publishing to Leanpub]] section!
+
+Make sure you have at least Emacs 26.1 installed, this is the minimum needed by some of the packages you use.
 #+end_tip
 
 First, we need to set up the Emacs package system, which enables you to easily install packages from various repositories. Add the following lines to your =init.el= file to declare the package repositories to use:
 
-#+begin_src emacs-lisp
-  (customize-set-variable 'package-archives
-                          '(("marmalade" . "https://marmalade-repo.org/packages/")
-                            ("melpa"     . "https://melpa.org/packages/")
-                            ("elpa"     .  "https://elpa.gnu.org/packages/")))
+#+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
+  (customize-set-variable
+   'package-archives
+   '(("marmalade" . "https://marmalade-repo.org/packages/")
+     ("melpa"     . "https://melpa.org/packages/")
+     ("elpa"     .  "https://elpa.gnu.org/packages/")))
 #+end_src
 
 Then we initialize the package system and refresh the list of packages.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
   (package-initialize)
 
   (when (not package-archive-contents)
@@ -180,10 +191,24 @@ Then we initialize the package system and refresh the list of packages.
 
 I highly recommend using the [[https://www.masteringemacs.org/article/spotlight-use-package-a-declarative-configuration-tool][use-package]] library to manage the packages in your config, since it allows easy, self-contained and declarative installation and configuration of packages. Since =use-package= is not bundled with Emacs, the first thing we do is install and load it by hand. All other packages are then declaratively installed and configured with =use-package=.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
   (when (not (package-installed-p 'use-package))
     (package-install 'use-package))
   (require 'use-package)
+#+end_src
+
+Using =use-package= we can load the =org= package. This is included with Emacs.
+
+#+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
+    (use-package org)
+#+end_src
+
+Finally, we declare =ox-leanpub=. In this case, =use-package= installs the package thanks to the =:ensure t= declaration, and it loads it only after =org= has been loaded.
+
+#+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
+  (use-package ox-leanpub
+    :ensure t
+    :after org)
 #+end_src
 
 ** Creating the book locally
@@ -227,7 +252,7 @@ Now you can start writing your text inside the new repository. I usually write t
 
 To get you started, a basic skeleton for a book is the following:
 
-#+begin_src org
+#+begin_src org :tangle files/sample-book.org
   ,#+startup: indent
   ,#+tags: noexport sample frontmatter mainmatter backmatter
   ,#+options: toc:nil tags:nil
@@ -245,7 +270,7 @@ To get you started, a basic skeleton for a book is the following:
 #+end_src
 
 #+begin_tip
-For a more complex example, you can find the sources for the current version of this book at https://github.com/zzamboni/emacs-org-leanpub.
+For a more complex example, you can find the sources for this book at https://github.com/zzamboni/emacs-org-leanpub.
 #+end_tip
 
 Once you have some text, you can simply commit and push the changes to your remote repository:
@@ -289,12 +314,13 @@ For this, we use the =ox-leanpub= module which you installed on Emacs. Pressing 
 Press ~M b~ to export the whole book in "Multifile format", which exports your book from the Org file and creates the [[https://leanpub.com/manual/read#writing-your-book-in-github-mode][structure and files]] needed by Leanpub to render the book. For example, for this book, the following directories and symlinks will be created (the original source file is =book.org=, everything else is created from it):
 
   #+begin_src bash :results output :exports results :wrap example
-    tree --noreport -L 3 -I covers
+    tree --noreport -L 3 -I 'covers|files'
   #+end_src
 
   #+RESULTS:
   #+begin_example
   .
+  ├── README.org
   ├── book.org
   ├── images -> manuscript/resources/images
   └── manuscript

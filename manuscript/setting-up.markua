@@ -15,15 +15,18 @@ T> You need a Standard or Pro plan to follow along the instructions in this book
 Emacs configuration is read from `~/.emacs.d/init.el`. Let's review the minimum configuration you need to follow along this book.
 
 T> For a full working configuration example, check out my [full Emacs configuration](https://zzamboni.org/post/my-emacs-configuration-with-commentary/). Feel free to skip this section if you are an experienced Emacs user and have your configuration set up already, but please check at least the [Publishing to Leanpub](https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub) section!
+T>
+T> Make sure you have at least Emacs 26.1 installed, this is the minimum needed by some of the packages you use.
 
 First, we need to set up the Emacs package system, which enables you to easily install packages from various repositories. Add the following lines to your `init.el` file to declare the package repositories to use:
 
 {format: "emacs-lisp"}
 ```
-(customize-set-variable 'package-archives
-                        '(("marmalade" . "https://marmalade-repo.org/packages/")
-                          ("melpa"     . "https://melpa.org/packages/")
-                          ("elpa"     .  "https://elpa.gnu.org/packages/")))
+(customize-set-variable
+ 'package-archives
+ '(("marmalade" . "https://marmalade-repo.org/packages/")
+   ("melpa"     . "https://melpa.org/packages/")
+   ("elpa"     .  "https://elpa.gnu.org/packages/")))
 ```
 
 Then we initialize the package system and refresh the list of packages.
@@ -43,6 +46,22 @@ I highly recommend using the [use-package](https://www.masteringemacs.org/articl
 (when (not (package-installed-p 'use-package))
   (package-install 'use-package))
 (require 'use-package)
+```
+
+Using `use-package` we can load the `org` package. This is included with Emacs.
+
+{format: "emacs-lisp"}
+```
+(use-package org)
+```
+
+Finally, we declare `ox-leanpub`. In this case, `use-package` installs the package thanks to the `:ensure t` declaration, and it loads it only after `org` has been loaded.
+
+{format: "emacs-lisp"}
+```
+(use-package ox-leanpub
+  :ensure t
+  :after org)
 ```
 
 ## Creating the book locally
