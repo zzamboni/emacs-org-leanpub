@@ -118,29 +118,43 @@ There are as many possible variations to this workflow as users out there. If yo
 
 The high-level workflow for publishing a book using Emacs, org-mode and Leanpub looks like this:
 
-#+begin_src dot :file "./images/high-level-workflow.png" :exports results
-  digraph {
-     rankdir=LR;
-     files                [label="Source files\n(org file, figures, etc.)", fillcolor=green, style=filled, shape=oval];
-     emacs                [label="Emacs + org-mode", fillcolor=green, style=filled, shape=box];
-     manuscript           [label="Leanpub manuscript\n(Markua + other files)", fillcolor=yellow, style=filled, shape=box];
-     leanpub              [label="Leanpub", fillcolor=blue, style=filled, shape=box];
-     github               [label="GitHub", fillcolor=red, style=filled, shape=box];
-     book                 [label="Book (PDF,\nePub, mobi, online)", shape=none];
-     files -> emacs       [label="Edit"];
-     emacs -> manuscript  [label="Export"];
-     manuscript -> github [label="Commit"];
-     github -> leanpub    [label="Typeset"];
-     leanpub -> book      [label="Publish"];
-     leanpub -> emacs     [label="Preview"];
-  }
-#+end_src
-
-#+RESULTS:
+#+RESULTS: workflow-diagram
 [[file:./images/high-level-workflow.png]]
 
-In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to GitHub. From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
+In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to a Git repository (Leanpub at the moment supports GitHub and Bitbucket). From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
 
+#+begin_tip
+One of Org-mode's amazing features is its ability to evaluate code within the source file and include the code, its output or both in the resulting document. For example, the graph you see above is produced by evaluating the following code using the =dot= command from the [[https://graphviz.org/][Graphviz]] package. Whenever I need to update the diagram, I type the changes directly in the document and press ~C-c C-c~ within the code block. Org-mode automatically renders the diagram and updates the figure in the document.
+#+name: workflow-diagram
+#+begin_src dot :file "./images/high-level-workflow.png" :exports both
+  digraph {
+     rankdir=TB;
+     node                [fontname="DejaVu Sans"];
+     edge                [fontname="DejaVu Sans"];
+     files               [label="Source files\n(Org doc, figures, etc.)", shape=oval];
+     emacs               [label="Emacs + org-mode",
+                          fillcolor=purple, fontcolor=white, style=filled, shape=box];
+     manuscript          [label="Leanpub manuscript\n(Markua + other files)",
+                          fillcolor=yellow, style=filled, shape=oval];
+     leanpub             [label="Leanpub",
+                          fillcolor=blue, fontcolor=white, style=filled, shape=box];
+     git                 [label="Git repo",
+                          fillcolor=red, style=filled, shape=box];
+     preview             [label="Book preview",
+                          fillcolor=grey, style=filled, shape=oval];
+     book                [label="Book (PDF,\nePub, mobi, online)",
+                          shape=oval, fillcolor=green, style=filled];
+     files -> emacs      [label="Edit"];
+     emacs -> manuscript [label="Export"];
+     manuscript -> git   [label="Commit"];
+     git -> leanpub      [label="Typeset"];
+     leanpub -> book     [label="Publish"];
+     book -> emacs       [label="Update"];
+     leanpub -> preview  [label="Preview"];
+     preview -> emacs    [label="Update"];
+  }
+#+end_src
+#+end_tip
 ** Leanpub
 
 [[https://leanpub.com/][Leanpub]] is a powerful platform for self-publishing. It allows you to create books and courses and to publish, sell and update them directly through the Leanpub portal. It supports a comprehensive [[https://leanpub.com/help/api][API]] which allows you to automate most operations, tough you can of course do them via the web UI if you prefer.
