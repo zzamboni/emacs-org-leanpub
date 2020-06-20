@@ -6,7 +6,7 @@ If you don't have a Leanpub account yet, you can create it by visiting <https://
 
 Note that among Leanpub's pricing plans, only the Standard and Pro plans support the "Write on your computer, and sync with Dropbox, GitHub or Bitbucket" option, which is what we focus on in this book. If you want to enable webhooks and other automation aspects, you will need a Pro plan, which supports the "Leanpub API" option. You need to choose your pricing plan when you create your first book, but you can change it later at any time.
 
-{width: "30%"}
+{width: "40%"}
 ![](images/leanpub-pricing-plans.png)
 
 T> You need a Standard or Pro plan to follow along the instructions in this book.
@@ -186,6 +186,16 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
     ├── the-workflow.markua
     └── tips-and-tricks.markua
 ```
+
+T> This file tree is also generated automatically from within the book's source document, by using a simple shell command inside an Org-mode `src` block, like this:
+T>
+T> {format: "org"}
+T> ```
+T> #+name: book-tree
+T> #+begin_src bash :results output :exports results :wrap example
+T>   tree --noreport -L 3 -I 'covers|files'
+T> #+end_src
+T> ```
 
 In short, this is what the export operation does:
 

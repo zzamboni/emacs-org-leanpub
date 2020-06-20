@@ -32,21 +32,20 @@ T> {format: "dot", id: "workflow-diagram"}
 T> ```
 T> digraph {
 T>    rankdir=TB;
-T>    node                [fontname="DejaVu Sans"];
-T>    edge                [fontname="DejaVu Sans"];
-T>    files               [label="Source files\n(Org doc, figures, etc.)", shape=oval];
-T>    emacs               [label="Emacs + org-mode",
-T>                         fillcolor=purple, fontcolor=white, style=filled, shape=box];
-T>    manuscript          [label="Leanpub manuscript\n(Markua + other files)",
-T>                         fillcolor=yellow, style=filled, shape=oval];
-T>    leanpub             [label="Leanpub",
-T>                         fillcolor=blue, fontcolor=white, style=filled, shape=box];
-T>    git                 [label="Git repo",
-T>                         fillcolor=red, style=filled, shape=box];
-T>    preview             [label="Book preview",
-T>                         fillcolor=grey, style=filled, shape=oval];
-T>    book                [label="Book (PDF,\nePub, mobi, online)",
-T>                         shape=oval, fillcolor=green, style=filled];
+T>    node [fontname="DejaVu Sans"];
+T>    edge [fontname="DejaVu Sans"];
+T>    files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
+T>    emacs [label="Emacs + org-mode",
+T>           fillcolor=purple, fontcolor=white, style=filled, shape=box];
+T>    manuscript [label="Leanpub manuscript\n(Markua + other files)",
+T>                fillcolor=yellow, style=filled, shape=oval];
+T>    leanpub [label="Leanpub",
+T>             fillcolor=blue, fontcolor=white, style=filled, shape=box];
+T>    git [label="Git repo", fillcolor=red, style=filled, shape=box];
+T>    preview [label="Book preview",
+T>             fillcolor=grey, style=filled, shape=oval];
+T>    book [label="Book (PDF,\nePub, mobi, online)",
+T>          shape=oval, fillcolor=green, style=filled];
 T>    files -> emacs      [label="Edit"];
 T>    emacs -> manuscript [label="Export"];
 T>    manuscript -> git   [label="Commit"];
