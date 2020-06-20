@@ -419,19 +419,24 @@ Leanpub's pricing plans changed in October 2019, making it necessary to have a "
 - I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
 - I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
 
+#+attr_leanpub: :width 50%
 [[file:images/leanpub-create-book.png]]
 
 After you create the book, Leanpub shows you a "Getting Started" page which describes some additional steps you need to complete to finish setting up your book and its integration with your git repository.
 
+#+attr_leanpub: :width 50%
 [[file:images/leanpub-getting-started-screen.png]]
 
 Make sure you follow these instructions, which include:
 
 - Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book.
 
+  #+attr_leanpub: :width 50%
   [[file:images/github-add-collaborator.png]]
+
 - Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [[#ci-cd-for-previewing-and-publishing][CI/CD for previewing and publishing]].
 
+  #+attr_leanpub: :width 50%
   [[file:images/github-add-webhook.png]]
 
   #+begin_warning
