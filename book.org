@@ -118,6 +118,7 @@ There are as many possible variations to this workflow as users out there. If yo
 
 The high-level workflow for publishing a book using Emacs, org-mode and Leanpub looks like this:
 
+#+attr_leanpub: :width 30%
 #+RESULTS: workflow-diagram
 [[file:./images/high-level-workflow.png]]
 
