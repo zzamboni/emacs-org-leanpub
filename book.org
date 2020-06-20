@@ -461,8 +461,9 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 #+end_src
 
-If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at =https://leanpub.com/<your-book-id>/preview= and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
+If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/<your-book-id>/preview/ and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
 
+#+attr_leanpub: :width 50%
 [[file:images/leanpub-preview-email.png]]
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
@@ -473,6 +474,7 @@ If you enabled Dropbox integration, the generated preview files of your book wil
 
 Leanpub offers you a great degree of control over all aspects of your books aspect and production. All of them are optional, so you can do them as you explore and feel more comfortable. I highly recommend that you explore your book's management menu in Leanpub.
 
+#+attr_leanpub: :width 50%
 [[file:images/leanpub-book-menu.png]]
 
 Here are some of the common things that I like to configure:
