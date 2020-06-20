@@ -2,7 +2,7 @@
 #+author: Diego Zamboni
 #+email: diego@zzamboni.org
 
-This repository contains the source for the book /Publishing with Emacs, Org-mode and Leanpub/, published at https://leanpub.com/emacs-org-leanpub. You can use the contents of this repo to follow along as you read the book.
+This repository contains the source for the book /Publishing with Emacs, Org-mode and Leanpub/, published at https://leanpub.com/emacs-org-leanpub. You can use the contents of this repo to follow along as you read the book, or as an example for your own
 
 Overview:
 - The text source is in the [[file:book.org][book.org]] file.

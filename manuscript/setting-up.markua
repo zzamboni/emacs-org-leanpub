@@ -6,6 +6,7 @@ If you don't have a Leanpub account yet, you can create it by visiting <https://
 
 Note that among Leanpub's pricing plans, only the Standard and Pro plans support the "Write on your computer, and sync with Dropbox, GitHub or Bitbucket" option, which is what we focus on in this book. If you want to enable webhooks and other automation aspects, you will need a Pro plan, which supports the "Leanpub API" option. You need to choose your pricing plan when you create your first book, but you can change it later at any time.
 
+{width: "30%"}
 ![](images/leanpub-pricing-plans.png)
 
 T> You need a Standard or Pro plan to follow along the instructions in this book.
@@ -82,7 +83,8 @@ $ cd ~/Personal/writing
 $ mkdir -p emacs-org-leanpub
 $ cd emacs-org-leanpub
 $ git init .
-Initialized empty Git repository in /Users/taazadi1/Dropbox/Personal/writing/emacs-org-leanpub/.git/
+Initialized empty Git repository in
+  /Users/taazadi1/Dropbox/Personal/writing/emacs-org-leanpub/.git/
 ```
 
 Next, we create a new GitHub repository and connect it to our local repository:
@@ -161,7 +163,7 @@ For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing 
     [c] Multifile: Current chapter
 ```
 
-Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following directories and symlinks will be created (the original source file is `book.org`, everything else is created from it):
+Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks are created (the original source file is `book.org`, everything else is created from it, note that all images stored under `manuscript/resources/images` are omitted from this listing):
 
 ```
 .
@@ -204,7 +206,7 @@ W> Leanpub's pricing plans changed in October 2019, making it necessary to have 
 * I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
 * I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
 
-  ![](images/leanpub-create-book.png)
+![](images/leanpub-create-book.png)
 
 After you create the book, Leanpub shows you a "Getting Started" page which describes some additional steps you need to complete to finish setting up your book and its integration with your git repository.
 
