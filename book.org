@@ -4,6 +4,11 @@
 #+options: toc:nil tags:nil
 #+todo: TODO(t) DRAFT(f@/!) | DONE(d!) CANCELED(c)
 
+# Subset Preview includes all chapters, that way I can use it to do a
+# quick preview of the PDF without having to wait for EPUB/MOBI
+# versions in a Full Preview.
+#+leanpub_book_write_subset: all
+
 # This block is used to clean up source blocks that get executed
 # through the script command, for the purposes of including both the
 # commands and their output in the export. This is to be used through

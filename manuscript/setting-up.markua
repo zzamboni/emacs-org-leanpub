@@ -172,6 +172,7 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 ├── images -> manuscript/resources/images
 └── manuscript
     ├── Book.txt
+    ├── Subset.txt
     ├── automation.markua
     ├── colophon.markua
     ├── frontmatter.txt
@@ -214,8 +215,12 @@ After you create the book, Leanpub shows you a "Getting Started" page which desc
 
 Make sure you follow these instructions, which include:
 
-* Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book. ![](images/github-add-collaborator.png)
-* Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [CI/CD for previewing and publishing](#ci-cd-for-previewing-and-publishing). ![](images/github-add-webhook.png)
+* Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book.
+
+  ![](images/github-add-collaborator.png)
+* Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [CI/CD for previewing and publishing](#ci-cd-for-previewing-and-publishing).
+
+  ![](images/github-add-webhook.png)
 
   W> Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you should keep secret, as it enables access to all operations on your book.
 
