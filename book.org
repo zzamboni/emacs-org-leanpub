@@ -156,7 +156,7 @@ One of these exporters is [[https://github.com/zzamboni/ox-leanpub][=ox-leanpub=
 
 Org mode is extensive and powerful, and I invite you to peruse its [[https://orgmode.org/#docs][documentation]] but to be patient --- Org is best learned gradually and over time. Discover the parts that interest you the most first, and go from there. To get started with writing using Org, you can use [[http://ergoemacs.org/emacs/emacs_org_markup.html][Xah's Org Mode Markup Cheatsheet]] to get an overview of the most useful markup constructs. For including source code in your documentation, I recomend reading the [[https://orgmode.org/manual/Working-with-Source-Code.html][Working with Source Code]] section of the Org manual, as well as Howard Abrams' [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][Introduction to Literate Programming]].
 
-* DRAFT Setting up
+* Setting up
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/setting-up.markua
 :END:
@@ -480,3 +480,12 @@ Here are some of the common things that I like to configure:
 ** Visual configuration
 
 ** Code block execution and output processing (like in this book)
+
+* Colophon :backmatter:
+:PROPERTIES:
+:EXPORT_FILE_NAME: manuscript/colophon.markua
+:END:
+
+This book was written completely in GNU Emacs 26.3 using Org mode version 9.3.7. The text is exported to Leanpub Markua format and structure using the =ox-leanpub= package, and published using Leanpub.
+
+Cover photo by [[https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/][Sharon McCutcheon]] from Pexels.

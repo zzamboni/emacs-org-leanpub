@@ -6,3 +6,5 @@ setting-up.markua
 the-workflow.markua
 automation.markua
 tips-and-tricks.markua
+backmatter.txt
+colophon.markua

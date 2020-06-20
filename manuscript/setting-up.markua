@@ -1,4 +1,4 @@
-# DRAFT Setting up
+# Setting up
 
 ## Signing up for Leanpub
 
@@ -171,6 +171,7 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 └── manuscript
     ├── Book.txt
     ├── automation.markua
+    ├── colophon.markua
     ├── frontmatter.txt
     ├── images -> resources/images
     ├── introduction.markua
