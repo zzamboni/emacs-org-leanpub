@@ -74,7 +74,20 @@
 #+title: Writing and publishing with Emacs, org-mode and Leanpub
 #+author: Diego Zamboni
 
-* Introduction
+* Preface to the early release :frontmatter:
+:PROPERTIES:
+:EXPORT_FILE_NAME: manuscript/preface-to-the-early-release.markua
+:END:
+
+What you are reading is an early release of this book, which means its contents is not yet complete, and you may find errors or omissions in it. Still, I hope you find it useful. I would very much appreciate your feedback! Please let me know what you liked, what you didn't like, and what additional topics you would like me to cover. Please send me a message through the [[https://leanpub.com/emacs-org-leanpub/email_author/new][/Email the Author/]] page and let me know what you think.
+
+** Release notes
+
+*** June 2020
+
+This is the initial release of the book! I would love to hear your thoughts. There is still much missing but the core of the book is there, and you can probably already use it to get started writing a book and publishing it on Leanpub using Emacs and Org-mode.
+
+* Introduction :mainmatter:
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/introduction.markua
 :END:
@@ -124,6 +137,14 @@ The high-level workflow for publishing a book using Emacs, org-mode and Leanpub 
 In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to GitHub. From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see.
 
 ** Leanpub
+
+[[https://leanpub.com/][Leanpub]] is a powerful platform for self-publishing. It allows you to create books and courses and to publish, sell and update them directly through the Leanpub portal. It supports a comprehensive [[https://leanpub.com/help/api][API]] which allows you to automate most operations, tough you can of course do them via the web UI if you prefer.
+
+Books and courses are written in a specialized markup language called [[https://leanpub.com/markua/read][Markua]], which is a derivative of Markdown but with some additional features that make it easier to publish longer works. Leanpub also supports [[https://leanpub.com/lfm/read][Leanpub Flavored Markdown]], which is an older version of its markup language. Markua is the recommended format, and the one we use in this book.
+
+I personally like Leanpub not only for the technical aspect of it (self-publishing, text-based markup, the API) but also because of the company behind it. My interactions with them have always been met with helpful and constructive responses, and you can tell they genuinely care about building the best possible publishing platform.
+
+If you are not convinced yet, read [[https://leanpub.com/authors][Why Leanpub]].
 
 ** Emacs and org-mode
 
@@ -422,6 +443,8 @@ Here are some of the common things that I like to configure:
 ** Writing
 
 ** Exporting
+
+** Previewing
 
 ** Publishing
 

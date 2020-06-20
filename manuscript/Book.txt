@@ -1,3 +1,6 @@
+frontmatter.txt
+preface-to-the-early-release.markua
+mainmatter.txt
 introduction.markua
 setting-up.markua
 the-workflow.markua

@@ -27,6 +27,14 @@ In this setup, the only files you manipulates directly are your source files. Fo
 
 ## Leanpub
 
+[Leanpub](https://leanpub.com/) is a powerful platform for self-publishing. It allows you to create books and courses and to publish, sell and update them directly through the Leanpub portal. It supports a comprehensive [API](https://leanpub.com/help/api) which allows you to automate most operations, tough you can of course do them via the web UI if you prefer.
+
+Books and courses are written in a specialized markup language called [Markua](https://leanpub.com/markua/read), which is a derivative of Markdown but with some additional features that make it easier to publish longer works. Leanpub also supports [Leanpub Flavored Markdown](https://leanpub.com/lfm/read), which is an older version of its markup language. Markua is the recommended format, and the one we use in this book.
+
+I personally like Leanpub not only for the technical aspect of it (self-publishing, text-based markup, the API) but also because of the company behind it. My interactions with them have always been met with helpful and constructive responses, and you can tell they genuinely care about building the best possible publishing platform.
+
+If you are not convinced yet, read [Why Leanpub](https://leanpub.com/authors).
+
 ## Emacs and org-mode
 
 [Emacs](https://www.gnu.org/software/emacs/) is a powerful open-source editor which runs on any platform, and offers infinite extensibility through its ability to be programmed using the embedded [Emacs LISP](https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html) programming language. If you are not familiar with Emacs, check out the [Guided Tour of Emacs](https://www.gnu.org/software/emacs/tour/) to get started.
