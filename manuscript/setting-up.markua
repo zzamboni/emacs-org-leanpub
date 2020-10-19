@@ -2,24 +2,24 @@
 
 ## Signing up for Leanpub
 
-If you don't have a Leanpub account yet, you can create it by visiting <https://leanpub.com/> and clicking on the "Sign Up" link on the homepage. Note that you can also automatically create your account when you create your first book, as described in [Creating the book on Leanpub](#creating-the-book-on-leanpub).
+If you don't have a Leanpub account yet, you can create it by visiting <https://leanpub.com/> and clicking on the "Sign Up" link on the homepage. Note that you can also automatically create your account when you create your first book, as described in [Creating the book on Leanpub](#creating-the-book-on-leanpub). 
 
-Note that among Leanpub's pricing plans, only the Standard and Pro plans support the "Write on your computer, and sync with Dropbox, GitHub or Bitbucket" option, which is what we focus on in this book. If you want to enable webhooks and other automation aspects, you will need a Pro plan, which supports the "Leanpub API" option. You need to choose your pricing plan when you create your first book, but you can change it later at any time.
+Note that among Leanpub's pricing plans, only the Standard and Pro plans support the "Write on your computer, and sync with Dropbox, GitHub or Bitbucket" option, which is what we focus on in this book. If you want to enable webhooks and other automation aspects, you will need a Pro plan, which supports the "Leanpub API" option. You need to choose your pricing plan when you create your first book, but you can change it later at any time. 
 
 {width: "40%"}
-![](images/leanpub-pricing-plans.png)
+![](images/leanpub-pricing-plans.png) 
 
 T> You need a Standard or Pro plan to follow along the instructions in this book.
 
 ## Emacs and org-mode configuration
 
-Emacs configuration is read from `~/.emacs.d/init.el`. Let's review the minimum configuration you need to follow along this book.
+Emacs configuration is read from `~/.emacs.d/init.el`. Let's review the minimum configuration you need to follow along this book. 
 
-T> We show here a bare-minimum example, but Emacs configuration is an art, and there is a lot of things you can configure to improve the usability, functionality and aesthetics of your setup. For a realistic working configuration example, check out my [full Emacs configuration](https://zzamboni.org/post/my-emacs-configuration-with-commentary/). If you are an experienced Emacs user and have your configuration set up already, please check at least the [Publishing to Leanpub](https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub) section!
-T>
+T> We show here a bare-minimum example, but Emacs configuration is an art, and there is a lot of things you can configure to improve the usability, functionality and aesthetics of your setup. For a realistic working configuration example, check out my [full Emacs configuration](https://zzamboni.org/post/my-emacs-configuration-with-commentary/). If you are an experienced Emacs user and have your configuration set up already, please check at least the [Publishing to Leanpub](https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub) section! 
+T> 
 T> Make sure you have at least Emacs 26.1 installed, this is the minimum needed by some of the packages you use.
 
-First, we need to set up the Emacs package system, which enables you to easily install packages from various repositories. Add the following lines to your `init.el` file to declare the package repositories to use:
+First, we need to set up the Emacs package system, which enables you to easily install packages from various repositories. Add the following lines to your `init.el` file to declare the package repositories to use: 
 
 {format: "emacs-lisp"}
 ```
@@ -30,7 +30,7 @@ First, we need to set up the Emacs package system, which enables you to easily i
    ("elpa"     .  "https://elpa.gnu.org/packages/")))
 ```
 
-Then we initialize the package system and refresh the list of packages.
+Then we initialize the package system and refresh the list of packages. 
 
 {format: "emacs-lisp"}
 ```
@@ -40,7 +40,7 @@ Then we initialize the package system and refresh the list of packages.
   (package-refresh-contents))
 ```
 
-I highly recommend using the [use-package](https://www.masteringemacs.org/article/spotlight-use-package-a-declarative-configuration-tool) library to manage the packages in your config, since it allows easy, self-contained and declarative installation and configuration of packages. Since `use-package` is not bundled with Emacs, the first thing we do is install and load it by hand. All other packages are then declaratively installed and configured with `use-package`.
+I highly recommend using the [use-package](https://www.masteringemacs.org/article/spotlight-use-package-a-declarative-configuration-tool) library to manage the packages in your config, since it allows easy, self-contained and declarative installation and configuration of packages. Since `use-package` is not bundled with Emacs, the first thing we do is install and load it by hand. All other packages are then declaratively installed and configured with `use-package`. 
 
 {format: "emacs-lisp"}
 ```
@@ -49,14 +49,14 @@ I highly recommend using the [use-package](https://www.masteringemacs.org/articl
 (require 'use-package)
 ```
 
-Using `use-package` we can load the `org` package. This is included with Emacs.
+Using `use-package` we can load the `org` package. This is included with Emacs. 
 
 {format: "emacs-lisp"}
 ```
 (use-package org)
 ```
 
-Finally, we declare `ox-leanpub`. In this case, `use-package` installs the package thanks to the `:ensure t` declaration, and it loads it only after `org` has been loaded.
+Finally, we declare `ox-leanpub`. In this case, `use-package` installs the package thanks to the `:ensure t` declaration, and it loads it only after `org` has been loaded. 
 
 {format: "emacs-lisp"}
 ```
@@ -69,11 +69,11 @@ Finally, we declare `ox-leanpub`. In this case, `use-package` installs the packa
 
 I> All the steps that follow show the actual commands and operations I performed while setting up the book you are reading! You can find the sources for the current version of this book at <https://github.com/zzamboni/emacs-org-leanpub>.
 
-The first step is to choose a short name or *slug* for your book. This is the URL identifier for your book in Leanpub, and it should also be the name of your git repository (this is not mandatory, but makes the automation easier). This book's slug is `emacs-org-leanpub`, so its Leanpub URL will be leanpub.com/emacs-org-leanpub.
+The first step is to choose a short name or *slug* for your book. This is the URL identifier for your book in Leanpub, and it should also be the name of your git repository (this is not mandatory, but makes the automation easier). This book's slug is `emacs-org-leanpub`, so its Leanpub URL will be leanpub.com/emacs-org-leanpub. 
 
 ### Creating a git repository for your book
 
-Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket.
+Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket. 
 
 T> I use the command-line utility [hub](https://hub.github.com/) to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [git-spindle](https://seveas.github.io/git-spindle/bitbucket.html) to interact with it from the command line as well.
 
@@ -87,7 +87,7 @@ Initialized empty Git repository in
   /Users/taazadi1/Dropbox/Personal/writing/emacs-org-leanpub/.git/
 ```
 
-Next, we create a new GitHub repository and connect it to our local repository:
+Next, we create a new GitHub repository and connect it to our local repository: 
 
 {format: "console"}
 ```
@@ -102,9 +102,9 @@ origin	https://github.com/zzamboni/emacs-org-leanpub.git (push)
 
 ### Creating the book file
 
-Now you can start writing your text inside the new repository. I usually write the main text in a file called `book.org` in the root directory of the repository.
+Now you can start writing your text inside the new repository. I usually write the main text in a file called `book.org` in the root directory of the repository. 
 
-To get you started, a basic skeleton for a book is the following:
+To get you started, a basic skeleton for a book is the following: 
 
 {format: "org"}
 ```
@@ -126,7 +126,7 @@ Some more text
 
 T> For a more complex example, you can find the sources for this book at <https://github.com/zzamboni/emacs-org-leanpub>.
 
-Once you have some text, you can simply commit and push the changes to your remote repository:
+Once you have some text, you can simply commit and push the changes to your remote repository: 
 
 {format: "console"}
 ```
@@ -151,9 +151,9 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 {id: "your-first-book-export"}
 ### Your first book export
 
-Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview.
+Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview. 
 
-For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing `C-c C-e` will show you Org-mode's Export screen. Among other options, you should see the following:
+For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing `C-c C-e` will show you Org-mode's Export screen. Among other options, you should see the following: 
 
 ```
 [M] Export to Leanpub Markua
@@ -163,7 +163,7 @@ For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing 
     [c] Multifile: Current chapter
 ```
 
-Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks are created (the original source file is `book.org`, everything else is created from it, note that all images stored under `manuscript/resources/images` are omitted from this listing):
+Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks are created (the original source file is `book.org`, everything else is created from it, note that all images stored under `manuscript/resources/images` are omitted from this listing): 
 
 ```
 .
@@ -187,8 +187,8 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
     └── tips-and-tricks.markua
 ```
 
-T> This file tree is also generated automatically from within the book's source document, by using a simple shell command inside an Org-mode `src` block, like this:
-T>
+T> This file tree is also generated automatically from within the book's source document, by using a simple shell command inside an Org-mode `src` block, like this: 
+T> 
 T> {format: "org"}
 T> ```
 T> #+name: book-tree
@@ -197,19 +197,19 @@ T>   tree --noreport -L 3 -I 'covers|files'
 T> #+end_src
 T> ```
 
-In short, this is what the export operation does:
+In short, this is what the export operation does: 
 
-* Creates a `manuscript` folder if needed, under which all other files are stored.
+* Creates a `manuscript` folder if needed, under which all other files are stored. 
   * A `resources/images` directory is created inside `manuscript`, as required by the Leanpub Markua exporter.
   * Symlinks to the `images` directory are created both from the top-level directory, and from the `manuscript` directory, to allow referencing the same image files both from the Org file and from the exported Markua files.
 * Exports one `.markua` file for each top-level header (chapter) in your book.
-* Creates the `Book.txt` file with the filenames corresponding to the chapters of your book.
+* Creates the `Book.txt` file with the filenames corresponding to the chapters of your book. 
   * Depending on the exporter settings, the `Subset.txt` and `Sample.txt` files may also be created.
 
 {id: "creating-the-book-on-leanpub"}
 ## Creating the book on Leanpub
 
-Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository. Assuming you are signed into your Leanpub account, you can do this by visiting <https://leanpub.com/create/book>, and following the prompts. In particular, note the following:
+Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository. Assuming you are signed into your Leanpub account, you can do this by visiting <https://leanpub.com/create/book>, and following the prompts. In particular, note the following: 
 
 W> Leanpub's pricing plans changed in October 2019, making it necessary to have a "Standard" or "Pro" plan to be able to write your book using Git integrations.
 
@@ -218,30 +218,30 @@ W> Leanpub's pricing plans changed in October 2019, making it necessary to have 
 * I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
 
 {width: "50%"}
-![](images/leanpub-create-book.png)
+![](images/leanpub-create-book.png) 
 
-After you create the book, Leanpub shows you a "Getting Started" page which describes some additional steps you need to complete to finish setting up your book and its integration with your git repository.
+After you create the book, Leanpub shows you a "Getting Started" page which describes some additional steps you need to complete to finish setting up your book and its integration with your git repository. 
 
 {width: "50%"}
-![](images/leanpub-getting-started-screen.png)
+![](images/leanpub-getting-started-screen.png) 
 
-Make sure you follow these instructions, which include:
+Make sure you follow these instructions, which include: 
 
-* Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book.
-
+* Adding Leanpub as a collaborator to your GitHub or BitBucket repository. This makes it possible for Leanpub to read the files from your repository to render the book. 
+  
   {width: "50%"}
   ![](images/github-add-collaborator.png)
 
-* Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [CI/CD for previewing and publishing](#ci-cd-for-previewing-and-publishing).
-
+* Adding a webhook to your repository to trigger an automatic preview of your book whenever you push new changes to your repository. This is an optional step, but one which makes it much easier to generate the book whenever you make changes. Not this this "hardcodes" the type of book generation (Preview or Publish) which happens when you push changes. For a more complex setup, see [CI/CD for previewing and publishing](#ci-cd-for-previewing-and-publishing). 
+  
   {width: "50%"}
-  ![](images/github-add-webhook.png)
-
+  ![](images/github-add-webhook.png) 
+  
   W> Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you should keep secret, as it enables access to all operations on your book.
 
 ## Your first book preview
 
-Once you have created your book on Leanpub and connected it to your Git repository, you are ready to produce your first preview. Follow the same steps shown in [Your first book export](#your-first-book-export) to generate the Markua files from your Org file, and then commit and push the changes to your repository.
+Once you have created your book on Leanpub and connected it to your Git repository, you are ready to produce your first preview. Follow the same steps shown in [Your first book export](#your-first-book-export) to generate the Markua files from your Org file, and then commit and push the changes to your repository. 
 
 {format: "console"}
 ```
@@ -258,23 +258,23 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 ```
 
-If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/><your-book-id>/preview* and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
+If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/><your-book-id>/preview* and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation. 
 
 {width: "50%"}
-![](images/leanpub-preview-email.png)
+![](images/leanpub-preview-email.png) 
 
-If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
+If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book. 
 
-**Congratulations!** You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn
+**Congratulations!** You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn 
 
 ## Additional book configuration
 
-Leanpub offers you a great degree of control over all aspects of your books aspect and production. All of them are optional, so you can do them as you explore and feel more comfortable. I highly recommend that you explore your book's management menu in Leanpub.
+Leanpub offers you a great degree of control over all aspects of your books aspect and production. All of them are optional, so you can do them as you explore and feel more comfortable. I highly recommend that you explore your book's management menu in Leanpub. 
 
 {width: "50%"}
-![](images/leanpub-book-menu.png)
+![](images/leanpub-book-menu.png) 
 
-Here are some of the common things that I like to configure:
+Here are some of the common things that I like to configure: 
 
 Visual settings
 : Found in *Settings* / *Book Theme*. You can choose one of the ready-made themes as chosen when you created the book (Business, Technical, Fiction) but I like to choose "Custom" and fine-tune the different parameters. You can customize the page size, fonts, line spacing, line numbering in code blocks, and many other things. I recommend you set at least the page size you want before creating a cover for your book, since it determines the size of the image you have to upload. But otherwise, feel free to experiment, preview your book with different settings and choose the look you like best.
@@ -284,3 +284,5 @@ Title and subtitle
 : Found in the *Book Info* / *Book Details* page. You can modify the title you specified during book creation, and optionally add a subtitle.
 Categories
 : Found in *Book Info* / *Categories*. Allows you to define certain categories for your book, to make them easier to find by readers.
+
+

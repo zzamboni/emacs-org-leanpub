@@ -1,5 +1,7 @@
 # Colophon
 
-This book was written completely in GNU Emacs 26.3 using Org mode version 9.3.7. The text is exported to Leanpub Markua format and structure using the `ox-leanpub` package, and published using Leanpub.
+This book was written completely in GNU Emacs 26.3 using Org mode version 9.3.7. The text is exported to Leanpub Markua format and structure using the `ox-leanpub` package, and published using Leanpub. 
 
-Cover photo by [Sharon McCutcheon](https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/) from Pexels.
+Cover photo by [Sharon McCutcheon](https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/) from Pexels. 
+
+
