@@ -9,15 +9,19 @@ Note that among Leanpub's pricing plans, only the Standard and Pro plans support
 {width: "40%"}
 ![](images/leanpub-pricing-plans.png) 
 
-T> You need a Standard or Pro plan to follow along the instructions in this book.
+{blurb, class: "tip"}
+You need a Standard or Pro plan to follow along the instructions in this book.
+{/blurb}
 
 ## Emacs and org-mode configuration
 
 Emacs configuration is read from `~/.emacs.d/init.el`. Let's review the minimum configuration you need to follow along this book. 
 
-T> We show here a bare-minimum example, but Emacs configuration is an art, and there is a lot of things you can configure to improve the usability, functionality and aesthetics of your setup. For a realistic working configuration example, check out my [full Emacs configuration](https://zzamboni.org/post/my-emacs-configuration-with-commentary/). If you are an experienced Emacs user and have your configuration set up already, please check at least the [Publishing to Leanpub](https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub) section! 
-T> 
-T> Make sure you have at least Emacs 26.1 installed, this is the minimum needed by some of the packages you use.
+{blurb, class: "tip"}
+We show here a bare-minimum example, but Emacs configuration is an art, and there is a lot of things you can configure to improve the usability, functionality and aesthetics of your setup. For a realistic working configuration example, check out my [full Emacs configuration](https://zzamboni.org/post/my-emacs-configuration-with-commentary/). If you are an experienced Emacs user and have your configuration set up already, please check at least the [Publishing to Leanpub](https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub) section! 
+
+Make sure you have at least Emacs 26.1 installed, this is the minimum needed by some of the packages you use.
+{/blurb}
 
 First, we need to set up the Emacs package system, which enables you to easily install packages from various repositories. Add the following lines to your `init.el` file to declare the package repositories to use: 
 
@@ -67,7 +71,9 @@ Finally, we declare `ox-leanpub`. In this case, `use-package` installs the packa
 
 ## Creating the book locally
 
-I> All the steps that follow show the actual commands and operations I performed while setting up the book you are reading! You can find the sources for the current version of this book at <https://github.com/zzamboni/emacs-org-leanpub>.
+{blurb, class: "information"}
+All the steps that follow show the actual commands and operations I performed while setting up the book you are reading! You can find the sources for the current version of this book at <https://github.com/zzamboni/emacs-org-leanpub>.
+{/blurb}
 
 The first step is to choose a short name or *slug* for your book. This is the URL identifier for your book in Leanpub, and it should also be the name of your git repository (this is not mandatory, but makes the automation easier). This book's slug is `emacs-org-leanpub`, so its Leanpub URL will be leanpub.com/emacs-org-leanpub. 
 
@@ -75,7 +81,9 @@ The first step is to choose a short name or *slug* for your book. This is the UR
 
 Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket. 
 
-T> I use the command-line utility [hub](https://hub.github.com/) to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [git-spindle](https://seveas.github.io/git-spindle/bitbucket.html) to interact with it from the command line as well.
+{blurb, class: "tip"}
+I use the command-line utility [hub](https://hub.github.com/) to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [git-spindle](https://seveas.github.io/git-spindle/bitbucket.html) to interact with it from the command line as well.
+{/blurb}
 
 {format: "console"}
 ```
@@ -124,7 +132,9 @@ Some text
 Some more text
 ```
 
-T> For a more complex example, you can find the sources for this book at <https://github.com/zzamboni/emacs-org-leanpub>.
+{blurb, class: "tip"}
+For a more complex example, you can find the sources for this book at <https://github.com/zzamboni/emacs-org-leanpub>.
+{/blurb}
 
 Once you have some text, you can simply commit and push the changes to your remote repository: 
 
@@ -187,15 +197,17 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
     └── tips-and-tricks.markua
 ```
 
-T> This file tree is also generated automatically from within the book's source document, by using a simple shell command inside an Org-mode `src` block, like this: 
-T> 
-T> {format: "org"}
-T> ```
-T> #+name: book-tree
-T> #+begin_src bash :results output :exports results :wrap example
-T>   tree --noreport -L 3 -I 'covers|files'
-T> #+end_src
-T> ```
+{blurb, class: "tip"}
+This file tree is also generated automatically from within the book's source document, by using a simple shell command inside an Org-mode `src` block, like this: 
+
+{format: "org"}
+```
+#+name: book-tree
+#+begin_src bash :results output :exports results :wrap example
+  tree --noreport -L 3 -I 'covers|files'
+#+end_src
+```
+{/blurb}
 
 In short, this is what the export operation does: 
 
@@ -211,7 +223,9 @@ In short, this is what the export operation does:
 
 Now that you have the basics of a book, you need to create a new book in Leanpub and link it to your Git repository. Assuming you are signed into your Leanpub account, you can do this by visiting <https://leanpub.com/create/book>, and following the prompts. In particular, note the following: 
 
-W> Leanpub's pricing plans changed in October 2019, making it necessary to have a "Standard" or "Pro" plan to be able to write your book using Git integrations.
+{blurb, class: "warning"}
+Leanpub's pricing plans changed in October 2019, making it necessary to have a "Standard" or "Pro" plan to be able to write your book using Git integrations.
+{/blurb}
 
 * The "On your computer" option under "Where do you want to write" is only available in the paid Leanpub plans. Choose the corresponding git option, and enter the path to your repository as created above.
 * I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
@@ -237,7 +251,9 @@ Make sure you follow these instructions, which include:
   {width: "50%"}
   ![](images/github-add-webhook.png) 
   
-  W> Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you should keep secret, as it enables access to all operations on your book.
+  {blurb, class: "warning"}
+  Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you should keep secret, as it enables access to all operations on your book.
+  {/blurb}
 
 ## Your first book preview
 
