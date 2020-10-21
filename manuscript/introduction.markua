@@ -13,9 +13,9 @@ The following are optional, but highly recommended for making the workflow more 
 * [CircleCI](https://circleci.com/) (or other CI/CD tool) for automating the typesetting, previewing and publication process;
 * [Hammerspoon](http://www.hammerspoon.org/) (if you are using a Mac) for monitoring book builds.
 
-To illustrate the process and provide you with a starting point, the source repository for this book is available at <https://github.com/zzamboni/emacs-org-leanpub>. I am populating the repository live as I write this book, and you can follow the progress there and by getting the book for free at <https://leanpub.com/emacs-org-leanpub>. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you. 
+To illustrate the process and provide you with a starting point, the source repository for this book is available at <https://github.com/zzamboni/emacs-org-leanpub>. I am populating the repository live as I write this book, and you can follow the progress there and by getting the book at <https://leanpub.com/emacs-org-leanpub>. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you. 
 
-There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please feel free to let me know! Send me a note or even better, submit a pull request at the book's GitHub repository. Let's make the book better together! 
+There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please let me know! 
 
 ## The process
 
@@ -65,7 +65,7 @@ digraph {
 
 Books and courses are written in a specialized markup language called [Markua](https://leanpub.com/markua/read), which is a derivative of Markdown but with some additional features that make it easier to publish longer works. Leanpub also supports [Leanpub Flavored Markdown](https://leanpub.com/lfm/read), which is an older version of its markup language. Markua is the recommended format, and the one we use in this book. 
 
-I personally like Leanpub not only for the technical aspect of it (self-publishing, text-based markup, the API) but also because of the company behind it. My interactions with them have always been met with helpful and constructive responses, and you can tell they genuinely care about building the best possible publishing platform. 
+I like Leanpub not only for the technical aspect of it (self-publishing, text-based markup, the API) but also because of the company behind it. My interactions with them have always been met with helpful and constructive responses, and you can tell they genuinely care about building the best possible publishing platform. 
 
 If you are not convinced yet, read [Why Leanpub](https://leanpub.com/authors). 
 

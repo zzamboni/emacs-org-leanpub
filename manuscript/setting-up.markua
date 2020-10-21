@@ -229,7 +229,7 @@ Leanpub's pricing plans changed in October 2019, making it necessary to have a "
 
 * The "On your computer" option under "Where do you want to write" is only available in the paid Leanpub plans. Choose the corresponding git option, and enter the path to your repository as created above.
 * I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
-* I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
+* I usually enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
 
 {width: "50%"}
 ![](images/leanpub-create-book.png) 
@@ -274,14 +274,14 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 ```
 
-If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/><your-book-id>/preview* and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation. 
+If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/><your-book-id>/preview* and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation. 
 
 {width: "50%"}
 ![](images/leanpub-preview-email.png) 
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book. 
 
-**Congratulations!** You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn 
+**Congratulations!** You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. 
 
 ## Additional book configuration
 

@@ -84,7 +84,7 @@
 :EXPORT_FILE_NAME: manuscript/preface-to-the-early-release.markua
 :END:
 
-What you are reading is an early release of this book, which means its contents is not yet complete, and you may find errors or omissions in it. Still, I hope you find it useful. I would very much appreciate your feedback! Please let me know what you liked, what you didn't like, and what additional topics you would like me to cover. Please send me a message through the [[https://leanpub.com/emacs-org-leanpub/email_author/new][/Email the Author/]] page and let me know what you think.
+What you are reading is an early release of this book, which means its contents is not yet complete, and you may find errors or omissions in it. Still, I hope you find it useful. I would really appreciate your feedback! Please let me know what you liked, what you didn't like, and what additional topics you would like me to cover. Please send me a message through the [[https://leanpub.com/emacs-org-leanpub/email_author/new][/Email the Author/]] page and let me know what you think.
 
 ** Release notes
 
@@ -110,9 +110,9 @@ The following are optional, but highly recommended for making the workflow more 
 - [[https://circleci.com/][CircleCI]] (or other CI/CD tool) for automating the typesetting, previewing and publication process;
 - [[http://www.hammerspoon.org/][Hammerspoon]] (if you are using a Mac) for monitoring book builds.
 
-To illustrate the process and provide you with a starting point, the source repository for this book is available at https://github.com/zzamboni/emacs-org-leanpub. I am populating the repository live as I write this book, and you can follow the progress there and by getting the book for free at https://leanpub.com/emacs-org-leanpub. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you.
+To illustrate the process and provide you with a starting point, the source repository for this book is available at https://github.com/zzamboni/emacs-org-leanpub. I am populating the repository live as I write this book, and you can follow the progress there and by getting the book at https://leanpub.com/emacs-org-leanpub. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you.
 
-There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please feel free to let me know! Send me a note or even better, submit a pull request at the book's GitHub repository. Let's make the book better together!
+There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please let me know!
 
 ** The process
 
@@ -161,7 +161,7 @@ One of Org-mode's amazing features is its ability to evaluate code within the so
 
 Books and courses are written in a specialized markup language called [[https://leanpub.com/markua/read][Markua]], which is a derivative of Markdown but with some additional features that make it easier to publish longer works. Leanpub also supports [[https://leanpub.com/lfm/read][Leanpub Flavored Markdown]], which is an older version of its markup language. Markua is the recommended format, and the one we use in this book.
 
-I personally like Leanpub not only for the technical aspect of it (self-publishing, text-based markup, the API) but also because of the company behind it. My interactions with them have always been met with helpful and constructive responses, and you can tell they genuinely care about building the best possible publishing platform.
+I like Leanpub not only for the technical aspect of it (self-publishing, text-based markup, the API) but also because of the company behind it. My interactions with them have always been met with helpful and constructive responses, and you can tell they genuinely care about building the best possible publishing platform.
 
 If you are not convinced yet, read [[https://leanpub.com/authors][Why Leanpub]].
 
@@ -196,11 +196,11 @@ You need a Standard or Pro plan to follow along the instructions in this book.
 ** Emacs and org-mode configuration
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes :exports none
-  ;; This code gets tangled to the output file so that it can be
-  ;; used as a temporary init file for Emacs, but is not shown in
-  ;; the book.
-  (setq user-init-file (or load-file-name (buffer-file-name)))
-  (setq user-emacs-directory (file-name-directory user-init-file))
+;; This code gets tangled to the output file so that it can be
+;; used as a temporary init file for Emacs, but is not shown in
+;; the book.
+(setq user-init-file (or load-file-name (buffer-file-name)))
+(setq user-emacs-directory (file-name-directory user-init-file))
 #+end_src
 
 Emacs configuration is read from =~/.emacs.d/init.el=. Let's review the minimum configuration you need to follow along this book.
@@ -214,42 +214,42 @@ Make sure you have at least Emacs 26.1 installed, this is the minimum needed by 
 First, we need to set up the Emacs package system, which enables you to easily install packages from various repositories. Add the following lines to your =init.el= file to declare the package repositories to use:
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
-  (customize-set-variable
-   'package-archives
-   '(("marmalade" . "https://marmalade-repo.org/packages/")
-     ("melpa"     . "https://melpa.org/packages/")
-     ("elpa"     .  "https://elpa.gnu.org/packages/")))
+(customize-set-variable
+ 'package-archives
+ '(("marmalade" . "https://marmalade-repo.org/packages/")
+   ("melpa"     . "https://melpa.org/packages/")
+   ("elpa"     .  "https://elpa.gnu.org/packages/")))
 #+end_src
 
 Then we initialize the package system and refresh the list of packages.
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
-  (package-initialize)
+(package-initialize)
 
-  (when (not package-archive-contents)
-    (package-refresh-contents))
+(when (not package-archive-contents)
+  (package-refresh-contents))
 #+end_src
 
 I highly recommend using the [[https://www.masteringemacs.org/article/spotlight-use-package-a-declarative-configuration-tool][use-package]] library to manage the packages in your config, since it allows easy, self-contained and declarative installation and configuration of packages. Since =use-package= is not bundled with Emacs, the first thing we do is install and load it by hand. All other packages are then declaratively installed and configured with =use-package=.
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
-  (when (not (package-installed-p 'use-package))
-    (package-install 'use-package))
-  (require 'use-package)
+(when (not (package-installed-p 'use-package))
+  (package-install 'use-package))
+(require 'use-package)
 #+end_src
 
 Using =use-package= we can load the =org= package. This is included with Emacs.
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
-    (use-package org)
+(use-package org)
 #+end_src
 
 Finally, we declare =ox-leanpub=. In this case, =use-package= installs the package thanks to the =:ensure t= declaration, and it loads it only after =org= has been loaded.
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes
-  (use-package ox-leanpub
-    :ensure t
-    :after org)
+(use-package ox-leanpub
+  :ensure t
+  :after org)
 #+end_src
 
 ** Creating the book locally
@@ -295,20 +295,20 @@ Now you can start writing your text inside the new repository. I usually write t
 To get you started, a basic skeleton for a book is the following:
 
 #+begin_src org :tangle files/sample-book.org
-  ,#+startup: indent
-  ,#+tags: noexport sample frontmatter mainmatter backmatter
-  ,#+options: toc:nil tags:nil
+,#+startup: indent
+,#+tags: noexport sample frontmatter mainmatter backmatter
+,#+options: toc:nil tags:nil
 
-  ,#+title: Your book title
-  ,#+author: Your name
+,#+title: Your book title
+,#+author: Your name
 
-  ,* Introduction
+,* Introduction
 
-  Some text
+Some text
 
-  ,* Chapter 1
+,* Chapter 1
 
-  Some more text
+Some more text
 #+end_src
 
 #+begin_tip
@@ -417,7 +417,7 @@ Leanpub's pricing plans changed in October 2019, making it necessary to have a "
 
 - The "On your computer" option under "Where do you want to write" is only available in the paid Leanpub plans. Choose the corresponding git option, and enter the path to your repository as created above.
 - I suggest you use the same name for the "Book URL" and for your Git repository. This is not mandatory, but it makes some of the automation easier (particularly for integration with CI/CD systems).
-- I personally like to enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
+- I usually enable "Send output to Dropbox" to always have the latest rendered version of my books synchronized to my machine, but feel free to leave it disabled if you prefer.
 
 #+attr_leanpub: :width 50%
 [[file:images/leanpub-create-book.png]]
@@ -461,14 +461,14 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 #+end_src
 
-If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/<your-book-id>/preview/ and clicking on the "Create Preview" button.  In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
+If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/<your-book-id>/preview/ and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
 
 #+attr_leanpub: :width 50%
 [[file:images/leanpub-preview-email.png]]
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
 
-*Congratulations!* You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book. Read on to learn
+*Congratulations!* You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book.
 
 ** Additional book configuration
 
