@@ -1,6 +1,83 @@
-# TODO The workflow
+# The workflow
+
+Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle. 
 
 ## Writing
+
+You write your book in Org mode, using the whole range of supported Org markup syntax and features. If you are not familiar with Org yet, I suggest you start at the excellent [orgmode.org](https://orgmode.org/) website for an overview of its features, and that you use the [Org mode manual](https://orgmode.org/manual/) for reference into its details. You can use text formatting markup (*italics*, **bold**, `verbatim`, etc.) tables, code blocks, example blocks, lists of different types, headlines, and more. Most constructs will be correctly exported into Markua format. 
+
+There are a few Leanpub-specific features that you can use in your Org document. 
+
+{blurb, class: "tip"}
+The descriptions below focus on exporting to Leanpub's [Markua](https://leanpub.com/markua/read) format. I **strongly** encourage you to use it; not all the features may be supported if exporting to Leanpub Flavored Markdown (LFM).
+{/blurb}
+
+### Chapters and parts
+
+Normally, a level-1 Org heading (preceded by a single asterisk): 
+
+{format: "org"}
+```
+* This is a chapter
+```
+
+Is exported as a Markua chapter: 
+
+{format: "text"}
+```
+# This is a chapter
+```
+
+However, Markua also supports [parts](https://leanpub.com/markua/read#headings), which are used to denote higher-level groupings of chapters. You can denote a level-1 heading that should be exported as a part by tagging it with `part`. For example: 
+
+{format: "org"}
+```
+* Part one: the beginning :part:
+```
+
+Is exported in Markua as: 
+
+{format: "text"}
+```
+# Part one: the beginning #
+```
+
+### Directives
+
+In Markua, you can use special [directives](https://leanpub.com/markua/read#directives) to denote the book's front-, main- and backmatter sections, which has an impact on how they are numbered and displayed in the table of contents. You can specify these directives by tagging the corresponding level-1 heading (it can be either a chapter or a part heading) with the `frontmatter`, `mainmatter` and `backmatter` tags, respectively. For example: 
+
+{format: "org"}
+```
+* Preface :frontmatter:
+
+  ...
+
+* Chapter one :mainmatter:
+
+  ...
+
+* Appendix one :backmatter:
+
+  ...
+```
+
+Will be exported as: 
+
+{format: "text"}
+```
+{frontmatter}
+# Preface
+
+    ...
+
+{mainmatter}
+# Chapter one
+
+    ...
+
+{backmatter}
+# Appendix one
+```
 
 ## Exporting
 

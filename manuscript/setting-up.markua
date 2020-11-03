@@ -15,6 +15,10 @@ You need a Standard or Pro plan to follow along the instructions in this book.
 
 ## Emacs and org-mode configuration
 
+The centerpiece of your local setup is the Emacs editor with Org-mode and the `ox-leanpub` exporter. There are many different ways of configuring Emacs. In this chapter we will look at setting up a basic configuration by hand, and also an example of a more advanced configuration using [Doom Emacs](http://doomemacs.org/), a popular "Emacs distro" which comes with a set of ready-to-use configuration settings. 
+
+### Manual Emacs configuration
+
 Emacs configuration is read from `~/.emacs.d/init.el`. Let's review the minimum configuration you need to follow along this book. 
 
 {blurb, class: "tip"}
@@ -68,6 +72,43 @@ Finally, we declare `ox-leanpub`. In this case, `use-package` installs the packa
   :ensure t
   :after org)
 ```
+
+### Doom Emacs configuration
+
+[Doom Emacs](http://doomemacs.org/) is one of a few "Emacs Distros" that provide configuration frameworks for more easily utilizing the multiple features of Emacs. The Doom Emacs base configuration takes care of package management, performance tuning and reasonable defaults for a number of settings, allowing you to simply select and configure additional functionality you need. 
+
+To enable Org mode and the `ox-leanpub` exporter in Doom Emacs, you need to do first enable the `org` module by making sure the following line in your `~/.doom.d/init.el` file is uncommented (it already is in the default Doom installation): 
+
+{format: "emacs-lisp"}
+```
+org               ; organize your plain life in plain text
+```
+
+{blurb, class: "tip"}
+You can also enable additional options for the `org` module, whose descriptions you can see in [the module documentation](https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/README.org). These are the options I use: 
+
+{format: "emacs-lisp"}
+```
+(org +pretty +journal +hugo +roam +pandoc +present)
+```
+{/blurb}
+
+To install the `ox-leanpub` exporter, you need to add the following line to your `~/.doom.d/packages.el` file: 
+
+{format: "emacs-lisp"}
+```
+(package! ox-leanpub)
+```
+
+And load the package by adding the following to `~/.doom.d/config.el`: 
+
+{format: "emacs-lisp"}
+```
+(use-package! ox-leanpub
+  :after org)
+```
+
+Once you have made these changes, you need to run `doom sync` from your terminal to make sure all the necessary modules are installed, and then restart Emacs. 
 
 ## Creating the book locally
 
@@ -170,7 +211,6 @@ For this, we use the `ox-leanpub` module which you installed on Emacs. Pressing 
     [M] To temporary buffer       [m] To file
     [o] To file and open
     [b] Multifile: Whole book     [s] Multifile: Subset
-    [c] Multifile: Current chapter
 ```
 
 Press `M b` to export the whole book in "Multifile format", which exports your book from the Org file and creates the [structure and files](https://leanpub.com/manual/read#writing-your-book-in-github-mode) needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks are created (the original source file is `book.org`, everything else is created from it, note that all images stored under `manuscript/resources/images` are omitted from this listing): 
@@ -274,7 +314,7 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 ```
 
-If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/><your-book-id>/preview* and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation. 
+If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/your-book-id/preview>* and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation. 
 
 {width: "50%"}
 ![](images/leanpub-preview-email.png) 
@@ -290,15 +330,19 @@ Leanpub offers you a great degree of control over all aspects of your books aspe
 {width: "50%"}
 ![](images/leanpub-book-menu.png) 
 
-Here are some of the common things that I like to configure: 
+Here are some of the common things that I like to configure right away: 
 
 Visual settings
-: Found in *Settings* / *Book Theme*. You can choose one of the ready-made themes as chosen when you created the book (Business, Technical, Fiction) but I like to choose "Custom" and fine-tune the different parameters. You can customize the page size, fonts, line spacing, line numbering in code blocks, and many other things. I recommend you set at least the page size you want before creating a cover for your book, since it determines the size of the image you have to upload. But otherwise, feel free to experiment, preview your book with different settings and choose the look you like best.
+: Found in *Settings* / *Theme*. You can choose one of the ready-made themes as chosen when you created the book (Business, Technical, Fiction) but I like to choose "Custom" and fine-tune the different parameters. You can customize the page size, fonts, line spacing, line numbering in code blocks, and many other things. I recommend you set at least the page size you want before creating a cover for your book, since it determines the size of the image you have to upload. But otherwise, feel free to experiment, preview your book with different settings and choose the look you like best.
 Cover
-: Found in *Settings* / *Upload Book Cover*. This is perhaps one of the most important visual aspects you'll want to configure to make sure your book stands out. You can upload an image to use as your book cover, although the page also notes that if you do not upload an image, you can also set the cover of your book by storing an image called `title_page.png` or `title_page.jpg` inside your `images` folder. The size of the image depends on the page size of your book.
+: Found in *Settings* / *Book Cover*. This is perhaps one of the most important visual aspects you'll want to configure to make sure your book stands out. You can upload an image to use as your book cover, although the page also notes that if you do not upload an image, you can also set the cover of your book by storing an image called `title_page.png` or `title_page.jpg` inside your `images` folder. The size of the image depends on the page size of your book.
 Title and subtitle
-: Found in the *Book Info* / *Book Details* page. You can modify the title you specified during book creation, and optionally add a subtitle.
+: Found in the *Settings* / *Details* page. You can modify the title you specified during book creation, and optionally add a subtitle.
+Description and teaser text
+: Found in *Settings* / *About*. You enter here multiple text description for your book, which appear in the book's webpage in Leanpub.
 Categories
-: Found in *Book Info* / *Categories*. Allows you to define certain categories for your book, to make them easier to find by readers.
+: Found in *Settings* / *Categories*. Allows you to define certain categories for your book, to make them easier to find by readers.
+
+These are just some of the highlights - you should explore all the sections! 
 
 

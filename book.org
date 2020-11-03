@@ -548,7 +548,7 @@ Normally, a level-1 Org heading (preceded by a single asterisk):
 
 Is exported as a Markua chapter:
 
-#+begin_src markdown
+#+begin_src text
 # This is a chapter
 #+end_src
 
@@ -560,7 +560,7 @@ However, Markua also supports [[https://leanpub.com/markua/read#headings][parts]
 
 Is exported in Markua as:
 
-#+begin_src markdown
+#+begin_src text
 # Part one: the beginning #
 #+end_src
 
@@ -584,9 +584,21 @@ In Markua, you can use special [[https://leanpub.com/markua/read#directives][dir
 
 Will be exported as:
 
-#+begin_src markdown
+#+begin_src text
+{frontmatter}
+# Preface
 
+    ...
+
+{mainmatter}
+# Chapter one
+
+    ...
+
+{backmatter}
+# Appendix one
 #+end_src
+
 ** Exporting
 
 ** Previewing
