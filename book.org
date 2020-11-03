@@ -22,7 +22,7 @@
 # #+end_src
 
 #+NAME: cleanup
-#+BEGIN_SRC emacs-lisp :var data="" :results value :exports none
+#+begin_src emacs-lisp :var data="" :results value :exports none
   (delete-file "typescript")
   (replace-regexp-in-string
    (rx (seq "$ exit" (zero-or-more (group anything)) eol))
@@ -36,7 +36,7 @@
               (zero-or-more (group anything)) eos))
      ""
      (replace-regexp-in-string "" "" data) nil nil 1)))
-#+END_SRC
+#+end_src
 
 # This block can be used to read the contents of the typescript file
 # and clean it up. I have used it when inserting the output of the
@@ -171,9 +171,9 @@ If you are not convinced yet, read [[https://leanpub.com/authors][Why Leanpub]].
 
 The setup described in this book is based on [[https://orgmode.org/][Org mode]], an incredibly powerful markup language and set of tools that allows keeping notes, tracking tasks, and writing documents. One of its key features is the concept of /Exporters/: the same Org document can be exported in a multitude of formats using any of the built-in exporters or a wide variety of community-developed exporters.
 
-One of these exporters is [[https://github.com/zzamboni/ox-leanpub][=ox-leanpub=]], which handles the conversion of Org markup to Leanpub's Markua or Markdown formats, and also splitting and structuring the files as expected by Leanpub. =Ox-leanpub= allows you to write your book entirely in Org mode, and completely manages the production of the necessary files for Leanpub to be able to render your book. This is the exporter we will use in this book.
+One of these exporters is [[https://github.com/zzamboni/ox-leanpub][=ox-leanpub=]], which handles the conversion of Org markup to Leanpub's Markua or Markdown formats, and also splitting and structuring the files as expected by Leanpub. =Ox-leanpub= allows you to write your book or course entirely in Org mode, and completely manages the production of the files needed by Leanpub to render your material. This is the exporter we will use in this book.
 
-Org mode is extensive and powerful, and I invite you to peruse its [[https://orgmode.org/#docs][documentation]] but to be patient --- Org is best learned gradually and over time. Discover the parts that interest you the most first, and go from there. To get started with writing using Org, you can use [[http://ergoemacs.org/emacs/emacs_org_markup.html][Xah's Org Mode Markup Cheatsheet]] to get an overview of the most useful markup constructs. For including source code in your documentation, I recomend reading the [[https://orgmode.org/manual/Working-with-Source-Code.html][Working with Source Code]] section of the Org manual, as well as Howard Abrams' [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][Introduction to Literate Programming]].
+Org mode is extensive and powerful, and I invite you to peruse its [[https://orgmode.org/#docs][documentation]] but also to be patient --- Org is best learned gradually and over time. Discover the parts that interest you the most first, and go from there. To get started with writing using Org, check out [[https://orgmode.org/quickstart.html][Getting started with Org-mode]] in the Org website to get an overview of the most useful markup constructs. For including source code in your documentation, I recommend reading the [[https://orgmode.org/manual/Working-with-Source-Code.html][Working with Source Code]] section of the Org manual, as well as Howard Abrams' [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][Introduction to Literate Programming]].
 
 * Setting up
 :PROPERTIES:
@@ -194,6 +194,10 @@ You need a Standard or Pro plan to follow along the instructions in this book.
 #+end_tip
 
 ** Emacs and org-mode configuration
+
+The centerpiece of your local setup is the Emacs editor with Org-mode and the =ox-leanpub= exporter. There are many different ways of configuring Emacs. In this chapter we will look at setting up a basic configuration by hand, and also an example of a more advanced configuration using [[http://doomemacs.org/][Doom Emacs]], a popular "Emacs distro" which comes with a set of ready-to-use configuration settings.
+
+*** Manual Emacs configuration
 
 #+begin_src emacs-lisp :tangle files/sample-emacs-init.el :mkdirp yes :exports none
 ;; This code gets tangled to the output file so that it can be
@@ -251,6 +255,37 @@ Finally, we declare =ox-leanpub=. In this case, =use-package= installs the packa
   :ensure t
   :after org)
 #+end_src
+
+*** Doom Emacs configuration
+
+[[http://doomemacs.org/][Doom Emacs]] is one of a few "Emacs Distros" that provide configuration frameworks for more easily utilizing the multiple features of Emacs. The Doom Emacs base configuration takes care of package management, performance tuning and reasonable defaults for a number of settings, allowing you to simply select and configure additional functionality you need.
+
+To enable Org mode and the =ox-leanpub= exporter in Doom Emacs, you need to do first enable the =org= module by making sure the following line in your =~/.doom.d/init.el= file is uncommented (it already is in the default Doom installation):
+
+#+begin_src emacs-lisp
+org               ; organize your plain life in plain text
+#+end_src
+
+#+begin_tip
+You can also enable additional options for the =org= module, whose descriptions you can see in [[https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/README.org][the module documentation]]. These are the options I use:
+#+begin_src emacs-lisp
+ (org +pretty +journal +hugo +roam +pandoc +present)
+#+end_src
+#+end_tip
+
+To install the =ox-leanpub= exporter, you need to add the following line to your =~/.doom.d/packages.el= file:
+
+#+begin_src emacs-lisp
+(package! ox-leanpub)
+#+end_src
+
+And load the package by adding the following to =~/.doom.d/config.el=:
+#+begin_src emacs-lisp
+(use-package! ox-leanpub
+  :after org)
+#+end_src
+
+Once you have made these changes, you need to run =doom sync= from your terminal to make sure all the necessary modules are installed, and then restart Emacs.
 
 ** Creating the book locally
 
@@ -350,7 +385,6 @@ For this, we use the =ox-leanpub= module which you installed on Emacs. Pressing 
     [M] To temporary buffer       [m] To file
     [o] To file and open
     [b] Multifile: Whole book     [s] Multifile: Subset
-    [c] Multifile: Current chapter
 #+end_example
 
 Press ~M b~ to export the whole book in "Multifile format", which exports your book from the Org file and creates the [[https://leanpub.com/manual/read#writing-your-book-in-github-mode][structure and files]] needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks are created (the original source file is =book.org=, everything else is created from it, note that all images stored under =manuscript/resources/images= are omitted from this listing):
@@ -461,7 +495,7 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 #+end_src
 
-If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/<your-book-id>/preview/ and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
+If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/your-book-id/preview/ and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
 
 #+attr_leanpub: :width 50%
 [[file:images/leanpub-preview-email.png]]
@@ -477,20 +511,82 @@ Leanpub offers you a great degree of control over all aspects of your books aspe
 #+attr_leanpub: :width 50%
 [[file:images/leanpub-book-menu.png]]
 
-Here are some of the common things that I like to configure:
+Here are some of the common things that I like to configure right away:
 
-- Visual settings :: Found in /Settings/ / /Book Theme/. You can choose one of the ready-made themes as chosen when you created the book (Business, Technical, Fiction) but I like to choose "Custom" and fine-tune the different parameters. You can customize the page size, fonts, line spacing, line numbering in code blocks, and many other things. I recommend you set at least the page size you want before creating a cover for your book, since it determines the size of the image you have to upload. But otherwise, feel free to experiment, preview your book with different settings and choose the look you like best.
-- Cover :: Found in /Settings/ / /Upload Book Cover/. This is perhaps one of the most important visual aspects you'll want to configure to make sure your book stands out. You can upload an image to use as your book cover, although the page also notes that if you do not upload an image, you can also set the cover of your book by storing an image called =title_page.png= or =title_page.jpg= inside your =images= folder. The size of the image depends on the page size of your book.
-- Title and subtitle :: Found in the /Book Info/ / /Book Details/ page. You can modify the title you specified during book creation, and optionally add a subtitle.
-- Categories :: Found in /Book Info/ / /Categories/. Allows you to define certain categories for your book, to make them easier to find by readers.
+- Visual settings :: Found in /Settings/ / /Theme/. You can choose one of the ready-made themes as chosen when you created the book (Business, Technical, Fiction) but I like to choose "Custom" and fine-tune the different parameters. You can customize the page size, fonts, line spacing, line numbering in code blocks, and many other things. I recommend you set at least the page size you want before creating a cover for your book, since it determines the size of the image you have to upload. But otherwise, feel free to experiment, preview your book with different settings and choose the look you like best.
+- Cover :: Found in /Settings/ / /Book Cover/. This is perhaps one of the most important visual aspects you'll want to configure to make sure your book stands out. You can upload an image to use as your book cover, although the page also notes that if you do not upload an image, you can also set the cover of your book by storing an image called =title_page.png= or =title_page.jpg= inside your =images= folder. The size of the image depends on the page size of your book.
+- Title and subtitle :: Found in the /Settings/ / /Details/ page. You can modify the title you specified during book creation, and optionally add a subtitle.
+- Description and teaser text :: Found in /Settings/ / /About/. You enter here multiple text description for your book, which appear in the book's webpage in Leanpub.
+- Categories :: Found in /Settings/ / /Categories/. Allows you to define certain categories for your book, to make them easier to find by readers.
 
-* TODO The workflow
+These are just some of the highlights - you should explore all the sections!
+
+* The workflow
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/the-workflow.markua
 :END:
 
+Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle.
+
 ** Writing
 
+You write your book in Org mode, using the whole range of supported Org markup syntax and features. If you are not familiar with Org yet, I suggest you start at the excellent [[https://orgmode.org/][orgmode.org]] website for an overview of its features, and that you use the [[https://orgmode.org/manual/][Org mode manual]] for reference into its details. You can use text formatting markup (/italics/, *bold*, =verbatim=, etc.) tables, code blocks, example blocks, lists of different types, headlines, and more. Most constructs will be correctly exported into Markua format.
+
+There are a few Leanpub-specific features that you can use in your Org document.
+
+#+begin_tip
+The descriptions below focus on exporting to Leanpub's [[https://leanpub.com/markua/read][Markua]] format. I *strongly* encourage you to use it; not all the features may be supported if exporting to Leanpub Flavored Markdown (LFM).
+#+end_tip
+
+*** Chapters and parts
+
+Normally, a level-1 Org heading (preceded by a single asterisk):
+
+#+begin_src org
+,* This is a chapter
+#+end_src
+
+Is exported as a Markua chapter:
+
+#+begin_src markdown
+# This is a chapter
+#+end_src
+
+However, Markua also supports [[https://leanpub.com/markua/read#headings][parts]], which are used to denote higher-level groupings of chapters. You can denote a level-1 heading that should be exported as a part by tagging it with =part=. For example:
+
+#+begin_src org
+,* Part one: the beginning :part:
+#+end_src
+
+Is exported in Markua as:
+
+#+begin_src markdown
+# Part one: the beginning #
+#+end_src
+
+*** Directives
+
+In Markua, you can use special [[https://leanpub.com/markua/read#directives][directives]] to denote the book's front-, main- and backmatter sections, which has an impact on how they are numbered and displayed in the table of contents. You can specify these directives by tagging the corresponding level-1 heading (it can be either a chapter or a part heading) with the =frontmatter=, =mainmatter= and =backmatter= tags, respectively. For example:
+
+#+begin_src org
+,* Preface :frontmatter:
+
+  ...
+
+,* Chapter one :mainmatter:
+
+  ...
+
+,* Appendix one :backmatter:
+
+  ...
+#+end_src
+
+Will be exported as:
+
+#+begin_src markdown
+
+#+end_src
 ** Exporting
 
 ** Previewing
