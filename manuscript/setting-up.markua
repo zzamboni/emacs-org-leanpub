@@ -218,6 +218,7 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 ```
 .
 ├── README.org
+├── book.html
 ├── book.org
 ├── images -> manuscript/resources/images
 └── manuscript

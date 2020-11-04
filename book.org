@@ -542,7 +542,7 @@ The descriptions below focus on exporting to Leanpub's [[https://leanpub.com/mar
 
 Normally, a level-1 Org heading (preceded by a single asterisk):
 
-#+begin_src org
+#+begin_src text
 ,* This is a chapter
 #+end_src
 
@@ -554,7 +554,7 @@ Is exported as a Markua chapter:
 
 However, Markua also supports [[https://leanpub.com/markua/read#headings][parts]], which are used to denote higher-level groupings of chapters. You can denote a level-1 heading that should be exported as a part by tagging it with =part=. For example:
 
-#+begin_src org
+#+begin_src text
 ,* Part one: the beginning :part:
 #+end_src
 
@@ -568,7 +568,7 @@ Is exported in Markua as:
 
 In Markua, you can use special [[https://leanpub.com/markua/read#directives][directives]] to denote the book's front-, main- and backmatter sections, which has an impact on how they are numbered and displayed in the table of contents. You can specify these directives by tagging the corresponding level-1 heading (it can be either a chapter or a part heading) with the =frontmatter=, =mainmatter= and =backmatter= tags, respectively. For example:
 
-#+begin_src org
+#+begin_src text
 ,* Preface :frontmatter:
 
   ...
@@ -598,6 +598,31 @@ Will be exported as:
 {backmatter}
 # Appendix one
 #+end_src
+
+*** Block elements
+
+Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-block-elements][block elements]] with different semantic meanings. The following are all supported by =ox-leanpub=:
+
+| Block type                              | Gets exported as                         |
+|-----------------------------------------+------------------------------------------|
+| =#+begin_quote= / =#+end_quote=             | Lines prefixed by =>=                      |
+| =#+begin_aside= / =#+end_aside=             | ={aside}= / ={/aside}=                       |
+| =#+begin_blurb= / =#+end_blurb=             | ={blurb}= / ={/blurb}=                       |
+| =#+begin_center= / =#+end_center=           | ={blurb, class: "center"}= / ={/blurb}=      |
+| =#+begin_discussion= / =#+end_discussion=   | ={blurb, class: "discussion"}= / ={/blurb}=  |
+| =#+begin_error= / =#+end_error=             | ={blurb, class: "error"}= / ={/blurb}=       |
+| =#+begin_exercise= / =#+end_exercise=       | ={blurb, class: "exercise"}= / ={/blurb}=    |
+| =#+begin_information= / =#+end_information= | ={blurb, class: "information"}= / ={/blurb}= |
+| =#+begin_note= / =#+end_note=               | ={blurb, class: "information"}= / ={/blurb}= |
+| =#+begin_question= / =#+end_question=       | ={blurb, class: "question"}= / ={/blurb}=    |
+| =#+begin_tip= / =#+end_tip=                 | ={blurb, class: "tip"}= / ={/blurb}=         |
+| =#+begin_warning= / =#+end_warning=         | ={blurb, class: "warning"}= / ={/blurb}=     |
+
+*** Code blocks
+
+*** Book sample
+
+*** Leanpub attributes
 
 ** Exporting
 
