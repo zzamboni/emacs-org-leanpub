@@ -578,8 +578,6 @@ In Markua, you can use special [[https://leanpub.com/markua/read#directives][dir
   ...
 
 ,* Appendix one :backmatter:
-
-  ...
 #+end_src
 
 Will be exported as:
@@ -588,12 +586,12 @@ Will be exported as:
 {frontmatter}
 # Preface
 
-    ...
+  ...
 
 {mainmatter}
 # Chapter one
 
-    ...
+  ...
 
 {backmatter}
 # Appendix one
@@ -603,20 +601,20 @@ Will be exported as:
 
 Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-block-elements][block elements]] with different semantic meanings. The following are all supported by =ox-leanpub=:
 
-| Block type                              | Gets exported as                         |
-|-----------------------------------------+------------------------------------------|
-| =#+begin_quote= / =#+end_quote=             | Lines prefixed by =>=                      |
-| =#+begin_aside= / =#+end_aside=             | ={aside}= / ={/aside}=                       |
-| =#+begin_blurb= / =#+end_blurb=             | ={blurb}= / ={/blurb}=                       |
-| =#+begin_center= / =#+end_center=           | ={blurb, class: "center"}= / ={/blurb}=      |
-| =#+begin_discussion= / =#+end_discussion=   | ={blurb, class: "discussion"}= / ={/blurb}=  |
-| =#+begin_error= / =#+end_error=             | ={blurb, class: "error"}= / ={/blurb}=       |
-| =#+begin_exercise= / =#+end_exercise=       | ={blurb, class: "exercise"}= / ={/blurb}=    |
-| =#+begin_information= / =#+end_information= | ={blurb, class: "information"}= / ={/blurb}= |
-| =#+begin_note= / =#+end_note=               | ={blurb, class: "information"}= / ={/blurb}= |
-| =#+begin_question= / =#+end_question=       | ={blurb, class: "question"}= / ={/blurb}=    |
-| =#+begin_tip= / =#+end_tip=                 | ={blurb, class: "tip"}= / ={/blurb}=         |
-| =#+begin_warning= / =#+end_warning=         | ={blurb, class: "warning"}= / ={/blurb}=     |
+| Block type              | Gets exported as              |
+|-------------------------+-------------------------------|
+| =#+begin/end_quote=       | Lines prefixed by =>=           |
+| =#+begin/end_aside=       | ={aside}=                       |
+| =#+begin/end_blurb=       | ={blurb}=                       |
+| =#+begin/end_center=      | ={blurb, class: "center"}=      |
+| =#+begin/end_discussion=  | ={blurb, class: "discussion"}=  |
+| =#+begin/end_error=       | ={blurb, class: "error"}=       |
+| =#+begin/end_exercise=    | ={blurb, class: "exercise"}=    |
+| =#+begin/end_information= | ={blurb, class: "information"}= |
+| =#+begin/end_note=        | ={blurb, class: "information"}= |
+| =#+begin/end_question=    | ={blurb, class: "question"}=    |
+| =#+begin/end_tip=         | ={blurb, class: "tip"}=         |
+| =#+begin/end_warning=     | ={blurb, class: "warning"}=     |
 
 *** Code blocks
 
