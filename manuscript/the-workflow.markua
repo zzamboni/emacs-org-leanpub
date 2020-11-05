@@ -83,7 +83,7 @@ Leanpub supports a few different [block elements](https://leanpub.com/markua/rea
 
 | Block type                | Gets exported as                |
 |------------------------- |------------------------------- |
-| `#+begin/end_quote`       | Lines prefixed by `>`           |
+| `#+begin/end_quote`       | `{blockquote}`                  |
 | `#+begin/end_aside`       | `{aside}`                       |
 | `#+begin/end_blurb`       | `{blurb}`                       |
 | `#+begin/end_center`      | `{blurb, class: "center"}`      |
