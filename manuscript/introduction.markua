@@ -26,7 +26,7 @@ The high-level workflow for publishing a book using Emacs, org-mode and Leanpub 
 
 In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to a Git repository (Leanpub at the moment supports GitHub and Bitbucket). From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see. 
 
-{blurb, class: "tip"}
+{blurb, class: "tip", icon: "lightbulb"}
 One of Org-mode's amazing features is its ability to evaluate code within the source file and include the code, its output or both in the resulting document. For example, the graph you see above is produced by evaluating the following code using the `dot` command from the [Graphviz](https://graphviz.org/) package. Whenever I need to update the diagram, I type the changes directly in the document and press `C-c C-c` within the code block. Org-mode automatically renders the diagram and updates the figure in the document. 
 
 {format: "dot", id: "workflow-diagram"}

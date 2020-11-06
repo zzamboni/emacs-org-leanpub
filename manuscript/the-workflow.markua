@@ -8,7 +8,7 @@ You write your book in Org mode, using the whole range of supported Org markup s
 
 There are a few Leanpub-specific features that you can use in your Org document. 
 
-{blurb, class: "tip"}
+{blurb, class: "tip", icon: "lightbulb"}
 The descriptions below focus on exporting to Leanpub's [Markua](https://leanpub.com/markua/read) format. I **strongly** encourage you to use it; not all the features may be supported if exporting to Leanpub Flavored Markdown (LFM).
 {/blurb}
 
@@ -95,6 +95,61 @@ Leanpub supports a few different [block elements](https://leanpub.com/markua/rea
 | `#+begin/end_question`    | `{blurb, class: "question"}`    |
 | `#+begin/end_tip`         | `{blurb, class: "tip"}`         |
 | `#+begin/end_warning`     | `{blurb, class: "warning"}`     |
+
+You can specify a [custom icon](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) for a block using the `:icon` attribute in an `#+ATTR_LEANPUB` line: 
+
+{format: "org"}
+```
+#+ATTR_LEANPUB: :icon lightbulb
+#+begin_tip
+Tip with a lightbulb icon instead of the default.
+#+end_tip
+```
+
+You can change the default icon for a block for the whole document, or you can even define your own block types, by using `#+MARKUA_BLOCK` lines. The syntax is: 
+
+{format: "org"}
+```
+#+MARKUA_BLOCK: blockname [:class classname] [:icon iconname]
+```
+
+Where: 
+
+* `blockname` is the name of the block to define. Can be one of the existing block names (to redefine it) or a new one.
+* `classname` (optional) is the name of an existing supported Markua block class (as listed in the table above). It can be omitted to use a plain `{blurb}` block.
+* `iconname` (optional) is a [valid icon name](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) to use for the block.
+
+At least one of `:class` or `:icon` needs to be specified. 
+
+For example, we could change the default icon of `tip` blocks to be a checkmark: 
+
+{format: "org"}
+```
+#+MARKUA_BLOCK: tip :class tip :icon check
+
+#+begin_tip
+Tip with a checkmark!
+#+end_tip
+```
+
+{blurb, icon: "check", class: "tip"}
+Tip with a checkmark!
+{/blurb}
+
+We could also define a completely new block type: 
+
+{format: "org"}
+```
+#+MARKUA_BLOCK: leanpub :icon leanpub
+
+#+begin_leanpub
+Leanpub block!
+#+end_leanpub
+```
+
+{blurb, icon: "leanpub"}
+Leanpub block!
+{/blurb}
 
 ### Code blocks
 
