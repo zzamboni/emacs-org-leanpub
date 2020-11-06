@@ -618,14 +618,19 @@ Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-
 | =#+begin/end_tip=         | ={blurb, class: "tip"}=         |
 | =#+begin/end_warning=     | ={blurb, class: "warning"}=     |
 
-You can specify a [[https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support][custom icon]] for a block using the =:icon= attribute in an =#+ATTR_LEANPUB= line:
+You can specify a [[https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support][custom icon]] for a block using the =:icon= attribute in an =#+ATTR_LEANPUB= line. For example:
 
 #+begin_src org
-,#+ATTR_LEANPUB: :icon lightbulb
+,#+ATTR_LEANPUB: :icon github
 ,#+begin_tip
-Tip with a lightbulb icon instead of the default.
+Tip with a GitHub icon instead of the default.
 ,#+end_tip
 #+end_src
+
+#+ATTR_LEANPUB: :icon github
+#+begin_tip
+Tip with a GitHub icon instead of the default.
+#+end_tip
 
 You can change the default icon for a block for the whole document, or you can even define your own block types, by using =#+MARKUA_BLOCK= lines. The syntax is:
 
@@ -633,29 +638,26 @@ You can change the default icon for a block for the whole document, or you can e
 ,#+MARKUA_BLOCK: blockname [:class classname] [:icon iconname]
 #+end_src
 
-Where:
+Where =blockname= and at least one of =:class= or =:icon= needs to be specified:
 - =blockname= is the name of the block to define. Can be one of the existing block names (to redefine it) or a new one.
 - =classname= (optional) is the name of an existing supported Markua block class (as listed in the table above). It can be omitted to use a plain ={blurb}= block.
 - =iconname= (optional) is a [[https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support][valid icon name]] to use for the block.
 
-At least one of =:class= or =:icon= needs to be specified.
-
-For example, we could change the default icon of =tip= blocks to be a checkmark:
+For example, in this book I change the default icon of =tip= blocks to be a lightbulb instead of the default key icon:
 
 #+begin_src org
-,#+MARKUA_BLOCK: tip :class tip :icon check
+,#+MARKUA_BLOCK: tip :class tip :icon lightbulb
 
 ,#+begin_tip
-Tip with a checkmark!
+Tip with a lightbulb!
 ,#+end_tip
 #+end_src
 
-#+attr_leanpub: :icon check
 #+begin_tip
-Tip with a checkmark!
+Tip with a lightbulb!
 #+end_tip
 
-We could also define a completely new block type:
+We can also define a completely new block type:
 
 #+begin_src org
 ,#+MARKUA_BLOCK: leanpub :icon leanpub
