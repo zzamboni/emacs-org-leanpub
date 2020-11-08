@@ -1,7 +1,7 @@
 :DOC_CONFIG:
 #+startup: indent logdrawer
 #+tags: noexport sample frontmatter mainmatter backmatter
-#+options: toc:nil tags:nil
+#+options: toc:nil tags:nil h:9
 #+todo: TODO(t) DRAFT(f@/!) | DONE(d!) CANCELED(c)
 #+markua_block: tip :class tip :icon lightbulb
 #+markua_block: leanpub :icon leanpub
