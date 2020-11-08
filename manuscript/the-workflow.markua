@@ -153,6 +153,41 @@ Leanpub block!
 Leanpub block!
 {/blurb}
 
+{id: "block-captions"}
+1. Block captions
+
+   If a `#+CAPTION` is specified for a block, it is exported as a headline at the top of the block. By default, the level of the headline is one below the current level (e.g. if the block is under a level-2 headline, its caption will be produced as a level-3 headline). You can configure this for the whole document by setting the `#+MARKUA_BLOCK_CAPTION_LEVEL` option, or for individual blocks by specifying the `:caption-level` option in the `#+ATTR_LEANPUB` line. Valid values for this option are: 
+   
+   * `same`: the caption will be produced as a same-level headline;
+   * A number 1-9: the caption will be produced as a headline of the specified level;
+   * `below` (or anything else): default behavior, caption will be produced at one level below the current one.
+   
+   For example: 
+   
+   {format: "org"}
+   ```
+   #+caption: Default caption level
+   #+begin_note
+   This is a block with the default caption level.
+   #+end_note
+   
+   #+caption: Fixed level-2 caption
+   #+attr_leanpub: :caption-level 2
+   #+begin_note
+   This block's headline will be bigger!
+   #+end_note
+   ```
+   
+   {blurb, class: "information", caption: "Default caption level"}
+   ##### Default caption level
+   This is a block with the default caption level.
+   {/blurb}
+   
+   {blurb, class: "information", caption: "Fixed level-2 caption"}
+   ## Fixed level-2 caption
+   This block's headline will be bigger!
+   {/blurb}
+
 ### Code blocks
 
 ### Book sample
