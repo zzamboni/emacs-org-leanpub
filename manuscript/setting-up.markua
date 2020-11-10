@@ -9,7 +9,7 @@ Note that among Leanpub's pricing plans, only the Standard and Pro plans support
 {width: "40%"}
 ![](images/leanpub-pricing-plans.png) 
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 You need a Standard or Pro plan to follow along the instructions in this book.
 {/blurb}
 
@@ -21,7 +21,7 @@ The centerpiece of your local setup is the Emacs editor with Org-mode and the `o
 
 Emacs configuration is read from `~/.emacs.d/init.el`. Let's review the minimum configuration you need to follow along this book. 
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 We show here a bare-minimum example, but Emacs configuration is an art, and there is a lot of things you can configure to improve the usability, functionality and aesthetics of your setup. For a realistic working configuration example, check out my [full Emacs configuration](https://zzamboni.org/post/my-emacs-configuration-with-commentary/). If you are an experienced Emacs user and have your configuration set up already, please check at least the [Publishing to Leanpub](https://zzamboni.org/post/my-emacs-configuration-with-commentary/#publishing-to-leanpub) section! 
 
 Make sure you have at least Emacs 26.1 installed, this is the minimum needed by some of the packages you use.
@@ -84,7 +84,7 @@ To enable Org mode and the `ox-leanpub` exporter in Doom Emacs, you need to do f
 org               ; organize your plain life in plain text
 ```
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 You can also enable additional options for the `org` module, whose descriptions you can see in [the module documentation](https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/README.org). These are the options I use: 
 
 {format: "emacs-lisp"}
@@ -122,7 +122,7 @@ The first step is to choose a short name or *slug* for your book. This is the UR
 
 Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket. 
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 I use the command-line utility [hub](https://hub.github.com/) to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [git-spindle](https://seveas.github.io/git-spindle/bitbucket.html) to interact with it from the command line as well.
 {/blurb}
 
@@ -173,7 +173,7 @@ Some text
 Some more text
 ```
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 For a more complex example, you can find the sources for this book at <https://github.com/zzamboni/emacs-org-leanpub>.
 {/blurb}
 
@@ -238,7 +238,7 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
     └── tips-and-tricks.markua
 ```
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 This file tree is also generated automatically from within the book's source document, by using a simple shell command inside an Org-mode `src` block, like this: 
 
 {format: "org"}

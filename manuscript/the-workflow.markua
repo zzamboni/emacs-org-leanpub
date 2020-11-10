@@ -8,7 +8,7 @@ You write your book in Org mode, using the whole range of supported Org markup s
 
 There are a few Leanpub-specific features that you can use in your Org document. 
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 The descriptions below focus on exporting to Leanpub's [Markua](https://leanpub.com/markua/read) format. I **strongly** encourage you to use it; not all the features may be supported if exporting to Leanpub Flavored Markdown (LFM).
 {/blurb}
 
@@ -138,7 +138,7 @@ Tip with a lightbulb!
 #+end_tip
 ```
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, class: "tip"}
 Tip with a lightbulb!
 {/blurb}
 
