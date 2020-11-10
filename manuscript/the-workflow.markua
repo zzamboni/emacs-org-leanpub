@@ -81,22 +81,26 @@ Will be exported as:
 
 Leanpub supports a few different [block elements](https://leanpub.com/markua/read#leanpub-auto-block-elements) with different semantic meanings. The following are all supported by `ox-leanpub`: 
 
-| Block type                | Gets exported as                |
-|------------------------- |------------------------------- |
-| `#+begin/end_quote`       | `{blockquote}`                  |
-| `#+begin/end_aside`       | `{aside}`                       |
-| `#+begin/end_blurb`       | `{blurb}`                       |
-| `#+begin/end_center`      | `{blurb, class: "center"}`      |
-| `#+begin/end_discussion`  | `{blurb, class: "discussion"}`  |
-| `#+begin/end_error`       | `{blurb, class: "error"}`       |
-| `#+begin/end_exercise`    | `{blurb, class: "exercise"}`    |
-| `#+begin/end_information` | `{blurb, class: "information"}` |
-| `#+begin/end_note`        | `{blurb, class: "information"}` |
-| `#+begin/end_question`    | `{blurb, class: "question"}`    |
-| `#+begin/end_tip`         | `{blurb, class: "tip"}`         |
-| `#+begin/end_warning`     | `{blurb, class: "warning"}`     |
+| Block type                | Gets exported as                                     |
+|------------------------- |---------------------------------------------------- |
+| `#+begin/end_quote`       | `{blockquote}`                                       |
+| `#+begin/end_aside`       | `{aside}`                                            |
+| `#+begin/end_blurb`       | `{blurb}`                                            |
+| `#+begin/end_center`      | `{blurb, class: "center"}`                           |
+| `#+begin/end_discussion`  | `{blurb, class: "discussion"}`                       |
+| `#+begin/end_error`       | `{blurb, class: "error"}`                            |
+| `#+begin/end_exercise`    | `{blurb, class: "exercise"}`                         |
+| `#+begin/end_information` | `{blurb, class: "information"}`                      |
+| `#+begin/end_note`        | `{blurb, class: "information", icon: "sticky-note"}` |
+| `#+begin/end_question`    | `{blurb, class: "question"}`                         |
+| `#+begin/end_tip`         | `{blurb, class: "tip"}`                              |
+| `#+begin/end_warning`     | `{blurb, class: "warning"}`                          |
 
-You can specify a [custom icon](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) for a block using the `:icon` attribute in an `#+ATTR_LEANPUB` line. For example: 
+{blurb, class: "information", icon: "sticky-note"}
+The "Note" environment is not natively supported by Leanpub, but it is supported by Org, so `ox-leanpub` renders it as a `blurb` with a custom icon, like the one you see here.
+{/blurb}
+
+You can specify a [custom icon](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) for any block using the `:icon` attribute in an `#+ATTR_LEANPUB` line. For example: 
 
 {format: "org"}
 ```
@@ -153,6 +157,8 @@ Leanpub block!
 Leanpub block!
 {/blurb}
 
+You can see a sample of all the default blocks in [Appendix A](#appendix-block-types). 
+
 {id: "block-captions"}
 #### Block captions
 
@@ -167,15 +173,15 @@ For example:
 {format: "org"}
 ```
 #+caption: Default caption level
-#+begin_note
+#+begin_information
 This is a block with the default caption level.
-#+end_note
+#+end_information
 
 #+caption: Fixed level-2 caption
 #+attr_leanpub: :caption-level 2
-#+begin_note
+#+begin_information
 This block's headline will be bigger!
-#+end_note
+#+end_information
 ```
 
 {blurb, class: "information", caption: "Default caption level"}

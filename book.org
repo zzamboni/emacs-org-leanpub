@@ -6,6 +6,9 @@
 #+markua_block: tip :class tip :icon lightbulb
 #+markua_block: leanpub :icon leanpub
 
+# Macro which generates sample blocks for all the supported block types
+#+macro: blocksamples (eval (mapconcat (lambda (f) (format "#+begin_%s\n%s block, produced by =#+begin_%s= / =#+end_%s=\n#+end_%s" f (s-upper-camel-case f) f f f)) (s-split-words "quote aside blurb center discussion error exercise information note question tip warning") "\n"))
+
 # Subset Preview includes all chapters, that way I can use it to do a
 # quick preview of the PDF without having to wait for EPUB/MOBI
 # versions in a Full Preview.
@@ -603,22 +606,26 @@ Will be exported as:
 
 Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-block-elements][block elements]] with different semantic meanings. The following are all supported by =ox-leanpub=:
 
-| Block type              | Gets exported as              |
-|-------------------------+-------------------------------|
-| =#+begin/end_quote=       | ={blockquote}=                  |
-| =#+begin/end_aside=       | ={aside}=                       |
-| =#+begin/end_blurb=       | ={blurb}=                       |
-| =#+begin/end_center=      | ={blurb, class: "center"}=      |
-| =#+begin/end_discussion=  | ={blurb, class: "discussion"}=  |
-| =#+begin/end_error=       | ={blurb, class: "error"}=       |
-| =#+begin/end_exercise=    | ={blurb, class: "exercise"}=    |
-| =#+begin/end_information= | ={blurb, class: "information"}= |
-| =#+begin/end_note=        | ={blurb, class: "information"}= |
-| =#+begin/end_question=    | ={blurb, class: "question"}=    |
-| =#+begin/end_tip=         | ={blurb, class: "tip"}=         |
-| =#+begin/end_warning=     | ={blurb, class: "warning"}=     |
+| Block type              | Gets exported as                                   |
+|-------------------------+----------------------------------------------------|
+| =#+begin/end_quote=       | ={blockquote}=                                       |
+| =#+begin/end_aside=       | ={aside}=                                            |
+| =#+begin/end_blurb=       | ={blurb}=                                            |
+| =#+begin/end_center=      | ={blurb, class: "center"}=                           |
+| =#+begin/end_discussion=  | ={blurb, class: "discussion"}=                       |
+| =#+begin/end_error=       | ={blurb, class: "error"}=                            |
+| =#+begin/end_exercise=    | ={blurb, class: "exercise"}=                         |
+| =#+begin/end_information= | ={blurb, class: "information"}=                      |
+| =#+begin/end_note=        | ={blurb, class: "information", icon: "sticky-note"}= |
+| =#+begin/end_question=    | ={blurb, class: "question"}=                         |
+| =#+begin/end_tip=         | ={blurb, class: "tip"}=                              |
+| =#+begin/end_warning=     | ={blurb, class: "warning"}=                          |
 
-You can specify a [[https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support][custom icon]] for a block using the =:icon= attribute in an =#+ATTR_LEANPUB= line. For example:
+#+begin_note
+The "Note" environment is not natively supported by Leanpub, but it is supported by Org, so =ox-leanpub= renders it as a =blurb= with a custom icon, like the one you see here.
+#+end_note
+
+You can specify a [[https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support][custom icon]] for any block using the =:icon= attribute in an =#+ATTR_LEANPUB= line. For example:
 
 #+begin_src org
 ,#+ATTR_LEANPUB: :icon github
@@ -671,6 +678,8 @@ Leanpub block!
 Leanpub block!
 #+end_leanpub
 
+You can see a sample of all the default blocks in [[#appendix-block-types][Appendix A]].
+
 **** Block captions
 :PROPERTIES:
 :CUSTOM_ID: block-captions
@@ -686,27 +695,27 @@ For example:
 
 #+begin_src org
 ,#+caption: Default caption level
-,#+begin_note
+,#+begin_information
 This is a block with the default caption level.
-,#+end_note
+,#+end_information
 
 ,#+caption: Fixed level-2 caption
 ,#+attr_leanpub: :caption-level 2
-,#+begin_note
+,#+begin_information
 This block's headline will be bigger!
-,#+end_note
+,#+end_information
 #+end_src
 
 #+caption: Default caption level
-#+begin_note
+#+begin_information
 This is a block with the default caption level.
-#+end_note
+#+end_information
 
 #+caption: Fixed level-2 caption
 #+attr_leanpub: :caption-level 2
-#+begin_note
+#+begin_information
 This block's headline will be bigger!
-#+end_note
+#+end_information
 
 *** Code blocks
 
@@ -747,13 +756,27 @@ This block's headline will be bigger!
 :EXPORT_FILE_NAME: manuscript/tips-and-tricks.markua
 :END:
 
+** Headline export levels
+
+=H= option: https://orgmode.org/manual/Export-Settings.html
+
 ** org-special-ctrl-a/e/k
 
 ** Visual configuration
 
 ** Code block execution and output processing (like in this book)
 
-* Colophon :backmatter:
+* Appendix A: Block types :backmatter:
+:PROPERTIES:
+:EXPORT_FILE_NAME: manuscript/appendix-a--block-types.markua
+:CUSTOM_ID: appendix-block-types
+:END:
+
+The following are samples of all the blocks supported by default by =ox-leanpub=, and their default rendering by Leanpub.
+
+{{{blocksamples}}}
+
+* Colophon
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/colophon.markua
 :END:

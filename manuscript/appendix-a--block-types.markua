@@ -1,0 +1,54 @@
+{id: "appendix-block-types"}
+# Appendix A: Block types
+
+The following are samples of all the blocks supported by default by `ox-leanpub`, and their default rendering by Leanpub. 
+
+{blockquote}
+Quote block, produced by `#+begin_quote` / `#+end_quote`
+{/blockquote}
+
+{aside}
+Aside block, produced by `#+begin_aside` / `#+end_aside`
+{/aside}
+
+{blurb}
+Blurb block, produced by `#+begin_blurb` / `#+end_blurb`
+{/blurb}
+
+{blurb, class: "center"}
+Center block, produced by `#+begin_center` / `#+end_center`
+{/blurb}
+
+{blurb, class: "discussion"}
+Discussion block, produced by `#+begin_discussion` / `#+end_discussion`
+{/blurb}
+
+{blurb, class: "error"}
+Error block, produced by `#+begin_error` / `#+end_error`
+{/blurb}
+
+{blurb, class: "exercise"}
+Exercise block, produced by `#+begin_exercise` / `#+end_exercise`
+{/blurb}
+
+{blurb, class: "information"}
+Information block, produced by `#+begin_information` / `#+end_information`
+{/blurb}
+
+{blurb, class: "information", icon: "sticky-note"}
+Note block, produced by `#+begin_note` / `#+end_note`
+{/blurb}
+
+{blurb, class: "question"}
+Question block, produced by `#+begin_question` / `#+end_question`
+{/blurb}
+
+{blurb, class: "tip", icon: "lightbulb"}
+Tip block, produced by `#+begin_tip` / `#+end_tip`
+{/blurb}
+
+{blurb, class: "warning"}
+Warning block, produced by `#+begin_warning` / `#+end_warning`
+{/blurb}
+
+

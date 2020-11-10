@@ -112,7 +112,7 @@ Once you have made these changes, you need to run `doom sync` from your terminal
 
 ## Creating the book locally
 
-{blurb, class: "information"}
+{blurb, class: "information", icon: "sticky-note"}
 All the steps that follow show the actual commands and operations I performed while setting up the book you are reading! You can find the sources for the current version of this book at <https://github.com/zzamboni/emacs-org-leanpub>.
 {/blurb}
 
@@ -223,6 +223,7 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 └── manuscript
     ├── Book.txt
     ├── Subset.txt
+    ├── appendix-a--block-types.markua
     ├── automation.markua
     ├── colophon.markua
     ├── frontmatter.txt
