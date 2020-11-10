@@ -9,6 +9,10 @@
 # Macro which generates sample blocks for all the supported block types
 #+macro: blocksamples (eval (mapconcat (lambda (f) (format "#+begin_%s\n%s block, produced by =#+begin_%s= / =#+end_%s=\n#+end_%s" f (s-upper-camel-case f) f f f)) (s-split-words "quote aside blurb center discussion error exercise information note question tip warning") "\n"))
 
+# Other macros
+#+macro: emacsversion (eval emacs-version)
+#+macro: orgversion (eval org-version)
+
 # Subset Preview includes all chapters, that way I can use it to do a
 # quick preview of the PDF without having to wait for EPUB/MOBI
 # versions in a Full Preview.
@@ -781,6 +785,6 @@ The following are samples of all the blocks supported by default by =ox-leanpub=
 :EXPORT_FILE_NAME: manuscript/colophon.markua
 :END:
 
-This book was written completely in GNU Emacs 26.3 using Org mode version 9.3.7. The text is exported to Leanpub Markua format and structure using the =ox-leanpub= package, and published using Leanpub.
+This book was written in Emacs {{{emacsversion}}} using Org mode version {{{orgversion}}}. The text is exported to Leanpub Markua format and structure using the [[ https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
 
 Cover photo by [[https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/][Sharon McCutcheon]] from Pexels.
