@@ -773,13 +773,16 @@ The list of block samples in [[#appendix-block-types][Appendix A: Block types]] 
 
 #+name: block-samples
 #+begin_src emacs-lisp :results drawer :exports both
-(mapconcat (lambda (b) (format "#+begin_%s
+(mapconcat
+ (lambda (b)
+   (format "#+begin_%s
 %s block, produced by:\\\\
 =#+begin_%s=\\\\
 =...=\\\\
 =#+end_%s=\\\\
-#+end_%s" b (upcase-initials b) b b b))
- (sort (mapcar #'car org-leanpub-markua--block-definitions) #'string-lessp)
+,#+end_%s" b (upcase-initials b) b b b))
+ (sort (mapcar #'car org-leanpub-markua--block-definitions)
+       #'string-lessp)
  "\n")
 #+end_src
 
