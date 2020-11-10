@@ -5,6 +5,7 @@
 #+todo: TODO(t) DRAFT(f@/!) | DONE(d!) CANCELED(c)
 #+markua_block: idea :class tip :icon lightbulb
 #+markua_block: leanpub :icon leanpub
+#+markua_block: code :icon laptop-code
 
 # Macros
 #+macro: emacsversion (eval emacs-version)
@@ -813,9 +814,9 @@ The =:exports both= header makes it so that you can see the code above, as well 
 :CUSTOM_ID: appendix-block-types
 :END:
 
-#+begin_idea
+#+begin_code
 The block samples in this appendix are generated programmatically by the code shown in [[*Code block execution and output processing][Code block execution and output processing]]!
-#+end_idea
+#+end_code
 
 The following are samples of all the blocks supported by default by =ox-leanpub=, and their default rendering by Leanpub.
 

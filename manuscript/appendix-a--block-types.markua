@@ -1,7 +1,7 @@
 {id: "appendix-block-types"}
 # Appendix A: Block types
 
-{blurb, class: "tip", icon: "lightbulb"}
+{blurb, icon: "laptop-code"}
 The block samples in this appendix are generated programmatically by the code shown in Code block execution and output processing!
 {/blurb}
 
