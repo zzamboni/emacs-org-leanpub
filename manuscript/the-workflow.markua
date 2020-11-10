@@ -96,7 +96,7 @@ Leanpub supports a few different [block elements](https://leanpub.com/markua/rea
 | `#+begin/end_tip`         | `{blurb, class: "tip"}`                              |
 | `#+begin/end_warning`     | `{blurb, class: "warning"}`                          |
 
-{blurb, class: "information", icon: "sticky-note"}
+{blurb, class: "information"}
 The "Note" environment is not natively supported by Leanpub, but it is supported by Org, so `ox-leanpub` renders it as a `blurb` with a custom icon, like the one you see here.
 {/blurb}
 

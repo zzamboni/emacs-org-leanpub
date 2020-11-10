@@ -35,7 +35,7 @@ Exercise block, produced by `#+begin_exercise` / `#+end_exercise`
 Information block, produced by `#+begin_information` / `#+end_information`
 {/blurb}
 
-{blurb, class: "information", icon: "sticky-note"}
+{blurb, class: "information"}
 Note block, produced by `#+begin_note` / `#+end_note`
 {/blurb}
 
