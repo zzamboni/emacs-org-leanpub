@@ -83,37 +83,37 @@ Leanpub supports a few different [block elements](https://leanpub.com/markua/rea
 
 {format: "emacs-lisp", id: "block-table"}
 ```
-(let* ((blocks (copy-sequence org-leanpub-markua--block-definitions))
-       (sorted-blocks (sort blocks (lambda (a b) (string-lessp (car a) (car b))))))
+(let* ((blocks (cl-sort (cl-copy-seq org-leanpub-markua--block-definitions)
+                        #'string-lessp :key #'car)))
   (concat
    "| Block type | Gets exported as |
 |------------+------------------|\n"
    (mapconcat
-    (lambda (b)
-      (let ((block-name (car b)))
-        (format "| =#+begin/end_%s= | %s |"
-                block-name
+    (lambda (block-def)
+      (cl-destructuring-bind (org-block markua-block markua-attrs) block-def
+        (format "| =#+begin/end_%s= | =%s= |"
+                org-block
                 (org-leanpub-markua--attribute-line-string
-                 (cadr b) (caddr b)))))
-    sorted-blocks
+                 markua-block markua-attrs))))
+    blocks
     "\n")))
 ```
 
-| Block type                | Gets exported as              |
-|------------------------- |----------------------------- |
-| `#+begin/end_aside`       | {aside}                       |
-| `#+begin/end_blockquote`  | {blockquote}                  |
-| `#+begin/end_blurb`       | {blurb}                       |
-| `#+begin/end_center`      | {blurb, class: "center"}      |
-| `#+begin/end_discussion`  | {blurb, class: "discussion"}  |
-| `#+begin/end_error`       | {blurb, class: "error"}       |
-| `#+begin/end_exercise`    | {blurb, class: "exercise"}    |
-| `#+begin/end_information` | {blurb, class: "information"} |
-| `#+begin/end_note`        | {blurb, class: "information"} |
-| `#+begin/end_question`    | {blurb, class: "question"}    |
-| `#+begin/end_quote`       | {blockquote}                  |
-| `#+begin/end_tip`         | {blurb, class: "tip"}         |
-| `#+begin/end_warning`     | {blurb, class: "warning"}     |
+| Block type                | Gets exported as                |
+|------------------------- |------------------------------- |
+| `#+begin/end_aside`       | `{aside}`                       |
+| `#+begin/end_blockquote`  | `{blockquote}`                  |
+| `#+begin/end_blurb`       | `{blurb}`                       |
+| `#+begin/end_center`      | `{blurb, class: "center"}`      |
+| `#+begin/end_discussion`  | `{blurb, class: "discussion"}`  |
+| `#+begin/end_error`       | `{blurb, class: "error"}`       |
+| `#+begin/end_exercise`    | `{blurb, class: "exercise"}`    |
+| `#+begin/end_information` | `{blurb, class: "information"}` |
+| `#+begin/end_note`        | `{blurb, class: "information"}` |
+| `#+begin/end_question`    | `{blurb, class: "question"}`    |
+| `#+begin/end_quote`       | `{blockquote}`                  |
+| `#+begin/end_tip`         | `{blurb, class: "tip"}`         |
+| `#+begin/end_warning`     | `{blurb, class: "warning"}`     |
 
 {blurb, class: "tip"}
 You can see a sample of all these default blocks in [Appendix A](#appendix-block-types).
