@@ -610,8 +610,9 @@ Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-
 
 #+name: block-table
 #+begin_src emacs-lisp :results drawer :exports both
-(let* ((blocks (cl-sort (cl-copy-seq org-leanpub-markua--block-definitions)
-                        #'string-lessp :key #'car)))
+(let* ((blocks (cl-sort
+                (cl-copy-seq org-leanpub-markua--block-defs)
+                #'string-lessp :key #'car)))
   (concat
    "| Block type | Gets exported as |
 |------------+------------------|\n"

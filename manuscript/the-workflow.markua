@@ -83,8 +83,9 @@ Leanpub supports a few different [block elements](https://leanpub.com/markua/rea
 
 {format: "emacs-lisp", id: "block-table"}
 ```
-(let* ((blocks (cl-sort (cl-copy-seq org-leanpub-markua--block-definitions)
-                        #'string-lessp :key #'car)))
+(let* ((blocks (cl-sort
+                (cl-copy-seq org-leanpub-markua--block-defs)
+                #'string-lessp :key #'car)))
   (concat
    "| Block type | Gets exported as |
 |------------+------------------|\n"
