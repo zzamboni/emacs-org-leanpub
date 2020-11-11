@@ -608,24 +608,9 @@ Will be exported as:
 
 Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-block-elements][block elements]] with different semantic meanings. The following are all supported by =ox-leanpub=:
 
-#+name: block-table
-#+begin_src emacs-lisp :results drawer :exports both
-(let* ((blocks (cl-sort
-                (cl-copy-seq org-leanpub-markua--block-defs)
-                #'string-lessp :key #'car)))
-  (concat
-   "| Block type | Gets exported as |
-|------------+------------------|\n"
-   (mapconcat
-    (lambda (block-def)
-      (cl-destructuring-bind (org-block markua-block markua-attrs) block-def
-        (format "| =#+begin/end_%s= | =%s= |"
-                org-block
-                (org-leanpub-markua--attribute-line-string
-                 markua-block markua-attrs))))
-    blocks
-    "\n")))
-#+end_src
+#+begin_code
+This table is generated programmatically by the code shown in [[*Code block execution and output processing][Code block execution and output processing]]!
+#+end_code
 
 #+RESULTS: block-table
 :results:
@@ -830,6 +815,25 @@ If you look at the source of Appendix A, you will see that line.
 The =:results drawer= part of the header tells Org that the results should be enclosed in a [[https://orgmode.org/manual/Drawers.html][drawer]] - this is a grouping mechanism that allows the results to be enclosed in a group-like construct, but still be considered as part of the Org document, so that they are rendered as part of the book you are reading. There are multiple possible values for the [[https://orgmode.org/manual/Results-of-Evaluation.html][=:results=]] header, depending on what and how you want its results to be interpreted.
 
 The =:exports both= header makes it so that you can see the code above, as well as its results in Appendix A. You can choose =both=, =code=, =results= or =none= as values to [[https://orgmode.org/manual/Exporting-Code-Blocks.html][=:exports=]], depending on what you want in the exported document.
+
+#+name: block-table
+#+begin_src emacs-lisp :results drawer :exports both
+(let ((blocks (cl-sort
+               (cl-copy-seq org-leanpub-markua--block-defs)
+               #'string-lessp :key #'car)))
+  (concat
+   ;; Table header is fixed
+   "| Block type | Gets exported as |
+|------------+------------------|\n"
+   ;; Table rows are computed
+   (mapconcat
+    (lambda (block-def)
+      (cl-destructuring-bind (src-blk dst-blk dst-attrs) block-def
+        (format "| =#+begin/end_%s= | =%s= |" src-blk
+                (org-leanpub-markua--attr-str dst-attrs dst-blk))))
+    blocks
+    "\n")))
+#+end_src
 
 * Appendix A: Block types :backmatter:
 :PROPERTIES:

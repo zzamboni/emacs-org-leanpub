@@ -81,24 +81,9 @@ Will be exported as:
 
 Leanpub supports a few different [block elements](https://leanpub.com/markua/read#leanpub-auto-block-elements) with different semantic meanings. The following are all supported by `ox-leanpub`: 
 
-{format: "emacs-lisp", id: "block-table"}
-```
-(let* ((blocks (cl-sort
-                (cl-copy-seq org-leanpub-markua--block-defs)
-                #'string-lessp :key #'car)))
-  (concat
-   "| Block type | Gets exported as |
-|------------+------------------|\n"
-   (mapconcat
-    (lambda (block-def)
-      (cl-destructuring-bind (org-block markua-block markua-attrs) block-def
-        (format "| =#+begin/end_%s= | =%s= |"
-                org-block
-                (org-leanpub-markua--attribute-line-string
-                 markua-block markua-attrs))))
-    blocks
-    "\n")))
-```
+{blurb, icon: "laptop-code"}
+This table is generated programmatically by the code shown in Code block execution and output processing!
+{/blurb}
 
 | Block type                | Gets exported as                |
 |------------------------- |------------------------------- |

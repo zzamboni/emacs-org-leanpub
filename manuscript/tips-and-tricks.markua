@@ -52,4 +52,23 @@ The `:results drawer` part of the header tells Org that the results should be en
 
 The `:exports both` header makes it so that you can see the code above, as well as its results in Appendix A. You can choose `both`, `code`, `results` or `none` as values to [`:exports`](https://orgmode.org/manual/Exporting-Code-Blocks.html), depending on what you want in the exported document. 
 
+{format: "emacs-lisp", id: "block-table"}
+```
+(let ((blocks (cl-sort
+               (cl-copy-seq org-leanpub-markua--block-defs)
+               #'string-lessp :key #'car)))
+  (concat
+   ;; Table header is fixed
+   "| Block type | Gets exported as |
+|------------+------------------|\n"
+   ;; Table rows are computed
+   (mapconcat
+    (lambda (block-def)
+      (cl-destructuring-bind (src-blk dst-blk dst-attrs) block-def
+        (format "| =#+begin/end_%s= | =%s= |" src-blk
+                (org-leanpub-markua--attr-str dst-attrs dst-blk))))
+    blocks
+    "\n")))
+```
+
 
