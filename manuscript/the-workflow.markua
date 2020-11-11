@@ -81,23 +81,42 @@ Will be exported as:
 
 Leanpub supports a few different [block elements](https://leanpub.com/markua/read#leanpub-auto-block-elements) with different semantic meanings. The following are all supported by `ox-leanpub`: 
 
-| Block type                | Gets exported as                                     |
-|------------------------- |---------------------------------------------------- |
-| `#+begin/end_quote`       | `{blockquote}`                                       |
-| `#+begin/end_aside`       | `{aside}`                                            |
-| `#+begin/end_blurb`       | `{blurb}`                                            |
-| `#+begin/end_center`      | `{blurb, class: "center"}`                           |
-| `#+begin/end_discussion`  | `{blurb, class: "discussion"}`                       |
-| `#+begin/end_error`       | `{blurb, class: "error"}`                            |
-| `#+begin/end_exercise`    | `{blurb, class: "exercise"}`                         |
-| `#+begin/end_information` | `{blurb, class: "information"}`                      |
-| `#+begin/end_note`        | `{blurb, class: "information", icon: "sticky-note"}` |
-| `#+begin/end_question`    | `{blurb, class: "question"}`                         |
-| `#+begin/end_tip`         | `{blurb, class: "tip"}`                              |
-| `#+begin/end_warning`     | `{blurb, class: "warning"}`                          |
+{format: "emacs-lisp", id: "block-table"}
+```
+(let* ((blocks (copy-sequence org-leanpub-markua--block-definitions))
+       (sorted-blocks (sort blocks (lambda (a b) (string-lessp (car a) (car b))))))
+  (concat
+   "| Block type | Gets exported as |
+|------------+------------------|\n"
+   (mapconcat
+    (lambda (b)
+      (let ((block-name (car b)))
+        (format "| =#+begin/end_%s= | %s |"
+                block-name
+                (org-leanpub-markua--attribute-line-string
+                 (cadr b) (caddr b)))))
+    sorted-blocks
+    "\n")))
+```
 
-{blurb, class: "information"}
-The "Note" environment is not natively supported by Leanpub, but it is supported by Org, so `ox-leanpub` renders it as a `blurb` with a custom icon, like the one you see here.
+| Block type                | Gets exported as              |
+|------------------------- |----------------------------- |
+| `#+begin/end_aside`       | {aside}                       |
+| `#+begin/end_blockquote`  | {blockquote}                  |
+| `#+begin/end_blurb`       | {blurb}                       |
+| `#+begin/end_center`      | {blurb, class: "center"}      |
+| `#+begin/end_discussion`  | {blurb, class: "discussion"}  |
+| `#+begin/end_error`       | {blurb, class: "error"}       |
+| `#+begin/end_exercise`    | {blurb, class: "exercise"}    |
+| `#+begin/end_information` | {blurb, class: "information"} |
+| `#+begin/end_note`        | {blurb, class: "information"} |
+| `#+begin/end_question`    | {blurb, class: "question"}    |
+| `#+begin/end_quote`       | {blockquote}                  |
+| `#+begin/end_tip`         | {blurb, class: "tip"}         |
+| `#+begin/end_warning`     | {blurb, class: "warning"}     |
+
+{blurb, class: "tip"}
+You can see a sample of all these default blocks in [Appendix A](#appendix-block-types).
 {/blurb}
 
 You can specify a [custom icon](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) for any block using the `:icon` attribute in an `#+ATTR_LEANPUB` line. For example: 
@@ -127,7 +146,7 @@ Where `blockname` and at least one of `:class` or `:icon` needs to be specified:
 * `classname` (optional) is the name of an existing supported Markua block class (as listed in the table above). It can be omitted to use a plain `{blurb}` block.
 * `iconname` (optional) is a [valid icon name](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) to use for the block.
 
-For example, in this book I change the default icon of `tip` blocks to be a lightbulb instead of the default key icon: 
+For example, you could change the default icon of `tip` blocks to be a lightbulb instead of the default key icon: 
 
 {format: "org"}
 ```
@@ -138,7 +157,7 @@ Tip with a lightbulb!
 #+end_tip
 ```
 
-{blurb, class: "tip"}
+{blurb, icon: "lightbulb", class: "tip"}
 Tip with a lightbulb!
 {/blurb}
 
@@ -156,8 +175,6 @@ Leanpub block!
 {blurb, icon: "leanpub"}
 Leanpub block!
 {/blurb}
-
-You can see a sample of all the default blocks in [Appendix A](#appendix-block-types). 
 
 {id: "block-captions"}
 #### Block captions
@@ -195,6 +212,8 @@ This block's headline will be bigger!
 {/blurb}
 
 ### Code blocks
+
+Org has extensive facilities for [working with source code](https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code). By far, any code blocks you include in your Org document will be properly recognized and typeset by Leanpub. 
 
 ### Book sample
 
