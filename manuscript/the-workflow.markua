@@ -81,10 +81,6 @@ Will be exported as:
 
 Leanpub supports a few different [block elements](https://leanpub.com/markua/read#leanpub-auto-block-elements) with different semantic meanings. The following are all supported by `ox-leanpub`: 
 
-{blurb, icon: "laptop-code"}
-This table is generated programmatically by the code shown in Code block execution and output processing!
-{/blurb}
-
 | Block type                | Gets exported as                |
 |------------------------- |------------------------------- |
 | `#+begin/end_aside`       | `{aside}`                       |
@@ -101,8 +97,12 @@ This table is generated programmatically by the code shown in Code block executi
 | `#+begin/end_tip`         | `{blurb, class: "tip"}`         |
 | `#+begin/end_warning`     | `{blurb, class: "warning"}`     |
 
+{blurb, icon: "laptop-code"}
+This table is generated programmatically! See the code in Code block execution and output processing.
+{/blurb}
+
 {blurb, class: "tip"}
-You can see a sample of all these default blocks in [Appendix A](#appendix-block-types).
+You can see samples of these blocks in [Appendix A](#appendix-block-types).
 {/blurb}
 
 You can specify a [custom icon](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) for any block using the `:icon` attribute in an `#+ATTR_LEANPUB` line. For example: 

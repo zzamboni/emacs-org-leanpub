@@ -91,6 +91,8 @@
 :EXPORT_FILE_NAME: manuscript/preface-to-the-early-release.markua
 :END:
 
+Testing link: [[*Code block execution and output processing][Code block execution and output processing]]
+
 What you are reading is an early release of this book, which means its contents is not yet complete, and you may find errors or omissions in it. Still, I hope you find it useful. I would really appreciate your feedback! Please let me know what you liked, what you didn't like, and what additional topics you would like me to cover. Please send me a message through the [[https://leanpub.com/emacs-org-leanpub/email_author/new][/Email the Author/]] page and let me know what you think.
 
 ** Release notes
@@ -608,10 +610,6 @@ Will be exported as:
 
 Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-block-elements][block elements]] with different semantic meanings. The following are all supported by =ox-leanpub=:
 
-#+begin_code
-This table is generated programmatically by the code shown in [[*Code block execution and output processing][Code block execution and output processing]]!
-#+end_code
-
 #+RESULTS: block-table
 :results:
 | Block type              | Gets exported as              |
@@ -631,8 +629,12 @@ This table is generated programmatically by the code shown in [[*Code block exec
 | =#+begin/end_warning=     | ={blurb, class: "warning"}=     |
 :end:
 
+#+begin_code
+This table is generated programmatically! See the code in [[*Code block execution and output processing][Code block execution and output processing]].
+#+end_code
+
 #+begin_tip
-You can see a sample of all these default blocks in [[#appendix-block-types][Appendix A]].
+You can see samples of these blocks in [[#appendix-block-types][Appendix A]].
 #+end_tip
 
 You can specify a [[https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support][custom icon]] for any block using the =:icon= attribute in an =#+ATTR_LEANPUB= line. For example:
@@ -816,6 +818,8 @@ The =:results drawer= part of the header tells Org that the results should be en
 
 The =:exports both= header makes it so that you can see the code above, as well as its results in Appendix A. You can choose =both=, =code=, =results= or =none= as values to [[https://orgmode.org/manual/Exporting-Code-Blocks.html][=:exports=]], depending on what you want in the exported document.
 
+Similarly, the table of default blocks in [[*Block elements][Block elements]] is also generated programmatically by the code below. Note that we are also getting the information from the =org-leanpub-markua--block-defs= variable, but in this case we are extracting not only the name but also its definition, which is used to construct the details of each block type.
+
 #+name: block-table
 #+begin_src emacs-lisp :results drawer :exports both
 (let ((blocks (cl-sort
@@ -934,6 +938,6 @@ Warning block, produced by:\\
 :EXPORT_FILE_NAME: manuscript/colophon.markua
 :END:
 
-This book was written in Emacs {{{emacsversion}}} using Org mode version {{{orgversion}}}. The text is exported to Leanpub Markua format and structure using the [[ https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
+This book was written in Emacs {{{emacsversion}}} using Org mode version {{{orgversion}}}. The text is exported to Leanpub Markua format and structure using the [[https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
 
 Cover photo by [[https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/][Sharon McCutcheon]] from Pexels.
