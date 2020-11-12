@@ -77,6 +77,7 @@ Will be exported as:
 # Appendix one
 ```
 
+{id: "block-elements"}
 ### Block elements
 
 Leanpub supports a few different [block elements](https://leanpub.com/markua/read#leanpub-auto-block-elements) with different semantic meanings. The following are all supported by `ox-leanpub`: 
@@ -98,7 +99,7 @@ Leanpub supports a few different [block elements](https://leanpub.com/markua/rea
 | `#+begin/end_warning`     | `{blurb, class: "warning"}`     |
 
 {blurb, icon: "laptop-code"}
-This table is generated programmatically! See the code in Code block execution and output processing.
+This table is generated programmatically! See the code in [Code block execution and output processing](#code-block-execution).
 {/blurb}
 
 {blurb, class: "tip"}

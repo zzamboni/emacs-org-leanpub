@@ -8,6 +8,7 @@
 
 ## Visual configuration
 
+{id: "code-block-execution"}
 ## Code block execution and output processing
 
 One of the powerful aspects of Org is the ability to store code blocks in a document, execute them on the fly, and insert the code, their output, or both into the document. This is an ability that I have used frequently in this book, and I would like to show you a couple of additional examples. 
@@ -52,7 +53,7 @@ The `:results drawer` part of the header tells Org that the results should be en
 
 The `:exports both` header makes it so that you can see the code above, as well as its results in Appendix A. You can choose `both`, `code`, `results` or `none` as values to [`:exports`](https://orgmode.org/manual/Exporting-Code-Blocks.html), depending on what you want in the exported document. 
 
-Similarly, the table of default blocks in Block elements is also generated programmatically by the code below. Note that we are also getting the information from the `org-leanpub-markua--block-defs` variable, but in this case we are extracting not only the name but also its definition, which is used to construct the details of each block type. 
+Similarly, the table of default blocks in [Block elements](#block-elements) is also generated programmatically by the code below. Note that we are also getting the information from the `org-leanpub-markua--block-defs` variable, but in this case we are extracting not only the name but also its definition, which is used to construct the details of each block type. 
 
 {format: "emacs-lisp", id: "block-table"}
 ```

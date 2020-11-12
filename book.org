@@ -91,8 +91,6 @@
 :EXPORT_FILE_NAME: manuscript/preface-to-the-early-release.markua
 :END:
 
-Testing link: [[*Code block execution and output processing][Code block execution and output processing]]
-
 What you are reading is an early release of this book, which means its contents is not yet complete, and you may find errors or omissions in it. Still, I hope you find it useful. I would really appreciate your feedback! Please let me know what you liked, what you didn't like, and what additional topics you would like me to cover. Please send me a message through the [[https://leanpub.com/emacs-org-leanpub/email_author/new][/Email the Author/]] page and let me know what you think.
 
 ** Release notes
@@ -607,6 +605,9 @@ Will be exported as:
 #+end_src
 
 *** Block elements
+:PROPERTIES:
+:CUSTOM_ID: block-elements
+:END:
 
 Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-block-elements][block elements]] with different semantic meanings. The following are all supported by =ox-leanpub=:
 
@@ -630,7 +631,7 @@ Leanpub supports a few different [[https://leanpub.com/markua/read#leanpub-auto-
 :end:
 
 #+begin_code
-This table is generated programmatically! See the code in [[*Code block execution and output processing][Code block execution and output processing]].
+This table is generated programmatically! See the code in [[#code-block-execution][Code block execution and output processing]].
 #+end_code
 
 #+begin_tip
@@ -777,6 +778,9 @@ Org has extensive facilities for [[https://orgmode.org/manual/Working-with-Sourc
 ** Visual configuration
 
 ** Code block execution and output processing
+:PROPERTIES:
+:CUSTOM_ID: code-block-execution
+:END:
 
 One of the powerful aspects of Org is the ability to store code blocks in a document, execute them on the fly, and insert the code, their output, or both into the document. This is an ability that I have used frequently in this book, and I would like to show you a couple of additional examples.
 
@@ -818,7 +822,7 @@ The =:results drawer= part of the header tells Org that the results should be en
 
 The =:exports both= header makes it so that you can see the code above, as well as its results in Appendix A. You can choose =both=, =code=, =results= or =none= as values to [[https://orgmode.org/manual/Exporting-Code-Blocks.html][=:exports=]], depending on what you want in the exported document.
 
-Similarly, the table of default blocks in [[*Block elements][Block elements]] is also generated programmatically by the code below. Note that we are also getting the information from the =org-leanpub-markua--block-defs= variable, but in this case we are extracting not only the name but also its definition, which is used to construct the details of each block type.
+Similarly, the table of default blocks in [[#block-elements][Block elements]] is also generated programmatically by the code below. Note that we are also getting the information from the =org-leanpub-markua--block-defs= variable, but in this case we are extracting not only the name but also its definition, which is used to construct the details of each block type.
 
 #+name: block-table
 #+begin_src emacs-lisp :results drawer :exports both
@@ -846,7 +850,7 @@ Similarly, the table of default blocks in [[*Block elements][Block elements]] is
 :END:
 
 #+begin_code
-The block samples in this appendix are generated programmatically by the code shown in [[*Code block execution and output processing][Code block execution and output processing]]!
+The block samples in this appendix are generated programmatically by the code shown in [[#code-block-execution][Code block execution and output processing]]!
 #+end_code
 
 The following are samples of all the blocks supported by default by =ox-leanpub=, and their default rendering by Leanpub.

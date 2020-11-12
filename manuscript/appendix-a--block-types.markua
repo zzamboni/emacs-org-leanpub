@@ -2,7 +2,7 @@
 # Appendix A: Block types
 
 {blurb, icon: "laptop-code"}
-The block samples in this appendix are generated programmatically by the code shown in Code block execution and output processing!
+The block samples in this appendix are generated programmatically by the code shown in [Code block execution and output processing](#code-block-execution)!
 {/blurb}
 
 The following are samples of all the blocks supported by default by `ox-leanpub`, and their default rendering by Leanpub. 
