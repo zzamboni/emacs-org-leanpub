@@ -604,6 +604,24 @@ Will be exported as:
 # Appendix one
 #+end_src
 
+*** Conditional book and sample inclusion
+
+Individual sections can be marked for inclusion in your book's sample by tagging them with =sample=. For example:
+
+#+begin_src text
+
+#+end_src
+#+begin_src text
+,* Preface to the book sample :sample:nobook:
+#+end_src
+
+Is exported as:
+
+#+begin_src text
+{sample: true, book: false}
+# Preface to the book sample
+#+end_src
+
 *** Block elements
 :PROPERTIES:
 :CUSTOM_ID: block-elements
@@ -731,10 +749,37 @@ This block's headline will be bigger!
 
 *** Code blocks
 
-Org has extensive facilities for [[https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code][working with source code]]. By far, any code blocks you include in your Org document will be properly recognized and typeset by Leanpub.
-*** Book sample
+Org has extensive facilities for [[https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code][working with source code]]. By far, any code blocks you include in your Org document will be properly recognized and typeset by Leanpub. The only difference might be in syntax highlighting support. Leanpub [[https://leanpub.com/markua/read#code][uses Pygments]] for syntax highlighting, one of the most extensive syntax highlighting programs. However, Emacs does its own, and there are many languages supported by Emacs (including syntax highlighting) that are not included in Pygments. In those cases, you will see syntax highlighting in your code blocks in Emacs, but they will be rendered as plain text by Leanpub.
 
 *** Leanpub attributes
+
+Both [[https://leanpub.com/markua/read#attributes][Markua]] and [[https://leanpub.com/lfm/read#leanpub-auto-attributes][LFM]] support specifying attributes for different elements using /attribute lines/. We have seen already how some Org constructs automatically get converted into attributes (e.g. =#+caption= ).
+
+Both =ox-leanpub-markua= and =ox-leanpub-markdown= support specifying attributes as follows:
+
+- An element's =#+NAME=, =ID= or =CUSTOM_ID=, if specified, are used for the =id= attribute.
+- An element's =#+CAPTION=, if specified, is used for the =caption= attribute in Markua and the =title= attribute in LFM (see [[#block-captions][Block Captions]] for details of how captions are produced in block elements).
+- Other attributes can be specified in an =#+ATTR_LEANPUB= line before the corresponding element. The syntax is the same as for Org header arguments. These are merged with the previous ones if specified. Attributes specified in =#+ATTR_LEANPUB= override those specified through other mechanisms.
+
+Example:
+#+begin_src org
+,#+name: system-diagram
+,#+caption: Architecture diagram
+,#+attr_leanpub: :width 30%
+[[file:images/diagram.png]]
+#+end_src
+
+Gets exported in Markua as:
+#+begin_src text
+{width: "30%", id: "system-diagram", caption: "Architecture diagram"}
+![Architecture diagram](images/diagram.png)
+#+end_src
+
+And in LFM as:
+#+begin_src text
+{width="30%", id="system-diagram", title="Architecture diagram"}
+![Architecture diagram](images/diagram.png)
+#+end_src
 
 ** Exporting
 
@@ -771,7 +816,7 @@ Org has extensive facilities for [[https://orgmode.org/manual/Working-with-Sourc
 
 ** Headline export levels
 
-=H= option: https://orgmode.org/manual/Export-Settings.html
+# =H= option: https://orgmode.org/manual/Export-Settings.html
 
 ** org-special-ctrl-a/e/k
 
