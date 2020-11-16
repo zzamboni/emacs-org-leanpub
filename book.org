@@ -122,6 +122,9 @@ To illustrate the process and provide you with a starting point, the source repo
 There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please let me know!
 
 ** The process
+:PROPERTIES:
+:ID:       e927b31d-a47d-4988-a5bc-015d91061596
+:END:
 
 The high-level workflow for publishing a book using Emacs, org-mode and Leanpub looks like this:
 
@@ -134,32 +137,49 @@ In this setup, the only files you manipulates directly are your source files. Fo
 #+begin_tip
 One of Org-mode's amazing features is its ability to evaluate code within the source file and include the code, its output or both in the resulting document. For example, the graph you see above is produced by evaluating the following code using the =dot= command from the [[https://graphviz.org/][Graphviz]] package. Whenever I need to update the diagram, I type the changes directly in the document and press ~C-c C-c~ within the code block. Org-mode automatically renders the diagram and updates the figure in the document.
 #+name: workflow-diagram
-#+begin_src dot :file "./images/high-level-workflow.png" :exports both
-  digraph {
-     rankdir=TB;
-     node [fontname="DejaVu Sans"];
-     edge [fontname="DejaVu Sans"];
-     files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
-     emacs [label="Emacs + org-mode",
-            fillcolor=purple, fontcolor=white, style=filled, shape=box];
-     manuscript [label="Leanpub manuscript\n(Markua + other files)",
-                 fillcolor=yellow, style=filled, shape=oval];
-     leanpub [label="Leanpub",
-              fillcolor=blue, fontcolor=white, style=filled, shape=box];
-     git [label="Git repo", fillcolor=red, style=filled, shape=box];
-     preview [label="Book preview",
-              fillcolor=grey, style=filled, shape=oval];
-     book [label="Book (PDF,\nePub, mobi, online)",
-           shape=oval, fillcolor=green, style=filled];
-     files -> emacs      [label="Edit"];
-     emacs -> manuscript [label="Export"];
-     manuscript -> git   [label="Commit"];
-     git -> leanpub      [label="Typeset"];
-     leanpub -> book     [label="Publish"];
-     book -> emacs       [label="Update"];
-     leanpub -> preview  [label="Preview"];
-     preview -> emacs    [label="Update"];
-  }
+#+begin_src dot :file "images/high-level-workflow.png" :exports both
+digraph {
+    bgcolor="transparent";
+    rankdir=TB;
+    node [fontname="DejaVu Sans"];
+    edge [fontname="DejaVu Sans"];
+    files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
+    emacs [label="Emacs + org-mode",
+           fillcolor=purple, fontcolor=white, style=filled, shape=box];
+    manuscript [label="Leanpub manuscript\n(Markua + other files)",
+                fillcolor=yellow, style=filled, shape=oval];
+    leanpub [label="Leanpub",
+             fillcolor=blue, fontcolor=white, style=filled, shape=box];
+    git [label="Git repo", fillcolor=red, style=filled, shape=box];
+    preview [label="Book preview",
+             fillcolor=grey, style=filled, shape=oval];
+    book [label="Book (PDF,\nePub, mobi, online)",
+          shape=oval, fillcolor=green, style=filled];
+    subgraph cluster_writing {
+        label="Write";
+        rankdir=TB;
+        graph [style=dotted];
+        files -> emacs      [label="Edit", dir="both", weight=10];
+    };
+    subgraph cluster_export_preview {
+        label="Export and Preview";
+        labelloc="b";
+        rankdir=TB;
+        graph [style=dotted];
+        emacs -> manuscript [label="Export", weight=10];
+        manuscript -> git   [label="Commit", weight=10];
+        git -> leanpub      [label="Typeset", weight=10];
+        leanpub -> preview  [label="Preview"];
+    };
+    subgraph cluster_publish {
+        label="Publish";
+        labelloc="b";
+        graph [style=dotted];
+        leanpub -> book     [label="Publish"];
+    };
+    book -> emacs;
+    preview -> emacs;
+}
 #+end_src
 #+end_tip
 ** Leanpub
@@ -381,6 +401,7 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 *** Your first book export
 :PROPERTIES:
 :CUSTOM_ID: your-first-book-export
+:ID:       2dc0dd10-cc01-4c41-8f3f-38b47aa8ab75
 :END:
 
 Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview.
@@ -397,7 +418,7 @@ For this, we use the =ox-leanpub= module which you installed on Emacs. Pressing 
 Press ~M b~ to export the whole book in "Multifile format", which exports your book from the Org file and creates the [[https://leanpub.com/manual/read#writing-your-book-in-github-mode][structure and files]] needed by Leanpub to render the book. For example, for this book, the following files, directories and symlinks are created (the original source file is =book.org=, everything else is created from it, note that all images stored under =manuscript/resources/images= are omitted from this listing):
 
 #+name: book-tree
-#+begin_src bash :results output :exports results :wrap example
+#+begin_src bash :results output :exports results :wrap example :eval never-export
   tree --noreport -L 3 -I 'covers|files'
 #+end_src
 
@@ -533,7 +554,10 @@ These are just some of the highlights - you should explore all the sections!
 :EXPORT_FILE_NAME: manuscript/the-workflow.markua
 :END:
 
-Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle.
+Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle. You may remember our overall workflow diagram from [[id:e927b31d-a47d-4988-a5bc-015d91061596][The process]]:
+
+#+attr_leanpub: :width 50%
+[[file:images/high-level-workflow.png]]
 
 ** Writing
 
@@ -781,9 +805,34 @@ And in LFM as:
 ![Architecture diagram](images/diagram.png)
 #+end_src
 
-** Exporting
+*** Other Markua and LFM elements
 
-** Previewing
+If you want to include text that gets passed as-is to the Leanpub backend, you can use =#+markua= / =#+markdown= lines, or =export= blocks of the corresponding type. For example, Org does not have a construct to specify a page break, but you can specify Leanpub's ={pagebreak}= directive like this:
+
+#+begin_src org
+,#+markua: {pagebreak}
+#+end_src
+
+Or like this:
+
+#+begin_src org
+,#+begin_export markua
+{pagebreak}
+,#+end_export
+#+end_src
+
+For including code in LFM you can use similar constructs, using =markdown= instead of =markua=.
+
+** Exporting and Previewing
+
+Whenever you have some text that you want to preview or publish, you need to export it using the corresponding backend, Markua or LFM.
+
+#+begin_tip
+As I have said a few times before, I strongly recommend you use Markua, but the LFM backend is still available if you want it (although it may not support all the features). Assuming your original text is kept in Org format
+#+end_tip
+
+The basic export procedure is as described in [[id:2dc0dd10-cc01-4c41-8f3f-38b47aa8ab75][Your first book export]]. Normally, you would use the =[b] Book: Whole book= option, which creates both the =Book.txt= and =Subset.txt= files. If you only want to export the subset files, you can use the =[s] Book: Subset= option.
+
 
 ** Publishing
 

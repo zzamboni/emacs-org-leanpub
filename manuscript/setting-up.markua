@@ -199,7 +199,7 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 ```
 
-{id: "your-first-book-export"}
+{id: "2dc0dd10-cc01-4c41-8f3f-38b47aa8ab75"}
 ### Your first book export
 
 Now that you have the initial skeleton for your book, it's time to export it from Org to Leanpub's Markua format, from which Leanpub can produce a rendered version of your book for you to preview. 
@@ -223,8 +223,8 @@ Press `M b` to export the whole book in "Multifile format", which exports your b
 └── manuscript
     ├── Book.txt
     ├── Subset.txt
-    ├── appendix-a--block-types.markua
     ├── automation.markua
+    ├── backmatter.txt
     ├── colophon.markua
     ├── frontmatter.txt
     ├── images -> resources/images

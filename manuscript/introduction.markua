@@ -17,12 +17,13 @@ To illustrate the process and provide you with a starting point, the source repo
 
 There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please let me know! 
 
+{id: "e927b31d-a47d-4988-a5bc-015d91061596"}
 ## The process
 
 The high-level workflow for publishing a book using Emacs, org-mode and Leanpub looks like this: 
 
 {width: "50%"}
-![](./images/high-level-workflow.png) 
+![](images/high-level-workflow.png) 
 
 In this setup, the only files you manipulates directly are your source files. For your text, you use Emacs with org-mode. In many cases, you can also generate figures from within Org mode, if they can be programmatically produced. Emacs exports your Org files into the structure and format required by Leanpub, and you commit the result to a Git repository (Leanpub at the moment supports GitHub and Bitbucket). From there, Leanpub picks up the files and produces a preview of your book, which you can review to make further changes. When you want to publish your work, you instruct Leanpub to do so, and Leanpub takes care of producing the end result and publishing it for the word to see. 
 
@@ -32,29 +33,46 @@ One of Org-mode's amazing features is its ability to evaluate code within the so
 {format: "dot", id: "workflow-diagram"}
 ```
 digraph {
-   rankdir=TB;
-   node [fontname="DejaVu Sans"];
-   edge [fontname="DejaVu Sans"];
-   files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
-   emacs [label="Emacs + org-mode",
-          fillcolor=purple, fontcolor=white, style=filled, shape=box];
-   manuscript [label="Leanpub manuscript\n(Markua + other files)",
-               fillcolor=yellow, style=filled, shape=oval];
-   leanpub [label="Leanpub",
-            fillcolor=blue, fontcolor=white, style=filled, shape=box];
-   git [label="Git repo", fillcolor=red, style=filled, shape=box];
-   preview [label="Book preview",
-            fillcolor=grey, style=filled, shape=oval];
-   book [label="Book (PDF,\nePub, mobi, online)",
-         shape=oval, fillcolor=green, style=filled];
-   files -> emacs      [label="Edit"];
-   emacs -> manuscript [label="Export"];
-   manuscript -> git   [label="Commit"];
-   git -> leanpub      [label="Typeset"];
-   leanpub -> book     [label="Publish"];
-   book -> emacs       [label="Update"];
-   leanpub -> preview  [label="Preview"];
-   preview -> emacs    [label="Update"];
+    bgcolor="transparent";
+    rankdir=TB;
+    node [fontname="DejaVu Sans"];
+    edge [fontname="DejaVu Sans"];
+    files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
+    emacs [label="Emacs + org-mode",
+           fillcolor=purple, fontcolor=white, style=filled, shape=box];
+    manuscript [label="Leanpub manuscript\n(Markua + other files)",
+                fillcolor=yellow, style=filled, shape=oval];
+    leanpub [label="Leanpub",
+             fillcolor=blue, fontcolor=white, style=filled, shape=box];
+    git [label="Git repo", fillcolor=red, style=filled, shape=box];
+    preview [label="Book preview",
+             fillcolor=grey, style=filled, shape=oval];
+    book [label="Book (PDF,\nePub, mobi, online)",
+          shape=oval, fillcolor=green, style=filled];
+    subgraph cluster_writing {
+        label="Write";
+        rankdir=TB;
+        graph [style=dotted];
+        files -> emacs      [label="Edit", dir="both", weight=10];
+    };
+    subgraph cluster_export_preview {
+        label="Export and Preview";
+        labelloc="b";
+        rankdir=TB;
+        graph [style=dotted];
+        emacs -> manuscript [label="Export", weight=10];
+        manuscript -> git   [label="Commit", weight=10];
+        git -> leanpub      [label="Typeset", weight=10];
+        leanpub -> preview  [label="Preview"];
+    };
+    subgraph cluster_publish {
+        label="Publish";
+        labelloc="b";
+        graph [style=dotted];
+        leanpub -> book     [label="Publish"];
+    };
+    book -> emacs;
+    preview -> emacs;
 }
 ```
 {/blurb}

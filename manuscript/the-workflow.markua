@@ -1,6 +1,9 @@
 # The workflow
 
-Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle. 
+Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle. You may remember our overall workflow diagram from [The process](#e927b31d-a47d-4988-a5bc-015d91061596): 
+
+{width: "50%"}
+![](images/high-level-workflow.png) 
 
 ## Writing
 
@@ -260,9 +263,35 @@ And in LFM as:
 ![Architecture diagram](images/diagram.png)
 ```
 
-## Exporting
+### Other Markua and LFM elements
 
-## Previewing
+If you want to include text that gets passed as-is to the Leanpub backend, you can use `#+markua` / `#+markdown` lines, or `export` blocks of the corresponding type. For example, Org does not have a construct to specify a page break, but you can specify Leanpub's `{pagebreak}` directive like this: 
+
+{format: "org"}
+```
+#+markua: {pagebreak}
+```
+
+Or like this: 
+
+{format: "org"}
+```
+#+begin_export markua
+{pagebreak}
+#+end_export
+```
+
+For including code in LFM you can use similar constructs, using `markdown` instead of `markua`. 
+
+## Exporting and Previewing
+
+Whenever you have some text that you want to preview or publish, you need to export it using the corresponding backend, Markua or LFM. 
+
+{blurb, class: "tip"}
+As I have said a few times before, I strongly recommend you use Markua, but the LFM backend is still available if you want it (although it may not support all the features). Assuming your original text is kept in Org format
+{/blurb}
+
+The basic export procedure is as described in [Your first book export](#2dc0dd10-cc01-4c41-8f3f-38b47aa8ab75). Normally, you would use the `[b] Book: Whole book` option, which creates both the `Book.txt` and `Subset.txt` files. If you only want to export the subset files, you can use the `[s] Book: Subset` option. 
 
 ## Publishing
 
