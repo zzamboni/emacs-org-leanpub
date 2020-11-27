@@ -306,11 +306,37 @@ The contents of the subset preview is determined by the `manuscript/Subset.txt` 
   * `current`: export the current chapter (where the cursor is at the moment of the export) as the contents of `Subset.txt`.
 * If you press `C-s` in Org's export screen to toggle the *Export scope* parameter to "Subtree", the `Subset.txt` file will contain only the current chapter (the one in which the cursor is when you do the export) regardless of the value of `#+leanpub_book_write_subset`. This is useful to do a quick preview as you are working on a single chapter.
 
-Once you have exported your book, you have to commit the changes to your git repository, and push the changes to GitHub: 
+Once you have exported your book, you have to commit the changes to your git repository, and push the changes to GitHub. For example, as I type this, I have executed the following commands: 
 
 {format: "sh"}
 ```
 git commit -a -m 'Latest changes to "Workflow" chapter.'
+```
+
+{format: "console"}
+```
+$ git commit -a -m 'Latest changes to "Workflow" chapter.'
+[master d25f22a] Latest changes to "Workflow" chapter.
+ 3 files changed, 44 insertions(+), 6 deletions(-)
+```
+
+{format: "sh"}
+```
+git push
+```
+
+{format: "console"}
+```
+$ git push
+Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 2.16 KiB | 2.16 MiB/s, done.
+Total 6 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/zzamboni/emacs-org-leanpub.git
+   2c67f01..d25f22a  master -> master
 ```
 
 ## Publishing
