@@ -81,6 +81,9 @@
 #+property: header-args:sh+ :post cleanup(data=*this*)
 #+property: header-args:sh+ :prologue "SHELL=/bin/bash script -q <<EOF" :epilogue "EOF"
 
+# Don't reevaluate code blocks when exporting
+#+property: header-args:sh+ :eval never-export
+
 :END:
 
 #+title: Writing and publishing with Emacs, org-mode and Leanpub

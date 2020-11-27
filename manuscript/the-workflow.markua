@@ -308,21 +308,11 @@ The `manuscript/Subset.txt` file determines which parts of the book should be in
 
 Once you have exported your book, you have to commit the changes to your git repository, and push the changes to GitHub. For example, as I type this, I have executed the following commands: 
 
-{format: "sh"}
-```
-git commit -a -m 'Latest changes to "Workflow" chapter.'
-```
-
 {format: "console"}
 ```
 $ git commit -a -m 'Latest changes to "Workflow" chapter.'
 [master d25f22a] Latest changes to "Workflow" chapter.
  3 files changed, 44 insertions(+), 6 deletions(-)
-```
-
-{format: "sh"}
-```
-git push
 ```
 
 {format: "console"}
@@ -338,10 +328,6 @@ remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
 To https://github.com/zzamboni/emacs-org-leanpub.git
    2c67f01..d25f22a  master -> master
 ```
-
-| boo | 3 |
-| foo | 4 |
-| xoo | 5 |
 
 ## Publishing
 
