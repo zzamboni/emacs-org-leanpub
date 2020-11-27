@@ -75,7 +75,7 @@
 # postprocess sh blocks through the cleanup block above, and also
 # automatically wrap them in the script command.
 
-#+property: header-args:sh+ :exports output
+#+property: header-args:sh+ :exports results
 #+property: header-args:sh+ :results output
 #+property: header-args:sh+ :wrap "src console"
 #+property: header-args:sh+ :post cleanup(data=*this*)

@@ -339,6 +339,10 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    2c67f01..d25f22a  master -> master
 ```
 
+| boo | 3 |
+| foo | 4 |
+| xoo | 5 |
+
 ## Publishing
 
 
