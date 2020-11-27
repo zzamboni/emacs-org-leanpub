@@ -293,9 +293,9 @@ As I have said a few times before, I strongly recommend you use Markua. Assuming
 
 The basic export procedure is as described in [Your first book export](#2dc0dd10-cc01-4c41-8f3f-38b47aa8ab75). Normally, you would use the `[b] Book: Whole book` option, which creates both the `Book.txt` and `Subset.txt` files. If you only want to export the subset files, you can use the `[s] Book: Subset` option. 
 
-However, you can produce different types of exports. Subset export can be particularly useful if you want to do a quick preview of the rendering of your book in PDF, without producing all the supported formats. This results in a much shorter rendering time, which allows you to preview and iterate much faster. 
+However, you can produce different types of exports. Leanpub's [Subset preview](http://help.leanpub.com/en/articles/3025574-i-only-want-to-do-preview-of-a-specific-part-of-my-book-how-do-i-so-a-subset-preview) can be particularly useful if you want to do a quick preview of some parts of your book in PDF, without producing all the other supported formats. This results in a much shorter rendering time, which allows you to preview and iterate much faster. 
 
-The contents of the subset preview is determined by the `manuscript/Subset.txt` file. Its contents can be determined in several ways: 
+The `manuscript/Subset.txt` file determines which parts of the book should be included in the subset preview. When using `ox-leanpub`, its contents can be determined in several ways: 
 
 * By default, `Subset.txt` is not generated.
 * If you specify the `#+leanpub_book_write_subset` property in your file, you can configure the default subset export for your book, depending on its value: 
