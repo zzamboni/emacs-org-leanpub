@@ -145,8 +145,8 @@ $ hub create
 Updating origin
 https://github.com/zzamboni/emacs-org-leanpub
 $ git remote -v
-origin	https://github.com/zzamboni/emacs-org-leanpub.git (fetch)
-origin	https://github.com/zzamboni/emacs-org-leanpub.git (push)
+origin      https://github.com/zzamboni/emacs-org-leanpub.git (fetch)
+origin      https://github.com/zzamboni/emacs-org-leanpub.git (push)
 ```
 
 ### Creating the book file

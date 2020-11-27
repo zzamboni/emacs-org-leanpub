@@ -346,8 +346,8 @@ $ hub create
 Updating origin
 https://github.com/zzamboni/emacs-org-leanpub
 $ git remote -v
-origin	https://github.com/zzamboni/emacs-org-leanpub.git (fetch)
-origin	https://github.com/zzamboni/emacs-org-leanpub.git (push)
+origin      https://github.com/zzamboni/emacs-org-leanpub.git (fetch)
+origin      https://github.com/zzamboni/emacs-org-leanpub.git (push)
 #+end_src
 
 *** Creating the book file
@@ -828,11 +828,29 @@ For including code in LFM you can use similar constructs, using =markdown= inste
 Whenever you have some text that you want to preview or publish, you need to export it using the corresponding backend, Markua or LFM.
 
 #+begin_tip
-As I have said a few times before, I strongly recommend you use Markua, but the LFM backend is still available if you want it (although it may not support all the features). Assuming your original text is kept in Org format
+As I have said a few times before, I strongly recommend you use Markua. Assuming your original text is kept in Org format, there is no reason to use LFM, since the full range of Leanpub constructs is available through Markua.
 #+end_tip
 
 The basic export procedure is as described in [[id:2dc0dd10-cc01-4c41-8f3f-38b47aa8ab75][Your first book export]]. Normally, you would use the =[b] Book: Whole book= option, which creates both the =Book.txt= and =Subset.txt= files. If you only want to export the subset files, you can use the =[s] Book: Subset= option.
 
+However, you can produce different types of exports. Subset export can be particularly useful if you want to do a quick preview of the rendering of your book in PDF, without producing all the supported formats. This results in a much shorter rendering time, which allows you to preview and iterate much faster.
+
+The contents of the subset preview is determined by the =manuscript/Subset.txt= file. Its contents can be determined in several ways:
+
+- By default, =Subset.txt= is not generated.
+- If you specify the =#+leanpub_book_write_subset= property in your file, you can configure the default subset export for your book, depending on its value:
+  - =none= (default): not created.
+  - =tagged=: use all chapters tagged =subset=.
+  - =all=: use the same chapters as =Book.txt=.
+  - =sample=: use same chapters as =Sample.txt=.
+  - =current=: export the current chapter (where the cursor is at the moment of the export) as the contents of =Subset.txt=.
+- If you press ~C-s~ in Org's export screen to toggle the /Export scope/ parameter to "Subtree", the =Subset.txt= file will contain only the current chapter (the one in which the cursor is when you do the export) regardless of the value of =#+leanpub_book_write_subset=. This is useful to do a quick preview as you are working on a single chapter.
+
+Once you have exported your book, you have to commit the changes to your git repository, and push the changes to GitHub:
+
+#+begin_src sh
+git commit -a -m 'Latest changes to "Workflow" chapter.'
+#+end_src
 
 ** Publishing
 
