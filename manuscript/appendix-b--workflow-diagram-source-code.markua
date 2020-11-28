@@ -6,10 +6,13 @@ The overall workflow diagram shown in [The process](#e927b31d-a47d-4988-a5bc-015
 {format: "dot", id: "workflow-diagram"}
 ```
 digraph {
+    // General graph, node and edge properties
     bgcolor="transparent";
     rankdir=TB;
     node [fontname="DejaVu Sans"];
     edge [fontname="DejaVu Sans"];
+    
+    // Define nodes with their colors, shapes and labels
     files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
     emacs [label="Emacs + org-mode",
            fillcolor=purple, fontcolor=white, style=filled, shape=box];
@@ -22,30 +25,31 @@ digraph {
              fillcolor=grey, style=filled, shape=oval];
     book [label="Published book\n(PDF, ePub,\nmobi, online)",
           shape=oval, fillcolor=green, style=filled];
+
+    // Now we define the clusters to group the nodes by workflow stages
     subgraph cluster_writing {
         label="Write";
         rankdir=TB;
         graph [style=dotted];
-        files -> emacs      [label="Edit", dir="both", weight=10];
+        files -> emacs [label="Edit", dir="both", weight=10];
     };
     subgraph cluster_export_preview {
         label="Export and Preview";
-        labelloc="b";
-        rankdir=TB;
+        labelloc="b"; rankdir=TB;
         graph [style=dotted];
         emacs -> manuscript [label="Export", weight=10];
         manuscript -> git   [label="Commit", weight=10];
         git -> leanpub      [label="Typeset", weight=10];
         leanpub -> preview  [label="Preview"];
+        preview -> emacs    [label="Update"];
     };
     subgraph cluster_publish {
         label="Publish";
         labelloc="b";
         graph [style=dotted];
-        leanpub -> book     [label="Publish"];
+        leanpub -> book [label="Publish"];
+        book -> emacs   [label="Update"];
     };
-    book -> emacs;
-    preview -> emacs;
 }
 ```
 
