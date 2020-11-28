@@ -8,8 +8,9 @@
 #+markua_block: code :icon laptop-code
 
 # Macros
-#+macro: emacsversion (eval emacs-version)
-#+macro: orgversion (eval org-version)
+#+macro: emacs-version (eval emacs-version)
+#+macro: org-version (eval org-version)
+#+macro: macos-version (eval (substring (shell-command-to-string "/usr/bin/sw_vers -productVersion") 0 -1))
 
 # Subset Preview includes all chapters, that way I can use it to do a
 # quick preview of the PDF without having to wait for EPUB/MOBI
@@ -1079,6 +1080,6 @@ digraph {
 :EXPORT_FILE_NAME: manuscript/colophon.markua
 :END:
 
-This book was written in Emacs {{{emacsversion}}} using Org mode version {{{orgversion}}}. The text is exported to Leanpub Markua format and structure using the [[https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
+This book was written in Emacs {{{emacs-version}}} using Org mode version {{{org-version}}}, running on macOS {{{macos-version}}}. The text is exported to [[https://leanpub.com/markua/read][Leanpub Markua]] format and structure using the [[https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
 
 Cover photo by [[https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/][Sharon McCutcheon]] from Pexels.
