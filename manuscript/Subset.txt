@@ -8,4 +8,5 @@ automation.markua
 tips-and-tricks.markua
 backmatter.txt
 appendix-a--block-types.markua
+appendix-b--workflow-diagram-source-code.markua
 colophon.markua
