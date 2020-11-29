@@ -1,5 +1,5 @@
 {id: "appendix-block-types"}
-# Block types
+# Appendix B: Block types
 
 {blurb, icon: "laptop-code"}
 The block samples in this appendix are generated programmatically by the code shown in [Code block execution and output processing](#code-block-execution)!

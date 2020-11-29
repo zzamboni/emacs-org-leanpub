@@ -1,5 +1,5 @@
 {id: "appendix-workflow-source"}
-# Workflow diagram source code
+# Appendix A: Workflow diagram source code
 
 The overall workflow diagram shown in [The process](#e927b31d-a47d-4988-a5bc-015d91061596) is generated from within Org using [Graphviz](https://graphviz.org/) and the source code shown below. By labeling the source code with a `#+name: workflow-diagram` attribute, its result can be inserted anywhere in the book by using a `#+results: workflow-diagram` line. 
 

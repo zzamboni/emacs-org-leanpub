@@ -325,6 +325,10 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    2c67f01..d25f22a  master -> master
 ```
 
+Once you have pushed your changes, you can generate the preview in one of two ways: 
+
+* If you have set up a web hook as described in [Creating the book on Leanpub](#creating-the-book-on-leanpub), or by using one of the techniques described in [Automation](#2a82317f-54f7-4dec-b7a2-d5497d186716), your preview will be triggered automatically when you push to the repository.
+
 ## Publishing
 
 

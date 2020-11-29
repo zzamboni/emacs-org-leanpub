@@ -17,6 +17,9 @@
 # versions in a Full Preview.
 #+leanpub_book_write_subset: all
 
+# Update filenames to match the titles every time
+#+leanpub_book_recompute_filenames: true
+
 # This block is used to clean up source blocks that get executed
 # through the script command, for the purposes of including both the
 # commands and their output in the export. This is to be used through
@@ -824,11 +827,16 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    2c67f01..d25f22a  master -> master
 #+end_src
 
+Once you have pushed your changes, you can generate the preview in one of two ways:
+
+- If you have set up a web hook as described in [[#creating-the-book-on-leanpub][Creating the book on Leanpub]], or by using one of the techniques described in [[id:2a82317f-54f7-4dec-b7a2-d5497d186716][Automation]], your preview will be triggered automatically when you push to the repository.
+
 ** Publishing
 
 * TODO Automation
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/automation.markua
+:ID:       2a82317f-54f7-4dec-b7a2-d5497d186716
 :END:
 
 ** CI/CD for previewing and publishing
@@ -926,14 +934,10 @@ Similarly, the table of default blocks in [[#block-elements][Block elements]] is
     blocks
     "\n")))
 #+end_src
-* Appendices  :backmatter:part:
-:PROPERTIES:
-:EXPORT_FILE_NAME: manuscript/appendices.markua
-:END:
 
-* Workflow diagram source code
+* Appendix A: Workflow diagram source code :backmatter:
 :PROPERTIES:
-:EXPORT_FILE_NAME: manuscript/appendix-b--workflow-diagram-source-code.markua
+:EXPORT_FILE_NAME: manuscript/appendix-a--workflow-diagram-source-code.markua
 :CUSTOM_ID: appendix-workflow-source
 :END:
 
@@ -991,9 +995,9 @@ digraph {
 }
 #+end_src
 
-* Block types
+* Appendix B: Block types
 :PROPERTIES:
-:EXPORT_FILE_NAME: manuscript/appendix-a--block-types.markua
+:EXPORT_FILE_NAME: manuscript/appendix-b--block-types.markua
 :CUSTOM_ID: appendix-block-types
 :END:
 
