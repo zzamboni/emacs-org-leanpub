@@ -1,5 +1,5 @@
 {id: "appendix-workflow-source"}
-# Appendix B: Workflow diagram source code
+# Workflow diagram source code
 
 The overall workflow diagram shown in [The process](#e927b31d-a47d-4988-a5bc-015d91061596) is generated from within Org using [Graphviz](https://graphviz.org/) and the source code shown below. By labeling the source code with a `#+name: workflow-diagram` attribute, its result can be inserted anywhere in the book by using a `#+results: workflow-diagram` line. 
 
@@ -11,16 +11,18 @@ digraph {
     rankdir=TB;
     node [fontname="DejaVu Sans"];
     edge [fontname="DejaVu Sans"];
-    
+
     // Define nodes with their colors, shapes and labels
-    files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
+    files [label="Source files\n(Org doc, figures, etc.)",
+           shape=oval];
     emacs [label="Emacs + org-mode",
            fillcolor=purple, fontcolor=white, style=filled, shape=box];
     manuscript [label="Leanpub manuscript\n(Markua + other files)",
                 fillcolor=yellow, style=filled, shape=oval];
     leanpub [label="Leanpub",
              fillcolor=blue, fontcolor=white, style=filled, shape=box];
-    git [label="Git repo", fillcolor=red, style=filled, shape=box];
+    git [label="Git repo",
+         fillcolor=red, style=filled, shape=box];
     preview [label="Book preview",
              fillcolor=grey, style=filled, shape=oval];
     book [label="Published book\n(PDF, ePub,\nmobi, online)",

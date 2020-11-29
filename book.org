@@ -926,8 +926,72 @@ Similarly, the table of default blocks in [[#block-elements][Block elements]] is
     blocks
     "\n")))
 #+end_src
+* Appendices  :backmatter:part:
+:PROPERTIES:
+:EXPORT_FILE_NAME: manuscript/appendices.markua
+:END:
 
-* Appendix A: Block types :backmatter:
+* Workflow diagram source code
+:PROPERTIES:
+:EXPORT_FILE_NAME: manuscript/appendix-b--workflow-diagram-source-code.markua
+:CUSTOM_ID: appendix-workflow-source
+:END:
+
+The overall workflow diagram shown in [[id:e927b31d-a47d-4988-a5bc-015d91061596][The process]] is generated from within Org using [[https://graphviz.org/][Graphviz]] and the source code shown below. By labeling the source code with a =#+name: workflow-diagram= attribute, its result can be inserted anywhere in the book by using a =#+results: workflow-diagram= line.
+
+#+name: workflow-diagram
+#+begin_src dot :file "images/high-level-workflow.png" :exports both
+digraph {
+    // General graph, node and edge properties
+    bgcolor="transparent";
+    rankdir=TB;
+    node [fontname="DejaVu Sans"];
+    edge [fontname="DejaVu Sans"];
+
+    // Define nodes with their colors, shapes and labels
+    files [label="Source files\n(Org doc, figures, etc.)",
+           shape=oval];
+    emacs [label="Emacs + org-mode",
+           fillcolor=purple, fontcolor=white, style=filled, shape=box];
+    manuscript [label="Leanpub manuscript\n(Markua + other files)",
+                fillcolor=yellow, style=filled, shape=oval];
+    leanpub [label="Leanpub",
+             fillcolor=blue, fontcolor=white, style=filled, shape=box];
+    git [label="Git repo",
+         fillcolor=red, style=filled, shape=box];
+    preview [label="Book preview",
+             fillcolor=grey, style=filled, shape=oval];
+    book [label="Published book\n(PDF, ePub,\nmobi, online)",
+          shape=oval, fillcolor=green, style=filled];
+
+    // Now we define the clusters to group the nodes by workflow stages
+    subgraph cluster_writing {
+        label="Write";
+        rankdir=TB;
+        graph [style=dotted];
+        files -> emacs [label="Edit", dir="both", weight=10];
+    };
+    subgraph cluster_export_preview {
+        label="Export and Preview";
+        labelloc="b"; rankdir=TB;
+        graph [style=dotted];
+        emacs -> manuscript [label="Export", weight=10];
+        manuscript -> git   [label="Commit", weight=10];
+        git -> leanpub      [label="Typeset", weight=10];
+        leanpub -> preview  [label="Preview"];
+        preview -> emacs    [label="Update"];
+    };
+    subgraph cluster_publish {
+        label="Publish";
+        labelloc="b";
+        graph [style=dotted];
+        leanpub -> book [label="Publish"];
+        book -> emacs   [label="Update"];
+    };
+}
+#+end_src
+
+* Block types
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/appendix-a--block-types.markua
 :CUSTOM_ID: appendix-block-types
@@ -1020,64 +1084,6 @@ Warning block, produced by:\\
 =#+end_warning=\\
 #+end_warning
 :end:
-* Appendix B: Workflow diagram source code
-:PROPERTIES:
-:EXPORT_FILE_NAME: manuscript/appendix-b--workflow-diagram-source-code.markua
-:CUSTOM_ID: appendix-workflow-source
-:END:
-
-The overall workflow diagram shown in [[id:e927b31d-a47d-4988-a5bc-015d91061596][The process]] is generated from within Org using [[https://graphviz.org/][Graphviz]] and the source code shown below. By labeling the source code with a =#+name: workflow-diagram= attribute, its result can be inserted anywhere in the book by using a =#+results: workflow-diagram= line.
-
-#+name: workflow-diagram
-#+begin_src dot :file "images/high-level-workflow.png" :exports both
-digraph {
-    // General graph, node and edge properties
-    bgcolor="transparent";
-    rankdir=TB;
-    node [fontname="DejaVu Sans"];
-    edge [fontname="DejaVu Sans"];
-    
-    // Define nodes with their colors, shapes and labels
-    files [label="Source files\n(Org doc, figures, etc.)", shape=oval];
-    emacs [label="Emacs + org-mode",
-           fillcolor=purple, fontcolor=white, style=filled, shape=box];
-    manuscript [label="Leanpub manuscript\n(Markua + other files)",
-                fillcolor=yellow, style=filled, shape=oval];
-    leanpub [label="Leanpub",
-             fillcolor=blue, fontcolor=white, style=filled, shape=box];
-    git [label="Git repo", fillcolor=red, style=filled, shape=box];
-    preview [label="Book preview",
-             fillcolor=grey, style=filled, shape=oval];
-    book [label="Published book\n(PDF, ePub,\nmobi, online)",
-          shape=oval, fillcolor=green, style=filled];
-
-    // Now we define the clusters to group the nodes by workflow stages
-    subgraph cluster_writing {
-        label="Write";
-        rankdir=TB;
-        graph [style=dotted];
-        files -> emacs [label="Edit", dir="both", weight=10];
-    };
-    subgraph cluster_export_preview {
-        label="Export and Preview";
-        labelloc="b"; rankdir=TB;
-        graph [style=dotted];
-        emacs -> manuscript [label="Export", weight=10];
-        manuscript -> git   [label="Commit", weight=10];
-        git -> leanpub      [label="Typeset", weight=10];
-        leanpub -> preview  [label="Preview"];
-        preview -> emacs    [label="Update"];
-    };
-    subgraph cluster_publish {
-        label="Publish";
-        labelloc="b";
-        graph [style=dotted];
-        leanpub -> book [label="Publish"];
-        book -> emacs   [label="Update"];
-    };
-}
-#+end_src
-
 
 * Colophon
 :PROPERTIES:
