@@ -468,6 +468,9 @@ Leanpub's "Edit Webhook" page includes your real Leanpub API key, which you shou
   #+end_warning
 
 ** Your first book preview
+:PROPERTIES:
+:ID:       b12449ba-47df-483d-abaf-887be08191e2
+:END:
 
 Once you have created your book on Leanpub and connected it to your Git repository, you are ready to produce your first preview. Follow the same steps shown in [[#your-first-book-export][Your first book export]] to generate the Markua files from your Org file, and then commit and push the changes to your repository.
 
@@ -485,14 +488,22 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
    00a67a1..edc3c97  master -> master
 #+end_src
 
-If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/your-book-id/preview/ and clicking on the "Create Preview" button. In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
+If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/your-book-id/preview/ and clicking on the "Create Preview" button.
+
+#+attr_leanpub: :width 50%
+[[file:images/leanpub-create-preview.png]]
+
+In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
 
 #+attr_leanpub: :width 50%
 [[file:images/leanpub-preview-email.png]]
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
 
-*Congratulations!* You have executed the first end-to-end production of your book, and you can now hold in your hands (or in your PDF viewer, at least) the very first copy of your book.
+#+attr_leanpub: :icon thumbs-up
+#+begin_blurb
+*Congratulations!* You have executed the first end-to-end build of your book, and you can now hold in your hands (or in your PDF viewer, at least) its very first copy.
+#+end_blurb
 
 ** Additional book configuration
 
@@ -830,10 +841,8 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 Once you have pushed your changes, you can generate the preview in one of two ways:
 
 - If you have set up a web hook as described in [[#creating-the-book-on-leanpub][Creating the book on Leanpub]], or by using one of the techniques described in [[id:2a82317f-54f7-4dec-b7a2-d5497d186716][Automation]], your preview will be triggered automatically when you push to the repository.
-- Through Leanpub's web UI, you can trigger a preview from the "Preview New Version" screen in your book's management screen. You can select the type of preview you want to generate, and then click the "Create Preview" button. Once the preview is generated, you can download it from the links in that same screen. If you have configured Dropbox integration, the generated files will also be placed in your Dropbox folder.
+- From the Leanpub web UI, you can produce a preview as described in [[id:b12449ba-47df-483d-abaf-887be08191e2][Your first book preview]]. Note that in the Preview screen you can select whether you want to produce a full or subset preview.
 
-  #+attr_leanpub: :width 50%
-  [[file:images/leanpub-create-preview.png]]
 ** Publishing
 
 * TODO Automation
