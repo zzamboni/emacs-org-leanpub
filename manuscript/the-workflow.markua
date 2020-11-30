@@ -128,7 +128,7 @@ This table is generated programmatically! See the code in [Code block execution 
 {/blurb}
 
 {blurb, class: "tip"}
-You can see samples of these blocks in [Appendix A](#appendix-block-types).
+You can see samples of these blocks in [Appendix B](#appendix-block-types).
 {/blurb}
 
 You can specify a [custom icon](https://leanpub.com/markua/read#leanpub-auto-using-extension-attributes-on-blurbs-to-add-icon-support) for any block using the `:icon` attribute in an `#+ATTR_LEANPUB` line. For example: 
@@ -328,6 +328,10 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 Once you have pushed your changes, you can generate the preview in one of two ways: 
 
 * If you have set up a web hook as described in [Creating the book on Leanpub](#creating-the-book-on-leanpub), or by using one of the techniques described in [Automation](#2a82317f-54f7-4dec-b7a2-d5497d186716), your preview will be triggered automatically when you push to the repository.
+* Through Leanpub's web UI, you can trigger a preview from the "Preview New Version" screen in your book's management screen. You can select the type of preview you want to generate, and then click the "Create Preview" button. Once the preview is generated, you can download it from the links in that same screen. If you have configured Dropbox integration, the generated files will also be placed in your Dropbox folder. 
+  
+  {width: "30%"}
+  ![](images/leanpub-create-preview.png)
 
 ## Publishing
 
