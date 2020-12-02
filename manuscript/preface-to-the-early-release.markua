@@ -1,8 +1,23 @@
+{sample: "true"}
 # Preface to the early release
 
 What you are reading is an early release of this book, which means its contents is not yet complete, and you may find errors or omissions in it. Still, I hope you find it useful. I would really appreciate your feedback! Please let me know what you liked, what you didn't like, and what additional topics you would like me to cover. Please send me a message through the [*Email the Author*](https://leanpub.com/emacs-org-leanpub/email_author/new) page and let me know what you think. 
 
 ## Release notes
+
+{id: "bad409ec-76b9-4e25-8c07-17fa8e65224e"}
+### December 2020
+
+This second release includes many improvements and new content, including: 
+
+* A whole new chapter *[The workflow](#the-workflow)*, which covers detailed techniques for writing, exporting, previewing and publishing your book.
+* A new section *[Code block execution and output processing](#code-block-execution)*, which shows how you can have code within your document which is executed on the fly, and which you can use to generate content within your book.
+* Two new appendices, the first one containing the source code for the diagram shown in *[The process](#the-process)*, and the second one containing samples of all the different block types supported by `ox-leanpub`.
+* Many other changes, including new instructions on configuring Emacs Doom, innumerable wording, structure and clarity improvements, and a lot more.
+
+With this release, the book is no longer free. If you find it valuable, I would really appreciate your support. 
+
+Hope you enjoy it! 
 
 ### June 2020
 

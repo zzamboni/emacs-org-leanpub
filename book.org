@@ -93,7 +93,7 @@
 #+title: Writing and publishing with Emacs, org-mode and Leanpub
 #+author: Diego Zamboni
 
-* Preface to the early release :frontmatter:
+* Preface to the early release :frontmatter:sample:
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/preface-to-the-early-release.markua
 :END:
@@ -102,11 +102,27 @@ What you are reading is an early release of this book, which means its contents 
 
 ** Release notes
 
+*** December 2020
+:PROPERTIES:
+:ID:       bad409ec-76b9-4e25-8c07-17fa8e65224e
+:END:
+
+This second release includes many improvements and new content, including:
+
+- A whole new chapter /[[#the-workflow][The workflow]]/, which covers detailed techniques for writing, exporting, previewing and publishing your book.
+- A new section /[[#code-block-execution][Code block execution and output processing]]/, which shows how you can have code within your document which is executed on the fly, and which you can use to generate content within your book.
+- Two new appendices, the first one containing the source code for the diagram shown in /[[#the-process][The process]]/, and the second one containing samples of all the different block types supported by =ox-leanpub=.
+- Many other changes, including new instructions on configuring Emacs Doom, innumerable wording, structure and clarity improvements, and a lot more.
+
+With this release, the book is no longer free. If you find it valuable, I would really appreciate your support.
+
+Hope you enjoy it!
+
 *** June 2020
 
 This is the initial release of the book! I would love to hear your thoughts. There is still much missing but the core of the book is there, and you can probably already use it to get started writing a book and publishing it on Leanpub using Emacs and Org-mode.
 
-* Introduction :mainmatter:
+* Introduction :mainmatter:sample:
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/introduction.markua
 :END:
@@ -131,6 +147,7 @@ There are as many possible variations to this workflow as users out there. If yo
 ** The process
 :PROPERTIES:
 :ID:       e927b31d-a47d-4988-a5bc-015d91061596
+:CUSTOM_ID: the-process
 :END:
 
 The high-level workflow for publishing a book using Emacs, org-mode and Leanpub looks like this:
@@ -164,7 +181,7 @@ One of these exporters is [[https://github.com/zzamboni/ox-leanpub][=ox-leanpub=
 
 Org mode is extensive and powerful, and I invite you to peruse its [[https://orgmode.org/#docs][documentation]] but also to be patient --- Org is best learned gradually and over time. Discover the parts that interest you the most first, and go from there. To get started with writing using Org, check out [[https://orgmode.org/quickstart.html][Getting started with Org-mode]] in the Org website to get an overview of the most useful markup constructs. For including source code in your documentation, I recommend reading the [[https://orgmode.org/manual/Working-with-Source-Code.html][Working with Source Code]] section of the Org manual, as well as Howard Abrams' [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][Introduction to Literate Programming]].
 
-* Setting up
+* Setting up :sample:
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/setting-up.markua
 :END:
@@ -525,6 +542,7 @@ These are just some of the highlights - you should explore all the sections!
 * The workflow
 :PROPERTIES:
 :EXPORT_FILE_NAME: manuscript/the-workflow.markua
+:CUSTOM_ID: the-workflow
 :END:
 
 Now that you have finished the initial setup of your book, let us look into more detail into the overall workflow you will follow as you write, preview and publish your book, throughout its whole lifecycle. You may remember our overall workflow diagram from [[id:e927b31d-a47d-4988-a5bc-015d91061596][The process]]:
