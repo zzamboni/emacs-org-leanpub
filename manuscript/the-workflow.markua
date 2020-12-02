@@ -332,4 +332,32 @@ Once you have pushed your changes, you can generate the preview in one of two wa
 
 ## Publishing
 
+Finally! You have got your book into a state where you think it's ready to be published. Or you had published already, and have made enough changes that you want to release a new version. 
+
+The process is not very different from generating a preview, but you can provide some additional information. From your book's Admin menu, select "Publish New Version". If you enable "Notify readers", you will be able to enter some text for the release notes, which will be sent by email to readers of your book who have signed up for them. Finally, press "Publish Book" and your new release will be published! 
+
+![](images/leanpub-publish.png) 
+
+### Tagging your book releases
+
+It is good practice to *tag* software when it is released, so that you have a point of reference as you make changes. The same principle applies to your book. Right before you create a new published version, you should create a tag to indicate the point in your repository that contains the release. 
+
+You can choose whatever tag name makes sense to you. I recommend using something like `publish-<date>`, which will make it easier, later, to remember when you last published your book. To create such a tag, you can use the following command: 
+
+{format: "shell"}
+```
+git tag publish-20201202
+```
+
+Git also supports *annotated tags*, which can contain a message associated with the tag. I like storing the release notes together with the tag. We will see later, in [CI/CD for previewing and publishing](#ci-cd-for-previewing-and-publishing), that tags like this can be used to automatically publish your book, including the generation of release notes. To create an annotated tag, you can use a command like this: 
+
+{format: "shell"}
+```
+git tag -a publish-20201202
+```
+
+This will open an editor window where you can enter the message to associate with the tag. 
+
+That's it! You now know everything you need to edit, preview and publish your book. In the following chapters, we will look at techniques you can use to make the process easier and more efficient. 
+
 
