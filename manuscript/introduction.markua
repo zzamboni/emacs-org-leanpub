@@ -1,20 +1,20 @@
 {sample: "true"}
 # Introduction
 
-Publishing your words has never been easier than it is today. For a long time, getting a book published was a long and arduous process, in which you had to go through multiple gatekeepers to even have a chance to see your words on paper. Today, blogging means you can have your words read by thousands of people within minutes of writing them. Even publishing a book has become considerably easier through self publishing. There are many tools and publishers that allow you to get started for little or no money. Still, **getting started** can be confusing, and that is what this book is about. 
+Publishing your words has never been easier than it is today. Traditionally, publishing a book was a long and arduous process, in which you had to go through multiple gatekeepers to have a chance to see your words on paper. Today, publishing a book has become considerably easier through self publishing. There are many tools and publishers that allow you to get started for little or no money. Still, **getting started** can be confusing, and that is what this book is about. 
 
-In this book, I will show you the workflow and tools I use to publish [my books](https://leanpub.com/u/zzamboni). This toolset is geared towards technical writing, which is what I do, but can just as well be used for any other style. The three main tools involved are: 
+In this book, I will show you the workflow and tools I use to publish [my books](https://leanpub.com/u/zzamboni). This toolset is geared towards technical writing, which is what I do, but can just as well be used for any other style. The three main tools are: 
 
-* The [GNU Emacs](https://www.gnu.org/software/emacs/) editor together with  [Org mode](https://orgmode.org/)  for writing, editing and exporting your text;
+* The [GNU Emacs](https://www.gnu.org/software/emacs/) editor together with  [Org mode](https://orgmode.org/)  and the [ox-leanpub](https://melpa.org/#/ox-leanpub) exporter for writing, editing and exporting your text;
 * [GitHub](https://github.com/) to store your book files.
-* [Leanpub](https://leanpub.com/) for typesetting, previewing, publishing and selling your work.
+* [Leanpub](https://leanpub.com/) for typesetting, publishing and selling your work.
 
 The following are optional, but highly recommended for making the workflow more automated and consistent: 
 
-* [CircleCI](https://circleci.com/) (or other CI/CD tool) for automating the typesetting, previewing and publication process;
+* [GitHub Actions](https://github.com/features/actions), [CircleCI](https://circleci.com/) or some other CI/CD tool, for automating the typesetting, previewing and publication process;
 * [Hammerspoon](http://www.hammerspoon.org/) (if you are using a Mac) for monitoring book builds.
 
-To illustrate the process and provide you with a starting point, the source repository for this book is available at <https://github.com/zzamboni/emacs-org-leanpub>. I am populating the repository live as I write this book, and you can follow the progress there and by getting the book at <https://leanpub.com/emacs-org-leanpub>. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you. 
+To illustrate the process and provide you with a starting point, the source repository for this book is available in [GitHub](https://github.com/zzamboni/emacs-org-leanpub). I am populating the repository as I write this book, so you can follow the progress there. In the repository you can see all the "behind the scenes" text and configuration, and follow along as I describe them to you. 
 
 There are as many possible variations to this workflow as users out there. If you have any suggestions or tips that you think should be mentioned, please let me know! 
 
