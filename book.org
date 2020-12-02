@@ -507,12 +507,12 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 
 If you configured the webhook in the previous steps, the =git push= will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at /https://leanpub.com/your-book-id/preview/ and clicking on the "Create Preview" button.
 
-#+attr_leanpub: :width 50%
+#+attr_leanpub: :width 40%
 [[file:images/leanpub-create-preview.png]]
 
 In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation.
 
-#+attr_leanpub: :width 50%
+#+attr_leanpub: :width 40%
 [[file:images/leanpub-preview-email.png]]
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
@@ -623,9 +623,6 @@ Will be exported as:
 
 Individual sections can be marked for inclusion in your book's sample by tagging them with =sample=. For example:
 
-#+begin_src text
-
-#+end_src
 #+begin_src text
 ,* Preface to the book sample :sample:nobook:
 #+end_src
@@ -867,6 +864,7 @@ Finally! You have got your book into a state where you think it's ready to be pu
 
 The process is not very different from generating a preview, but you can provide some additional information. From your book's Admin menu, select "Publish New Version". If you enable "Notify readers", you will be able to enter some text for the release notes, which will be sent by email to readers of your book who have signed up for them. Finally, press "Publish Book" and your new release will be published!
 
+#+attr_leanpub: :width 30%
 [[file:images/leanpub-publish.png]]
 
 *** Tagging your book releases

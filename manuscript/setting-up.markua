@@ -319,12 +319,12 @@ To https://github.com/zzamboni/emacs-org-leanpub.git
 
 If you configured the webhook in the previous steps, the `git push` will automatically trigger a book preview. If you did not, you can visit the Preview page of your book at *<https://leanpub.com/your-book-id/preview>* and clicking on the "Create Preview" button. 
 
-{width: "50%"}
+{width: "40%"}
 ![](images/leanpub-create-preview.png) 
 
 In any case, after a few minutes you will get an email from Leanpub telling you about the preview creation. 
 
-{width: "50%"}
+{width: "40%"}
 ![](images/leanpub-preview-email.png) 
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book. 

@@ -87,11 +87,6 @@ Individual sections can be marked for inclusion in your book's sample by tagging
 
 {format: "text"}
 ```
-
-```
-
-{format: "text"}
-```
 * Preface to the book sample :sample:nobook:
 ```
 
@@ -337,6 +332,7 @@ Finally! You have got your book into a state where you think it's ready to be pu
 
 The process is not very different from generating a preview, but you can provide some additional information. From your book's Admin menu, select "Publish New Version". If you enable "Notify readers", you will be able to enter some text for the release notes, which will be sent by email to readers of your book who have signed up for them. Finally, press "Publish Book" and your new release will be published! 
 
+{width: "30%"}
 ![](images/leanpub-publish.png) 
 
 ### Tagging your book releases
