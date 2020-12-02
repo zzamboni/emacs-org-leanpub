@@ -517,7 +517,7 @@ In any case, after a few minutes you will get an email from Leanpub telling you 
 
 If you enabled Dropbox integration, the generated preview files of your book will be automatically added to your Dropbox folder, and you can also download them from the Preview page of your book.
 
-#+attr_leanpub: :icon thumbs-up
+#+attr_leanpub: :icon trophy
 #+begin_blurb
 *Congratulations!* You have executed the first end-to-end build of your book, and you can now hold in your hands (or in your PDF viewer, at least) its very first copy.
 #+end_blurb
