@@ -121,7 +121,7 @@ The first step is to choose a short name or *slug* for your book. This is the UR
 
 ### Creating a git repository for your book
 
-Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket. 
+Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bitbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket. 
 
 {blurb, class: "tip"}
 I use the command-line utility [hub](https://hub.github.com/) to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [git-spindle](https://seveas.github.io/git-spindle/bitbucket.html) to interact with it from the command line as well.

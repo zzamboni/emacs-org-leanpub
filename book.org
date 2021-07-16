@@ -302,7 +302,7 @@ All the steps that follow show the actual commands and operations I performed wh
 The first step is to choose a short name or /slug/ for your book. This is the URL identifier for your book in Leanpub, and it should also be the name of your git repository (this is not mandatory, but makes the automation easier). This book's slug is =emacs-org-leanpub=, so its Leanpub URL will be leanpub.com/emacs-org-leanpub.
 
 *** Creating a git repository for your book
-Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bickbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket.
+Once we have a slug, we create a new Git repository for the new book. Leanpub supports both GitHub and Bitbucket repositories. In these descriptions I use GitHub, but similar steps apply if you are using Bitbucket.
 
 #+begin_tip
 I use the command-line utility [[https://hub.github.com/][hub]] to interact with GitHub from the command line. You can of course do the corresponding operations through the GitHub web interface if you so prefer. If you use Bitbucket, you can use [[https://seveas.github.io/git-spindle/bitbucket.html][git-spindle]] to interact with it from the command line as well.

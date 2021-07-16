@@ -1,6 +1,6 @@
 # Colophon
 
-This book was written in Emacs 28.0.50 using Org mode version 9.5, running on macOS 10.15.7. The text is exported to [Leanpub Markua](https://leanpub.com/markua/read) format and structure using the [`ox-leanpub`](https://melpa.org/#/ox-leanpub) package, and published using [Leanpub](https://leanpub.com/). 
+This book was written in Emacs 27.2 using Org mode version 9.5, running on macOS 11.4. The text is exported to [Leanpub Markua](https://leanpub.com/markua/read) format and structure using the [`ox-leanpub`](https://melpa.org/#/ox-leanpub) package, and published using [Leanpub](https://leanpub.com/). 
 
 Cover photo by [Sharon McCutcheon](https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/) from Pexels. 
 
