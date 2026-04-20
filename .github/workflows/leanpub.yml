@@ -1,0 +1,16 @@
+name: "Preview on Push"
+
+"on":
+  push:
+    branches: ["preview"]
+
+jobs:
+  preview:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Preview Book"
+        uses: "lykinsbd/leanpub-multi-action@v2"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "emacs-org-leanpub"
+          action: "preview"
