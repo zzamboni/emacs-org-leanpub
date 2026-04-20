@@ -901,9 +901,176 @@ That's it! You now know everything you need to edit, preview and publish your bo
 
 *** Basic concepts
 
+Once you start iterating on your book regularly, manually pressing buttons in the Leanpub web UI quickly becomes tiresome. This is one of those tasks for which a small amount of automation pays off almost immediately. A CI/CD system can react to changes in your repository and call Leanpub's API to produce either a preview or a published release.
+
+The basic idea is simple:
+
+- Normal pushes to your main branch trigger a preview build, so every time you export and push your latest changes, Leanpub starts rendering the book automatically.
+- Special tags trigger other actions. In particular, a tag starting with "publish-", such as =publish-20260420= can be used to indicate that the current revision should be published.
+- If you use /annotated tags/, their message can be reused as the release notes for the new Leanpub version.
+
+This approach has a couple of advantages. First, it makes the process consistent: the same rules are applied every time. Second, it keeps a clean audit trail in Git of what was previewed and what was published. Finally, it allows you to encode your workflow in a file which lives together with the rest of your book sources.
+
+Regardless of the CI/CD platform you choose, the moving parts are usually the same:
+
+- A trigger condition, usually a branch push or a tag push;
+- Access to your Leanpub API key, stored as a secret in the CI/CD platform;
+- The Leanpub book slug, which identifies your book;
+- A convention for deciding which repository events mean "preview" and which mean "publish".
+
+In my own repositories I usually use the following convention:
+
+- Any push to =master= triggers a preview;
+- A tag starting with =publish-= triggers a published release;
+- The annotation of a =publish-= tag is used as the release notes whenever possible.
+
+You do not have to use exactly these names. The important thing is to pick a convention that is simple to remember and easy to automate.
+
 *** Example: Using CircleCI
 
+For some time I used [[https://circleci.com/][CircleCI]] for my Leanpub automation. The configuration for this book lives in the repository under =dot-circleci/config.yml=. The file uses my [[https://circleci.com/developer/orbs/orb/zzamboni/leanpub][=zzamboni/leanpub= CircleCI orb]], which wraps the Leanpub API calls behind a few ready-made jobs.
+
+Here is the complete workflow definition:
+
+#+begin_src yaml
+version: 2.1
+
+orbs:
+  leanpub: zzamboni/leanpub@0.2.4
+
+# This tag-based book building workflow dispatches to the correct job
+# depending on tagging
+workflows:
+  version: 2
+  build-book:
+    jobs:
+      - leanpub/subset-preview:
+          filters:
+            tags:
+              ignore:
+                - /^preview.*/
+                - /^publish.*/
+                - /^silent-publish.*/
+      - leanpub/full-preview:
+          filters:
+            tags:
+              only: /^preview.*/
+            branches:
+              ignore: /.*/
+      - leanpub/auto-publish:
+          name: leanpub/silent-publish
+          auto-release-notes: false
+          filters:
+            tags:
+              only: /^silent-publish.*/
+            branches:
+              ignore: /.*/
+      - leanpub/auto-publish:
+          auto-release-notes: true
+          filters:
+            tags:
+              only: /^publish.*/
+            branches:
+              ignore: /.*/
+#+end_src
+
+The overall structure is straightforward. The =build-book= workflow contains four jobs, and each of them is selected based on the branch or tag that triggered the build.
+
+The first job, =leanpub/subset-preview=, runs for ordinary branch pushes. In this example, it ignores the tag names reserved for other operations, so a normal commit and push gives me a quick preview.
+
+The second job, =leanpub/full-preview=, runs only when the pushed tag matches =preview.*=. This is useful when I want Leanpub to render all formats for a more complete review, but I do not want to publish yet.
+
+The last two jobs perform publication. A tag matching =silent-publish.*= triggers a publication without automatically generated release notes, while =publish.*= triggers a normal publication with =auto-release-notes: true=. In the orb, this means CircleCI will ask Leanpub to notify readers and to build release notes from the tag metadata.
+
+What I like about this setup is that most of the complexity is hidden inside the orb, so the configuration file remains compact. The tradeoff is that you need to understand the orb's conventions and options. If you prefer having every step spelled out explicitly, GitHub Actions can be a better fit.
+
 *** Example: Using GitHub Actions
+
+The current repository also contains a GitHub Actions workflow in =.github/workflows/leanpub.yml=. This version is more explicit: instead of hiding the logic inside a reusable orb, the workflow describes directly when each step should run and what information should be passed to Leanpub.
+
+At the moment, the workflow looks like this:
+
+#+begin_src yaml
+name: "Leanpub Build"
+
+"on":
+  push:
+    branches: ["master"]
+    tags: ["publish-*"]
+
+jobs:
+  leanpub:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Extract Tag Annotation"
+        if: startsWith(github.ref, 'refs/tags/publish-')
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+
+      - name: "Read Tag Annotation"
+        if: startsWith(github.ref, 'refs/tags/publish-')
+        id: release_notes
+        shell: "bash"
+        run: |
+          tag_ref="refs/tags/${GITHUB_REF_NAME}"
+          tag_type="$(git cat-file -t "${tag_ref}")"
+
+          if [ "${tag_type}" = "tag" ]; then
+            echo "has_notes=true" >> "${GITHUB_OUTPUT}"
+            {
+              echo "release_notes<<EOF"
+              git for-each-ref --format='%(contents)' "${tag_ref}"
+              echo "EOF"
+            } >> "${GITHUB_OUTPUT}"
+          else
+            echo "has_notes=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: "Preview Book"
+        if: github.ref == 'refs/heads/master'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "emacs-org-leanpub"
+          action: "preview"
+
+      - name: "Publish Book"
+        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes != 'true'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "emacs-org-leanpub"
+          action: "publish"
+          email-readers: "true"
+
+      - name: "Publish Book with Release Notes"
+        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes == 'true'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "emacs-org-leanpub"
+          action: "publish"
+          email-readers: "true"
+          release-notes: "${{ steps.release_notes.outputs.release_notes }}"
+#+end_src
+
+The trigger definition under =on:= is the first important part. It says that the workflow should run for pushes to =master= and also for any pushed tag whose name starts with =publish-=. This mirrors the convention we discussed above: ordinary work produces previews, and release tags produce publications.
+
+The =Preview Book= step is the simple case. If the ref that triggered the workflow is =refs/heads/master=, the action is called with =action: "preview"=. The only required parameters are the Leanpub API key, stored in the repository secret =LEANPUB_API_KEY=, and the book slug.
+
+The publish path is slightly more interesting. If the pushed ref is a tag starting with =publish=, the workflow first checks out the repository and inspects the tag with Git itself. When the tag is annotated, it extracts the annotation contents and stores them as a step output named =release_notes=. Later, the final publish step passes those contents to Leanpub using the =release-notes= parameter.
+
+This means that the following command can serve both to mark the release in Git and to provide the release notes sent to your readers:
+
+#+begin_src shell
+git tag -a publish-20260420
+git push origin publish-20260420
+#+end_src
+
+If the tag is /not/ annotated, the workflow still publishes the book, but without release notes. In both publish cases it sets =email-readers: "true"=, which instructs Leanpub to notify readers of the new version.
+
+I find this GitHub Actions version easier to adapt because each piece is visible in the workflow file. It is a bit longer than the CircleCI example, but also easier to tweak when your process changes.
 
 ** Triggering and monitoring book builds
 
