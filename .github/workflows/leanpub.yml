@@ -1,16 +1,63 @@
-name: "Preview on Push"
+name: "Leanpub Build"
 
 "on":
   push:
     branches: ["master"]
+    tags: ["publish-*"]
 
 jobs:
-  preview:
+  leanpub:
     runs-on: "ubuntu-latest"
     steps:
+      - name: "Extract Tag Annotation"
+        if: startsWith(github.ref, 'refs/tags/publish-')
+        id: tag_notes
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+
+      - name: "Read Tag Annotation"
+        if: startsWith(github.ref, 'refs/tags/publish-')
+        id: release_notes
+        shell: "bash"
+        run: |
+          tag_ref="refs/tags/${GITHUB_REF_NAME}"
+          tag_type="$(git cat-file -t "${tag_ref}")"
+
+          if [ "${tag_type}" = "tag" ]; then
+            echo "has_notes=true" >> "${GITHUB_OUTPUT}"
+            {
+              echo "release_notes<<EOF"
+              git for-each-ref --format='%(contents)' "${tag_ref}"
+              echo "EOF"
+            } >> "${GITHUB_OUTPUT}"
+          else
+            echo "has_notes=false" >> "${GITHUB_OUTPUT}"
+          fi
+
       - name: "Preview Book"
+        if: github.ref == 'refs/heads/master'
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
           leanpub-book-slug: "emacs-org-leanpub"
           action: "preview"
+
+      - name: "Publish Book"
+        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes != 'true'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "emacs-org-leanpub"
+          action: "publish"
+          email-readers: "true"
+
+      - name: "Publish Book with Release Notes"
+        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes == 'true'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "emacs-org-leanpub"
+          action: "publish"
+          email-readers: "true"
+          release-notes: "${{ steps.release_notes.outputs.release_notes }}"
