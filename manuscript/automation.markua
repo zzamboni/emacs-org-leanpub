@@ -102,21 +102,23 @@ name: "Leanpub Build"
 
 "on":
   push:
-    branches: ["master"]
-    tags: ["publish-*"]
+    branches: ["**"]
+    tags: ["preview*", "publish*", "silent-publish*"]
 
 jobs:
   leanpub:
     runs-on: "ubuntu-latest"
+    env:
+      LEANPUB_BOOK_SLUG: "${{ github.event.repository.name }}"
     steps:
       - name: "Extract Tag Annotation"
-        if: startsWith(github.ref, 'refs/tags/publish-')
+        if: startsWith(github.ref, 'refs/tags/publish')
         uses: "actions/checkout@v4"
         with:
           fetch-depth: 0
 
       - name: "Read Tag Annotation"
-        if: startsWith(github.ref, 'refs/tags/publish-')
+        if: startsWith(github.ref, 'refs/tags/publish')
         id: release_notes
         shell: "bash"
         run: |
@@ -134,39 +136,60 @@ jobs:
             echo "has_notes=false" >> "${GITHUB_OUTPUT}"
           fi
 
-      - name: "Preview Book"
-        if: github.ref == 'refs/heads/master'
+      - name: "Subset Preview Book"
+        if: startsWith(github.ref, 'refs/heads/')
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "emacs-org-leanpub"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
+          action: "preview"
+          subset: "true"
+
+      - name: "Full Preview Book"
+        if: startsWith(github.ref, 'refs/tags/preview')
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "preview"
 
-      - name: "Publish Book"
-        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes != 'true'
+      - name: "Silent Publish Book"
+        if: startsWith(github.ref, 'refs/tags/silent-publish')
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "emacs-org-leanpub"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "publish"
-          email-readers: "true"
 
       - name: "Publish Book with Release Notes"
-        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes == 'true'
+        if: startsWith(github.ref, 'refs/tags/publish') && steps.release_notes.outputs.has_notes == 'true'
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "emacs-org-leanpub"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "publish"
           email-readers: "true"
           release-notes: "${{ steps.release_notes.outputs.release_notes }}"
+
+      - name: "Publish Book"
+        if: startsWith(github.ref, 'refs/tags/publish') && steps.release_notes.outputs.has_notes != 'true'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
+          action: "publish"
+          email-readers: "true"
 ```
 
-The trigger definition under `on:` is the first important part. It says that the workflow should run for pushes to `master` and also for any pushed tag whose name starts with `publish-`. This mirrors the convention we discussed above: ordinary work produces previews, and release tags produce publications. 
+The trigger definition under `on:` is the first important part. It says that the workflow should run for pushes to any branch, and also for any pushed tag whose name starts with `preview`, `publish` or `silent-publish`. This mirrors the same conventions we saw in the CircleCI example. 
 
-The `Preview Book` step is the simple case. If the ref that triggered the workflow is `refs/heads/master`, the action is called with `action: "preview"`. The only required parameters are the Leanpub API key, stored in the repository secret `LEANPUB_API_KEY`, and the book slug. 
+One small but useful detail is that the workflow does not hardcode the Leanpub slug. Instead, it defines `LEANPUB_BOOK_SLUG` from `github.event.repository.name`. As long as your Leanpub book uses the same slug as the GitHub repository name, the workflow can be reused without any further edits. 
 
-The publish path is slightly more interesting. If the pushed ref is a tag starting with `publish`, the workflow first checks out the repository and inspects the tag with Git itself. When the tag is annotated, it extracts the annotation contents and stores them as a step output named `release_notes`. Later, the final publish step passes those contents to Leanpub using the `release-notes` parameter. 
+The `Subset Preview Book` step is the default case for normal work. Any branch push triggers a Leanpub preview with `subset: "true"`. This corresponds to the quick preview path in the CircleCI configuration, and keeps the feedback cycle shorter while you are still editing. 
+
+The `Full Preview Book` step runs only for tags that start with `preview`. This gives you an easy way to request a full preview of the book without publishing it. 
+
+The publish path is split in two. A tag starting with `silent-publish` triggers a publication without notifying readers. A tag starting with `publish` triggers a normal publication with `email-readers: "true"`. In that case the workflow first checks out the repository and inspects the tag with Git itself. When the tag is annotated, it extracts the annotation contents and stores them as a step output named `release_notes`. Later, the final publish step passes those contents to Leanpub using the `release-notes` parameter. 
 
 This means that the following command can serve both to mark the release in Git and to provide the release notes sent to your readers: 
 
@@ -176,7 +199,7 @@ git tag -a publish-20260420
 git push origin publish-20260420
 ```
 
-If the tag is *not* annotated, the workflow still publishes the book, but without release notes. In both publish cases it sets `email-readers: "true"`, which instructs Leanpub to notify readers of the new version. 
+If the tag is *not* annotated, the workflow still publishes the book, but without release notes. If you want to publish without sending notifications at all, use a `silent-publish` tag instead. 
 
 I find this GitHub Actions version easier to adapt because each piece is visible in the workflow file. It is a bit longer than the CircleCI example, but also easier to tweak when your process changes. 
 
