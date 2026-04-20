@@ -2,7 +2,7 @@ name: "Preview on Push"
 
 "on":
   push:
-    branches: ["preview"]
+    branches: ["master"]
 
 jobs:
   preview:
