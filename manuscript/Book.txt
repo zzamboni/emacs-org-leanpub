@@ -1,4 +1,3 @@
-frontmatter.txt
 preface-to-the-early-release.markua
 mainmatter.txt
 introduction.markua

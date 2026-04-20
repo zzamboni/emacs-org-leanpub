@@ -6,6 +6,7 @@
 #+markua_block: idea :class tip :icon lightbulb
 #+markua_block: leanpub :icon leanpub
 #+markua_block: code :icon laptop-code
+#+markua_version: 0.30
 
 # Macros
 #+macro: emacs-version (eval emacs-version)
@@ -1144,6 +1145,6 @@ Warning block, produced by:\\
 :EXPORT_FILE_NAME: manuscript/colophon.markua
 :END:
 
-This book was written in Emacs {{{emacs-version}}} using Org mode version {{{org-version}}}, running on macOS {{{macos-version}}}. The text is exported to [[https://leanpub.com/markua/read][Leanpub Markua]] format and structure using the [[https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
+This book was written in Emacs {{{emacs-version}}} using Org mode version {{{org-version}}}. The text is exported to [[https://leanpub.com/markua/read][Leanpub Markua]] format and structure using the [[https://melpa.org/#/ox-leanpub][=ox-leanpub=]] package, and published using [[https://leanpub.com/][Leanpub]].
 
 Cover photo by [[https://www.pexels.com/photo/background-book-stack-books-close-up-1148399/][Sharon McCutcheon]] from Pexels.

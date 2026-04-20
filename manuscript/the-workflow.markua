@@ -209,12 +209,12 @@ This block's headline will be bigger!
 #+end_information
 ```
 
-{blurb, class: "information", caption: "Default caption level"}
+{blurb, class: "information"}
 ##### Default caption level
 This is a block with the default caption level.
 {/blurb}
 
-{blurb, class: "information", caption: "Fixed level-2 caption"}
+{blurb, class: "information"}
 ## Fixed level-2 caption
 This block's headline will be bigger!
 {/blurb}
