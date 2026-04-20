@@ -2,22 +2,23 @@ name: "Leanpub Build"
 
 "on":
   push:
-    branches: ["master"]
-    tags: ["publish-*"]
+    branches: ["**"]
+    tags: ["preview*", "publish*", "silent-publish*"]
 
 jobs:
   leanpub:
     runs-on: "ubuntu-latest"
+    env:
+      LEANPUB_BOOK_SLUG: "${{ github.event.repository.name }}"
     steps:
       - name: "Extract Tag Annotation"
-        if: startsWith(github.ref, 'refs/tags/publish-')
-        id: tag_notes
+        if: startsWith(github.ref, 'refs/tags/publish')
         uses: "actions/checkout@v4"
         with:
           fetch-depth: 0
 
       - name: "Read Tag Annotation"
-        if: startsWith(github.ref, 'refs/tags/publish-')
+        if: startsWith(github.ref, 'refs/tags/publish')
         id: release_notes
         shell: "bash"
         run: |
@@ -35,29 +36,46 @@ jobs:
             echo "has_notes=false" >> "${GITHUB_OUTPUT}"
           fi
 
-      - name: "Preview Book"
-        if: github.ref == 'refs/heads/master'
+      - name: "Subset Preview Book"
+        if: startsWith(github.ref, 'refs/heads/')
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "emacs-org-leanpub"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
+          action: "preview"
+          subset: "true"
+
+      - name: "Full Preview Book"
+        if: startsWith(github.ref, 'refs/tags/preview')
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "preview"
 
-      - name: "Publish Book"
-        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes != 'true'
+      - name: "Silent Publish Book"
+        if: startsWith(github.ref, 'refs/tags/silent-publish')
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "emacs-org-leanpub"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "publish"
-          email-readers: "true"
 
       - name: "Publish Book with Release Notes"
-        if: startsWith(github.ref, 'refs/tags/publish-') && steps.release_notes.outputs.has_notes == 'true'
+        if: startsWith(github.ref, 'refs/tags/publish') && steps.release_notes.outputs.has_notes == 'true'
         uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "emacs-org-leanpub"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "publish"
           email-readers: "true"
           release-notes: "${{ steps.release_notes.outputs.release_notes }}"
+
+      - name: "Publish Book"
+        if: startsWith(github.ref, 'refs/tags/publish') && steps.release_notes.outputs.has_notes != 'true'
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
+          action: "publish"
+          email-readers: "true"
