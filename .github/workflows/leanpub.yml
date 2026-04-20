@@ -9,7 +9,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Preview Book"
-        uses: "lykinsbd/leanpub-multi-action@v2"
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
         with:
           leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
           leanpub-book-slug: "emacs-org-leanpub"
