@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+  leanpub: zzamboni/leanpub@0.2.4
+
+# This tag-based book building workflow dispatches to the correct job
+# depending on tagging
+workflows:
+  version: 2
+  build-book:
+    jobs:
+      - leanpub/subset-preview:
+          filters:
+            tags:
+              ignore:
+                - /^preview.*/
+                - /^publish.*/
+                - /^silent-publish.*/
+      - leanpub/full-preview:
+          filters:
+            tags:
+              only: /^preview.*/
+            branches:
+              ignore: /.*/
+      - leanpub/auto-publish:
+          name: leanpub/silent-publish
+          auto-release-notes: false
+          filters:
+            tags:
+              only: /^silent-publish.*/
+            branches:
+              ignore: /.*/
+      - leanpub/auto-publish:
+          auto-release-notes: true
+          filters:
+            tags:
+              only: /^publish.*/
+            branches:
+              ignore: /.*/

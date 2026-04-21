@@ -179,6 +179,15 @@ jobs:
           leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "publish"
           email-readers: "true"
+
+      - name: "Wait for Preview"
+        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
+        with:
+          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
+          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
+          action: "check-status"
+          wait: "true"
+          timeout: "300"
 ```
 
 The trigger definition under `on:` is the first important part. It says that the workflow should run for pushes to any branch, and also for any pushed tag whose name starts with `preview`, `publish` or `silent-publish`. This mirrors the same conventions we saw in the CircleCI example. 

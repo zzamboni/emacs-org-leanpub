@@ -928,51 +928,11 @@ You do not have to use exactly these names. The important thing is to pick a con
 
 *** Example: Using CircleCI
 
-For some time I used [[https://circleci.com/][CircleCI]] for my Leanpub automation. The configuration for this book lives in the repository under =dot-circleci/config.yml=. The file uses my [[https://circleci.com/developer/orbs/orb/zzamboni/leanpub][=zzamboni/leanpub= CircleCI orb]], which wraps the Leanpub API calls behind a few ready-made jobs.
+For some time I used [[https://circleci.com/][CircleCI]] for my Leanpub automation. The configuration for this book lives in the [[https://github.com/zzamboni/emacs-org-leanpub][repository]] under =dot-circleci/config.yml=. The file uses my [[https://circleci.com/developer/orbs/orb/zzamboni/leanpub][=zzamboni/leanpub= CircleCI orb]], which wraps the Leanpub API calls behind a few ready-made jobs.
 
 Here is the complete workflow definition:
 
-#+begin_src yaml
-version: 2.1
-
-orbs:
-  leanpub: zzamboni/leanpub@0.2.4
-
-# This tag-based book building workflow dispatches to the correct job
-# depending on tagging
-workflows:
-  version: 2
-  build-book:
-    jobs:
-      - leanpub/subset-preview:
-          filters:
-            tags:
-              ignore:
-                - /^preview.*/
-                - /^publish.*/
-                - /^silent-publish.*/
-      - leanpub/full-preview:
-          filters:
-            tags:
-              only: /^preview.*/
-            branches:
-              ignore: /.*/
-      - leanpub/auto-publish:
-          name: leanpub/silent-publish
-          auto-release-notes: false
-          filters:
-            tags:
-              only: /^silent-publish.*/
-            branches:
-              ignore: /.*/
-      - leanpub/auto-publish:
-          auto-release-notes: true
-          filters:
-            tags:
-              only: /^publish.*/
-            branches:
-              ignore: /.*/
-#+end_src
+#+include: "dot-circleci/config.yml" src yaml
 
 The overall structure is straightforward. The =build-book= workflow contains four jobs, and each of them is selected based on the branch or tag that triggered the build.
 
@@ -990,89 +950,7 @@ The current repository also contains a GitHub Actions workflow in =.github/workf
 
 At the moment, the workflow looks like this:
 
-#+begin_src yaml
-name: "Leanpub Build"
-
-"on":
-  push:
-    branches: ["**"]
-    tags: ["preview*", "publish*", "silent-publish*"]
-
-jobs:
-  leanpub:
-    runs-on: "ubuntu-latest"
-    env:
-      LEANPUB_BOOK_SLUG: "${{ github.event.repository.name }}"
-    steps:
-      - name: "Extract Tag Annotation"
-        if: startsWith(github.ref, 'refs/tags/publish')
-        uses: "actions/checkout@v4"
-        with:
-          fetch-depth: 0
-
-      - name: "Read Tag Annotation"
-        if: startsWith(github.ref, 'refs/tags/publish')
-        id: release_notes
-        shell: "bash"
-        run: |
-          tag_ref="refs/tags/${GITHUB_REF_NAME}"
-          tag_type="$(git cat-file -t "${tag_ref}")"
-
-          if [ "${tag_type}" = "tag" ]; then
-            echo "has_notes=true" >> "${GITHUB_OUTPUT}"
-            {
-              echo "release_notes<<EOF"
-              git for-each-ref --format='%(contents)' "${tag_ref}"
-              echo "EOF"
-            } >> "${GITHUB_OUTPUT}"
-          else
-            echo "has_notes=false" >> "${GITHUB_OUTPUT}"
-          fi
-
-      - name: "Subset Preview Book"
-        if: startsWith(github.ref, 'refs/heads/')
-        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
-        with:
-          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
-          action: "preview"
-          subset: "true"
-
-      - name: "Full Preview Book"
-        if: startsWith(github.ref, 'refs/tags/preview')
-        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
-        with:
-          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
-          action: "preview"
-
-      - name: "Silent Publish Book"
-        if: startsWith(github.ref, 'refs/tags/silent-publish')
-        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
-        with:
-          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
-          action: "publish"
-
-      - name: "Publish Book with Release Notes"
-        if: startsWith(github.ref, 'refs/tags/publish') && steps.release_notes.outputs.has_notes == 'true'
-        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
-        with:
-          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
-          action: "publish"
-          email-readers: "true"
-          release-notes: "${{ steps.release_notes.outputs.release_notes }}"
-
-      - name: "Publish Book"
-        if: startsWith(github.ref, 'refs/tags/publish') && steps.release_notes.outputs.has_notes != 'true'
-        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
-        with:
-          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
-          action: "publish"
-          email-readers: "true"
-#+end_src
+#+include: ".github/workflows/leanpub.yml" src yaml
 
 The trigger definition under =on:= is the first important part. It says that the workflow should run for pushes to any branch, and also for any pushed tag whose name starts with =preview=, =publish= or =silent-publish=. This mirrors the same conventions we saw in the CircleCI example.
 
