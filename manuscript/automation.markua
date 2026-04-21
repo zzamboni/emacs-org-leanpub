@@ -33,7 +33,7 @@ You do not have to use exactly these names. The important thing is to pick a con
 
 ### Example: Using CircleCI
 
-For some time I used [CircleCI](https://circleci.com/) for my Leanpub automation. The configuration for this book lives in the repository under `dot-circleci/config.yml`. The file uses my [`zzamboni/leanpub` CircleCI orb](https://circleci.com/developer/orbs/orb/zzamboni/leanpub), which wraps the Leanpub API calls behind a few ready-made jobs. 
+For some time I used [CircleCI](https://circleci.com/) for my Leanpub automation. The configuration for this book lives in the [repository](https://github.com/zzamboni/emacs-org-leanpub) under `dot-circleci/config.yml`. The file uses my [`zzamboni/leanpub` CircleCI orb](https://circleci.com/developer/orbs/orb/zzamboni/leanpub), which wraps the Leanpub API calls behind a few ready-made jobs. 
 
 Here is the complete workflow definition: 
 
