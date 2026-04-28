@@ -88,3 +88,4 @@ jobs:
           action: "check-status"
           wait: "true"
           timeout: "300"
+          poll-interval: "20"
