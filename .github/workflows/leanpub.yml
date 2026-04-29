@@ -79,13 +79,3 @@ jobs:
           leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
           action: "publish"
           email-readers: "true"
-
-      - name: "Wait for Preview"
-        uses: "lykinsbd/leanpub-multi-action@v2.1.0"
-        with:
-          leanpub-api-key: "${{ secrets.LEANPUB_API_KEY }}"
-          leanpub-book-slug: "${{ env.LEANPUB_BOOK_SLUG }}"
-          action: "check-status"
-          wait: "true"
-          timeout: "300"
-          poll-interval: "20"
