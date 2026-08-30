@@ -4,6 +4,8 @@ on:
   push:
     branches: ["main", "master"]
     tags: ["preview*", "publish*", "silent-publish*"]
+    paths:
+      - "manuscript/**"
 
 jobs:
   leanpub:
